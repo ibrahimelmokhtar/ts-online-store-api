@@ -1,3 +1,7 @@
+# Ignored Directories:
+build/
 node_modules/
 
+# Ignored Files:
+.env
 package-lock.json

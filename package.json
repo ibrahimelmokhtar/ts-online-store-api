@@ -7,6 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
+    "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./build --onSuccess \"node ./build/server.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -35,16 +36,17 @@
     "dotenv": "^16.0.0",
     "express": "^4.18.1",
     "helmet": "^5.0.2",
+    "morgan": "^1.10.0",
     "pg": "^8.7.3"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
+    "@types/morgan": "^1.9.3",
     "eslint": "^8.14.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "jasmine": "^4.1.0",
     "jasmine-spec-reporter": "^7.0.0",
-    "morgan": "^1.10.0",
     "prettier": "^2.6.2",
     "supertest": "^6.2.3",
     "tsc-watch": "^5.0.3",
