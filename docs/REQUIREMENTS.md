@@ -32,19 +32,20 @@ These are the notes from a meeting with the frontend developer that describe wha
 - id
 - name
 - price
-- [OPTIONAL] category
+- category
 
 ### User Shape
 
-- id
+- [OPTIONAL] id
 - firstName
 - lastName
+- email
 - password
 
 ### Orders Shape
 
-- id
+- [OPTIONAL] id
 - id of each product in the order
 - quantity of each product in the order
-- user_id
+- userID
 - status of order (active or complete)
