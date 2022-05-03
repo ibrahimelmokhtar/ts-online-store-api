@@ -1,0 +1,31 @@
+{
+  "name": "ts-online-store",
+  "version": "1.0.0",
+  "description": "Online Store Backend API for handling users' requests",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ibrahimelmokhtar/ts-online-store.git"
+  },
+  "keywords": [
+    "HTML5",
+    "CSS3",
+    "JavaScript",
+    "TypeScript",
+    "Online Store Backend API",
+    "egFWD",
+    "Udacity"
+  ],
+  "author": "Ibrahim El-Mokhtar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ibrahimelmokhtar/ts-online-store/issues"
+  },
+  "homepage": "https://github.com/ibrahimelmokhtar/ts-online-store#readme"
+}
