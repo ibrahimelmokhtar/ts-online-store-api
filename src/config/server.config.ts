@@ -1,7 +1,8 @@
-import express, { Application, Request, Response } from "express";
+import express, { Application } from "express";
 import helmet from "helmet";
 import morgan from 'morgan';
 import dotenv from 'dotenv';
+import mainRoute from "../routes";
 
 // create Express server:
 const app:Application = express();
@@ -9,14 +10,13 @@ const app:Application = express();
 // configure dotenv:
 dotenv.config();
 
+// configure middlewares:
 app.use(
     helmet(),
     morgan('short')
 );
 
-// main route:
-app.get('/', (_req: Request, res: Response): void => {
-    res.json('Hello, world!')
-});
+// configure main route:
+app.use('/', mainRoute);
 
 export default app;
