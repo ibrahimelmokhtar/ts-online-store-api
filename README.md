@@ -27,6 +27,7 @@ These packages can be found in the `"devDependencies"` object inside the `packag
 
 - [@types/express](https://www.npmjs.com/package/@types/express) - TypeScript definitions for Express.
 - [@types/morgan](https://www.npmjs.com/package/@types/morgan) - TypeScript definitions for morgan.
+- [@typescript-eslint/parser](https://www.npmjs.com/package/@typescript-eslint/parser) - An ESLint custom parser which leverages TypeScript ESTree.
 - [eslint](https://www.npmjs.com/package/eslint) - An AST-based pattern checker for JavaScript.
 - [eslint-config-prettier](https://www.npmjs.com/package/eslint-config-prettier) - Turns off all rules that are unnecessary or might conflict with Prettier.
 - [eslint-plugin-prettier](https://www.npmjs.com/package/eslint-plugin-prettier) - Runs prettier as an eslint rule.
