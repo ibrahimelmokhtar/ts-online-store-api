@@ -10,7 +10,7 @@ const mainRoute: Router = Router();
 mainRoute.use('/', [usersRoute, productsRoute, ordersRoute]);
 
 // sample GET method from main route:
-mainRoute.get('/', (_req: Request, res: Response): void => {
+mainRoute.get('/', async (_req: Request, res: Response): Promise<void> => {
 	res.send('inside << main >> route');
 });
 

@@ -4,7 +4,7 @@ import { Request, Response, Router } from 'express';
 const ordersRoute: Router = Router();
 
 // sample GET method from orders route:
-ordersRoute.get('/orders', (_req: Request, res: Response): void => {
+ordersRoute.get('/orders', async (_req: Request, res: Response): Promise<void> => {
 	res.send('inside << orders >> route');
 });
 

@@ -18,7 +18,6 @@ These packages can be found in the `"dependencies"` object inside the `package.j
 - [dotenv](https://www.npmjs.com/package/dotenv) - Loads environment variables from .env file.
 - [express](https://www.npmjs.com/package/express) - Fast, unopinionated, minimalist web framework.
 - [helmet](https://www.npmjs.com/package/helmet) - Help secure Express/Connect apps with various HTTP headers.
-- [morgan](https://www.npmjs.com/package/morgan) - HTTP request logger middleware for node.js.
 - [pg](https://www.npmjs.com/package/pg) - PostgreSQL client.
 
 ### Development Packages
@@ -26,7 +25,8 @@ These packages can be found in the `"dependencies"` object inside the `package.j
 These packages can be found in the `"devDependencies"` object inside the `package.json` file.
 
 - [@types/express](https://www.npmjs.com/package/@types/express) - TypeScript definitions for Express.
-- [@types/morgan](https://www.npmjs.com/package/@types/morgan) - TypeScript definitions for morgan.
+- [@types/jasmine](https://www.npmjs.com/package/@types/jasmine) - TypeScript definitions for Jasmine.
+- [@types/supertest](https://www.npmjs.com/package/@types/supertest) - TypeScript definitions for SuperTest.
 - [@typescript-eslint/parser](https://www.npmjs.com/package/@typescript-eslint/parser) - An ESLint custom parser which leverages TypeScript ESTree.
 - [eslint](https://www.npmjs.com/package/eslint) - An AST-based pattern checker for JavaScript.
 - [eslint-config-prettier](https://www.npmjs.com/package/eslint-config-prettier) - Turns off all rules that are unnecessary or might conflict with Prettier.

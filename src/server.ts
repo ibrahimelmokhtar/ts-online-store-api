@@ -8,3 +8,5 @@ const port = process.env.SERVER_PORT;
 app.listen(port, (): void => {
 	console.log(`\n>>> server is running at http://${host}:${port}\n`);
 });
+
+export default app;
