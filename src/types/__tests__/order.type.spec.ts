@@ -9,7 +9,7 @@ const newOrder: Order = {
 };
 
 describe('Order Type Suite', () => {
-	it('checks order`s status to be completed', () => {
+	it('checks order`s status to be "completed"', () => {
 		expect(newOrder.orderStatus).toBeTruthy();
 	});
 

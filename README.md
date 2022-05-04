@@ -43,9 +43,14 @@ This project has the structure shown below:
         ├─── jasmine.json
 ├─── src/
     ├─── config/
+        ├─── env.config.ts
         ├─── server.config.ts
     ├─── controllers/
         ├───
+    ├─── database/
+        ├─── __tests__/
+            ├─── index.spec.ts
+        ├─── index.ts
     ├─── helpers/
         ├─── reporter.ts
     ├─── middlewares/
@@ -77,6 +82,7 @@ This project has the structure shown below:
 ├─── .eslintrc
 ├─── .gitignore
 ├─── .prettierrc
+├─── database.json
 ├─── example.env
 ├─── package.json
 ├─── README.md
@@ -115,6 +121,7 @@ These packages can be found in the `"devDependencies"` object inside the `packag
 - [@types/express](https://www.npmjs.com/package/@types/express) - TypeScript definitions for Express.
 - [@types/jasmine](https://www.npmjs.com/package/@types/jasmine) - TypeScript definitions for Jasmine.
 - [@types/morgan](https://www.npmjs.com/package/@types/morgan) - TypeScript definitions for morgan.
+- [@types/pg](https://www.npmjs.com/package/@types/pg) - TypeScript definitions for pg.
 - [@types/supertest](https://www.npmjs.com/package/@types/supertest) - TypeScript definitions for SuperTest.
 - [@typescript-eslint/parser](https://www.npmjs.com/package/@typescript-eslint/parser) - An ESLint custom parser which leverages TypeScript ESTree.
 - [eslint](https://www.npmjs.com/package/eslint) - An AST-based pattern checker for JavaScript.
