@@ -1,4 +1,5 @@
 # Ignored Directories:
+.vscode/
 build/
 node_modules/
 
