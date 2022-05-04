@@ -1,5 +1,6 @@
 import express, { Application, json } from 'express';
 import helmet from 'helmet';
+import morgan from 'morgan';
 import dotenv from 'dotenv';
 import mainRoute from '../routes';
 
@@ -10,7 +11,16 @@ const app: Application = express();
 dotenv.config();
 
 // configure middlewares:
-app.use(json(), helmet());
+app.use(
+	json(), // JSON Parser middleware
+	helmet(), // HTTP Security middleware
+	morgan('dev', {
+		// HTTP Request Logger middleware
+		skip: () => {
+			return process.env.NODE_ENV === 'test';
+		},
+	})
+);
 
 // configure main route:
 app.use('/', mainRoute);

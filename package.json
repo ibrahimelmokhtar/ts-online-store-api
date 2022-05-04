@@ -1,23 +1,25 @@
 {
-  "name": "ts-online-store",
+  "name": "ts-online-store-api",
   "version": "1.0.0",
   "description": "Online Store Backend API for handling users' requests",
-  "main": "index.js",
+  "main": "server.js",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
     "build": "npx tsc",
     "clean": "rimraf ./build",
-    "jasmine": "jasmine",
+    "jasmine": "SET NODE_ENV=test&&jasmine",
     "lint": "eslint . --ext .ts",
+    "prestart": "npm run build",
     "prettier": "prettier --config .prettierrc src/**/*.ts --write",
+    "start": "node ./build/server.js",
     "test": "npm run clean && npm run build && npm run jasmine",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./build --onSuccess \"node ./build/server.js\""
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ibrahimelmokhtar/ts-online-store.git"
+    "url": "git+https://github.com/ibrahimelmokhtar/ts-online-store-api.git"
   },
   "keywords": [
     "HTML5",
@@ -31,9 +33,9 @@
   "author": "Ibrahim El-Mokhtar",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ibrahimelmokhtar/ts-online-store/issues"
+    "url": "https://github.com/ibrahimelmokhtar/ts-online-store-api/issues"
   },
-  "homepage": "https://github.com/ibrahimelmokhtar/ts-online-store#readme",
+  "homepage": "https://github.com/ibrahimelmokhtar/ts-online-store-api#readme",
   "dependencies": {
     "cors": "^2.8.5",
     "db-migrate": "^0.11.13",
@@ -41,11 +43,13 @@
     "dotenv": "^16.0.0",
     "express": "^4.18.1",
     "helmet": "^5.0.2",
+    "morgan": "^1.10.0",
     "pg": "^8.7.3"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
     "@types/jasmine": "^4.0.3",
+    "@types/morgan": "^1.9.3",
     "@types/supertest": "^2.0.12",
     "@typescript-eslint/parser": "^5.22.0",
     "eslint": "^8.14.0",
