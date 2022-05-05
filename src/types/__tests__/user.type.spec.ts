@@ -4,6 +4,7 @@ const newUser: User = {
 	id: 'user_id',
 	firstName: 'first_name',
 	lastName: 'last_name',
+	userName: 'user_name',
 	email: 'email@email.com',
 	password: 'password',
 };

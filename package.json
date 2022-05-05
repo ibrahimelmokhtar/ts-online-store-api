@@ -11,6 +11,8 @@
     "clean": "rimraf ./build",
     "jasmine": "SET NODE_ENV=test&&jasmine",
     "lint": "eslint . --ext .ts",
+    "migration:reset": "db-migrate reset",
+    "migration:run": "db-migrate up",
     "prestart": "npm run build",
     "prettier": "prettier --config .prettierrc src/**/*.ts --write",
     "start": "node ./build/server.js",

@@ -38,6 +38,11 @@ This project has the structure shown below:
 ```ts
 ├─── docs/
     ├─── REQUIREMENTS.md
+├─── migrations/
+    ├─── sqls/
+        ├─── 20220505125703-users-table-down.sql
+        ├─── 20220505125703-users-table-up.sql
+    ├─── 20220505125703-users-table.js
 ├─── spec/
     ├─── support/
         ├─── jasmine.json
