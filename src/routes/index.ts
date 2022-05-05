@@ -1,13 +1,15 @@
 import { Request, Response, Router } from 'express';
-import usersRoute from './api/users.route';
-import productsRoute from './api/products.route';
-import ordersRoute from './api/orders.route';
+import usersRoute from './api/users.routes';
+import productsRoute from './api/products.routes';
+import ordersRoute from './api/orders.routes';
 
 // create Express Router:
 const mainRoute: Router = Router();
 
 // configure used routes:
-mainRoute.use('/', [usersRoute, productsRoute, ordersRoute]);
+mainRoute.use('/users', usersRoute);
+mainRoute.use('/products', productsRoute);
+mainRoute.use('/orders', ordersRoute);
 
 // sample GET method from main route:
 mainRoute.get('/', async (_req: Request, res: Response): Promise<void> => {
