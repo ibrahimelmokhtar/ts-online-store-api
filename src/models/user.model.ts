@@ -14,15 +14,31 @@ class UserModel {
 			const client: PoolClient = await pool.connect();
 
 			// run desired query:
-			const sql: string =
-				'INSERT INTO users (first_name, last_name, user_name, email, password) VALUES ($1, $2, $3, $4, $5) RETURNING *';
-			const result = await client.query(sql, [
-				user.firstName,
-				user.lastName,
-				user.userName,
-				user.email,
-				user.password,
-			]);
+			let sql: string = 'EMPTY SQL QUERY';
+			let sentValues: Array<string> = [];
+			if (process.env.NODE_ENV === 'test') {
+				sql =
+					'INSERT INTO users (id, first_name, last_name, user_name, email, password) VALUES ($6, $1, $2, $3, $4, $5) RETURNING *';
+				sentValues = [
+					user.firstName,
+					user.lastName,
+					user.userName,
+					user.email,
+					user.password,
+					user.id as string,
+				];
+			} else {
+				sql =
+					'INSERT INTO users (first_name, last_name, user_name, email, password) VALUES ($1, $2, $3, $4, $5) RETURNING *';
+				sentValues = [
+					user.firstName,
+					user.lastName,
+					user.userName,
+					user.email,
+					user.password,
+				];
+			}
+			const result = await client.query(sql, sentValues);
 
 			// release connection:
 			client.release();
@@ -42,10 +58,10 @@ class UserModel {
 
 	/**
 	 * @description Show a specific User from the database.
-	 * @param {number} userID
+	 * @param {string} userID
 	 * @returns {User} Desired User object.
 	 */
-	show = async (userID: number): Promise<User | void> => {
+	show = async (userID: string): Promise<User | void> => {
 		try {
 			// connect to database:
 			const client: PoolClient = await pool.connect();
@@ -97,11 +113,11 @@ class UserModel {
 
 	/**
 	 * @description Update a specific User object.
-	 * @param {number} userID
+	 * @param {string} userID
 	 * @param {User} user
 	 * @returns {User} Updated User object.
 	 */
-	update = async (userID: number, user: User): Promise<User | void> => {
+	update = async (userID: string, user: User): Promise<User | void> => {
 		try {
 			// connect to database:
 			const client: PoolClient = await pool.connect();
@@ -134,10 +150,10 @@ class UserModel {
 
 	/**
 	 * @description Delete a specific User object.
-	 * @param {number} userID
+	 * @param {string} userID
 	 * @returns {User} Deleted User object.
 	 */
-	delete = async (userID: number): Promise<User | void> => {
+	delete = async (userID: string): Promise<User | void> => {
 		try {
 			// connect to database:
 			const client: PoolClient = await pool.connect();

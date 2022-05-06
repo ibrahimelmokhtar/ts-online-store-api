@@ -43,14 +43,12 @@ export const showController = async (
 ): Promise<void> => {
 	try {
 		// use user model to show a specific User object:
-		const user: User = (await userModel.show(
-			req.params.id as unknown as number
-		)) as User;
+		const user: User = (await userModel.show(req.params.id)) as User;
 
 		// send a response back to the user:
 		res.json({
 			status: 'success',
-			data: { ...user },
+			data: user,
 			message: 'User shown successfully.',
 		});
 	} catch (error) {
@@ -95,7 +93,7 @@ export const updateController = async (
 		// use user model to update a specific User object ...
 		// then save it within a specific DB table:
 		const user: User = (await userModel.update(
-			req.params.id as unknown as number,
+			req.params.id,
 			req.body
 		)) as User;
 
@@ -121,9 +119,7 @@ export const deleteController = async (
 ): Promise<void> => {
 	try {
 		// use user model to delete a specific User object:
-		const user: User = (await userModel.delete(
-			req.params.id as unknown as number
-		)) as User;
+		const user: User = (await userModel.delete(req.params.id)) as User;
 
 		// send a response back to the user:
 		res.json({

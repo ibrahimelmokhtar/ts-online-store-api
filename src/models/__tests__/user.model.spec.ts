@@ -2,6 +2,7 @@ import { PoolClient } from 'pg';
 import pool from '../../database';
 import User from '../../types/user.type';
 import UserModel from '../user.model';
+import { NIL as NIL_UUID } from 'uuid';
 
 const userModel = new UserModel();
 
@@ -10,19 +11,21 @@ describe('User Model Suite', () => {
 	beforeAll(async () => {
 		const client: PoolClient = await pool.connect();
 		const sql = `
+		CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
         CREATE TABLE users (
-            id SERIAL PRIMARY KEY,
+            id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
             first_name VARCHAR(100) NOT NULL,
             last_name VARCHAR(100) NOT NULL,
             user_name VARCHAR(50) NOT NULL,
             email VARCHAR(255) NOT NULL,
             password VARCHAR(100) NOT NULL
-        )`;
+        );`;
 		await client.query(sql);
 	});
 
 	it('creates new user within the database', async () => {
 		const user: User = {
+			id: NIL_UUID,
 			firstName: 'first_name',
 			lastName: 'last_name',
 			userName: 'user_name',
@@ -35,9 +38,9 @@ describe('User Model Suite', () => {
 	});
 
 	it('shows a specific user from the database', async () => {
-		const user: User = (await userModel.show(1)) as User;
+		const user: User = (await userModel.show(NIL_UUID)) as User;
 
-		expect(user.id as unknown as number).toEqual(1);
+		expect(user.id).toEqual(NIL_UUID);
 	});
 
 	it('shows all users from the database', async () => {
@@ -48,7 +51,7 @@ describe('User Model Suite', () => {
 
 	it('updates a specific user within the database', async () => {
 		const user: User = {
-			id: '1',
+			id: NIL_UUID,
 			firstName: 'first_name',
 			lastName: 'last_name',
 			userName: 'user_name',
@@ -57,7 +60,7 @@ describe('User Model Suite', () => {
 		};
 
 		const updatedUser: User = (await userModel.update(
-			user.id as unknown as number,
+			user.id as string,
 			user
 		)) as User;
 
@@ -65,9 +68,9 @@ describe('User Model Suite', () => {
 	});
 
 	it('deletes a specific user from the database', async () => {
-		const user: User = (await userModel.delete(1)) as User;
+		const user: User = (await userModel.delete(NIL_UUID)) as User;
 
-		expect(user.id as unknown as number).toEqual(1);
+		expect(user.id).toEqual(NIL_UUID);
 	});
 
 	// delete users table:

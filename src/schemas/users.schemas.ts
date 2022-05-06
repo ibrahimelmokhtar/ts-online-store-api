@@ -46,13 +46,10 @@ export const userBodyValidationRules = [
 
 export const userParamsValidationRules = [
 	param('id')
+		.isUUID(4)
+		.withMessage('User`s ID is NOT UUID')
 		.exists()
 		.withMessage('User`s ID is required')
 		.notEmpty()
-		.withMessage('User`s ID is empty')
-		.toInt()
-		.isNumeric()
-		.withMessage('User`s ID must be a number')
-		.isInt({ min: 1 })
-		.withMessage('User`s ID MIN value is 1'),
+		.withMessage('User`s ID is empty'),
 ];

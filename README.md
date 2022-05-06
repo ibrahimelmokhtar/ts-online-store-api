@@ -199,6 +199,7 @@ These packages can be found in the `"dependencies"` object inside the `package.j
 - [helmet](https://www.npmjs.com/package/helmet) - Help secure Express/Connect apps with various HTTP headers.
 - [morgan](https://www.npmjs.com/package/morgan) - HTTP request logger middleware for node.js.
 - [pg](https://www.npmjs.com/package/pg) - PostgreSQL client.
+- [uuid](https://www.npmjs.com/package/uuid) - RFC4122 (v1, v4, and v5) UUIDs.
 
 ## Development Packages
 
@@ -209,6 +210,7 @@ These packages can be found in the `"devDependencies"` object inside the `packag
 - [@types/morgan](https://www.npmjs.com/package/@types/morgan) - TypeScript definitions for morgan.
 - [@types/pg](https://www.npmjs.com/package/@types/pg) - TypeScript definitions for pg.
 - [@types/supertest](https://www.npmjs.com/package/@types/supertest) - TypeScript definitions for SuperTest.
+- [@types/uuid](https://www.npmjs.com/package/@types/uuid) - TypeScript definitions for uuid.
 - [@typescript-eslint/parser](https://www.npmjs.com/package/@typescript-eslint/parser) - An ESLint custom parser which leverages TypeScript ESTree.
 - [eslint](https://www.npmjs.com/package/eslint) - An AST-based pattern checker for JavaScript.
 - [eslint-config-prettier](https://www.npmjs.com/package/eslint-config-prettier) - Turns off all rules that are unnecessary or might conflict with Prettier.
