@@ -13,7 +13,7 @@ This project was structured from scratch, with ZERO starter files.
 - [Installation](#installation)
 - [Development](#development)
   - [Architecture](#architecture)
-  - [API Endpoints](#api-endpoints)
+  - [API Documentation](#api-documentation)
 - [Installed NPM Packages](#installed-npm-packages)
   - [Production Packages](#production-packages)
   - [Development Packages](#development-packages)
@@ -23,6 +23,84 @@ This project was structured from scratch, with ZERO starter files.
 [(Back to top)](#table-of-contents)
 
 To use this project, you need to follow the commands below:
+
+1. Clone the repository into your local machine:
+
+   ```bash
+   git clone https://github.com/ibrahimelmokhtar/ts-online-store-api.git
+   ```
+
+2. Redirect inside the cloned repository:
+
+    ```bash
+    cd ts-online-store-api/
+    ```
+
+3. Install the required packages:
+
+   ```bash
+   npm install
+   ```
+
+4. *For applying configured styling*, run the following commands:
+   - *Prettier styling*:
+
+        ```bash
+        npm run prettier
+        ```
+
+   - *ESLint styling*:
+
+        ```bash
+        npm run lint
+        ```
+
+5. *For working on the development phase*, run the following commands:
+   - *Live debugging while development*:
+
+        ```bash
+        npm run watch
+        ```
+
+   - *Jasmine Testing*:
+
+        ```bash
+        npm run test
+        ```
+
+   - *Run Up Migrations*:
+
+        ```bash
+        npm run migration:run
+        ```
+
+   - *Run Down Migrations*:
+
+        ```bash
+        npm run migration:reset
+        ```
+
+6. *For working with the production phase*, run the following commands:
+
+   - *Build the project*:
+
+        ```bash
+        npm run build
+        ```
+
+        Then, *Run the compiled server*:
+
+        ```bash
+        node build/server.js
+        ```
+
+   - OR simply, *Start the server with one command*:
+
+        ```bash
+        npm run start
+        ```
+
+7. Open the local website on `http://127.0.0.1:5000/{process}/{opetationType}/{:queryParameters}`, more information about {process}, {operationType} and {:queryParameters} will be explained in [API Docmentation](#api-documentation)
 
 # Development
 
@@ -51,7 +129,7 @@ This project has the structure shown below:
         ├─── env.config.ts
         ├─── server.config.ts
     ├─── controllers/
-        ├───
+        ├─── users.controller.ts
     ├─── database/
         ├─── __tests__/
             ├─── index.spec.ts
@@ -59,22 +137,24 @@ This project has the structure shown below:
     ├─── helpers/
         ├─── reporter.ts
     ├─── middlewares/
-        ├───
+        ├─── validator.middleware.ts
     ├─── models/
-        ├───
+        ├─── __tests__/
+            ├─── user.model.spec.ts
+        ├─── user.model.ts
     ├─── routes/
         ├─── __tests__/
             ├─── index.spec.ts
-            ├─── orders.spec.ts
-            ├─── products.spec.ts
-            ├─── users.spec.ts
+            ├─── orders.routes.spec.ts
+            ├─── products.routes.spec.ts
+            ├─── users.routes.spec.ts
         ├─── api/
-            ├─── orders.route.ts
-            ├─── products.route.ts
-            ├─── users.route.ts
+            ├─── orders.routes.ts
+            ├─── products.routes.ts
+            ├─── users.routes.ts
         ├─── index.ts
     ├─── schemas/
-        ├───
+        ├─── users.schemas.ts
     ├─── types/
         ├─── __tests__/
             ├─── order.type.spec.ts
@@ -94,7 +174,7 @@ This project has the structure shown below:
 ├─── tsconfig.json
 ```
 
-## API Endpoints
+## API Documentation
 
 [(Back to top)](#table-of-contents)
 
@@ -115,6 +195,7 @@ These packages can be found in the `"dependencies"` object inside the `package.j
 - [db-migrate-pg](https://www.npmjs.com/package/db-migrate-pg) - A postgresql driver for db-migrate.
 - [dotenv](https://www.npmjs.com/package/dotenv) - Loads environment variables from .env file.
 - [express](https://www.npmjs.com/package/express) - Fast, unopinionated, minimalist web framework.
+- [express-validator](https://www.npmjs.com/package/express-validator) - Express middleware for the validator module.
 - [helmet](https://www.npmjs.com/package/helmet) - Help secure Express/Connect apps with various HTTP headers.
 - [morgan](https://www.npmjs.com/package/morgan) - HTTP request logger middleware for node.js.
 - [pg](https://www.npmjs.com/package/pg) - PostgreSQL client.

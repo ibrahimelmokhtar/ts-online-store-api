@@ -213,7 +213,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 ## Product Shape
 
-- id
+- [OPTIONAL] id
 - name
 - price
 - category
@@ -223,6 +223,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 - [OPTIONAL] id
 - firstName
 - lastName
+- userName
 - email
 - password
 
