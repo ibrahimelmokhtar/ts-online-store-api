@@ -11,9 +11,9 @@ usersRoute.get('/', async (_req: Request, res: Response): Promise<void> => {
 
 // available routes for CRUD operations within /users route:
 usersRoute.post('/create', usersController.createController);
-usersRoute.get('/show', usersController.showController);
+usersRoute.get('/show/:id', usersController.showController);
 usersRoute.get('/showAll', usersController.showAllController);
-usersRoute.put('/update', usersController.updateController);
-usersRoute.delete('/delete', usersController.deleteController);
+usersRoute.put('/update/:id', usersController.updateController);
+usersRoute.delete('/delete/:id', usersController.deleteController);
 
 export default usersRoute;

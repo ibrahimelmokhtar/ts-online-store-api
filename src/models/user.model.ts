@@ -30,9 +30,13 @@ class UserModel {
 			// return created user:
 			return result.rows[0];
 		} catch (error) {
-			console.error(
-				`Unable to create ${user.userName}: ${(error as Error).message}`
-			);
+			if (process.env.NODE_ENV !== 'test') {
+				console.error(
+					`Unable to create ${user.userName}: ${
+						(error as Error).message
+					}`
+				);
+			}
 		}
 	};
 
@@ -47,7 +51,7 @@ class UserModel {
 			const client: PoolClient = await pool.connect();
 
 			// run desired query:
-			const sql: string = 'SELECT * FROM users WHERE id=($1) RETURNING *';
+			const sql: string = 'SELECT * FROM users WHERE id=($1)';
 			const result = await client.query(sql, [userID]);
 
 			// release connection:
@@ -56,9 +60,11 @@ class UserModel {
 			// return a specific user:
 			return result.rows[0];
 		} catch (error) {
-			console.error(
-				`Unable to show ${userID}: ${(error as Error).message}`
-			);
+			if (process.env.NODE_ENV !== 'test') {
+				console.error(
+					`Unable to show ${userID}: ${(error as Error).message}`
+				);
+			}
 		}
 	};
 
@@ -72,7 +78,7 @@ class UserModel {
 			const client: PoolClient = await pool.connect();
 
 			// run desired query:
-			const sql: string = 'SELECT * FROM users RETURNING *';
+			const sql: string = 'SELECT * FROM users';
 			const result = await client.query(sql);
 
 			// release connection:
@@ -81,25 +87,30 @@ class UserModel {
 			// return all users:
 			return result.rows;
 		} catch (error) {
-			console.error(`Unable to show users: ${(error as Error).message}`);
+			if (process.env.NODE_ENV !== 'test') {
+				console.error(
+					`Unable to show users: ${(error as Error).message}`
+				);
+			}
 		}
 	};
 
 	/**
 	 * @description Update a specific User object.
+	 * @param {number} userID
 	 * @param {User} user
 	 * @returns {User} Updated User object.
 	 */
-	update = async (user: User): Promise<User | void> => {
+	update = async (userID: number, user: User): Promise<User | void> => {
 		try {
 			// connect to database:
 			const client: PoolClient = await pool.connect();
 
 			// run desired query:
 			const sql: string =
-				'UPDATE users SET first_name=($2) last_name=($3) user_name=($4) email=($5) password=($6) WHERE id=($1) RETURNING *';
+				'UPDATE users SET first_name=($2), last_name=($3), user_name=($4), email=($5), password=($6) WHERE id=($1) RETURNING *';
 			const result = await client.query(sql, [
-				user.id,
+				userID,
 				user.firstName,
 				user.lastName,
 				user.userName,
@@ -113,9 +124,11 @@ class UserModel {
 			// return updated user:
 			return result.rows[0];
 		} catch (error) {
-			console.error(
-				`Unable to update ${user.id}: ${(error as Error).message}`
-			);
+			if (process.env.NODE_ENV !== 'test') {
+				console.error(
+					`Unable to update ${userID}: ${(error as Error).message}`
+				);
+			}
 		}
 	};
 
@@ -139,9 +152,11 @@ class UserModel {
 			// return deleted user:
 			return result.rows[0];
 		} catch (error) {
-			console.error(
-				`Unable to delete ${userID}: ${(error as Error).message}`
-			);
+			if (process.env.NODE_ENV !== 'test') {
+				console.error(
+					`Unable to delete ${userID}: ${(error as Error).message}`
+				);
+			}
 		}
 	};
 }
