@@ -25,6 +25,12 @@ usersRoute.post(
 );
 
 // READ ONE:
+usersRoute.get('/show', (_req: Request, res: Response) => {
+	res.json({
+		message: 'User ID is required ...',
+	});
+});
+
 usersRoute.get(
 	'/show/:id',
 	userParamsValidationRules,
@@ -36,6 +42,12 @@ usersRoute.get(
 usersRoute.get('/showAll', usersController.showAllController);
 
 // UPDATE ONE:
+usersRoute.put('/update', (_req: Request, res: Response) => {
+	res.json({
+		message: 'User ID is required ...',
+	});
+});
+
 usersRoute.put(
 	'/update/:id',
 	userParamsValidationRules,
@@ -44,6 +56,12 @@ usersRoute.put(
 );
 
 // DELETE ONE:
+usersRoute.delete('/delete', (_req: Request, res: Response) => {
+	res.json({
+		message: 'User ID is required ...',
+	});
+});
+
 usersRoute.delete(
 	'/delete/:id',
 	userParamsValidationRules,
