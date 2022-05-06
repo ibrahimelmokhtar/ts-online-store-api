@@ -4,12 +4,12 @@
 <!-- Describe your project in brief -->
 Build a Storefront Backend - Advanced Web Development egFWD - Second Project
 
-This project was structured from scratch, with ONLY a REQUIREMENTS.md file.
+This project was structured from scratch, with ZERO starter files.
 
-# Table of contents
+# Table of Contents
 
 - [Online Store API](#online-store-api)
-- [Table of contents](#table-of-contents)
+- [Table of Contents](#table-of-contents)
 - [Installation](#installation)
 - [Development](#development)
   - [Architecture](#architecture)
@@ -98,7 +98,7 @@ This project has the structure shown below:
 
 [(Back to top)](#table-of-contents)
 
-This API has **FOUR** endpoints using the `GET` method as explained below:
+For more information about available endpoints, check this [REQUIREMENTS.md](docs/REQUIREMENTS.md) file.
 
 # Installed NPM Packages
 
