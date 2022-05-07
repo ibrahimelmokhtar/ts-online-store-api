@@ -8,12 +8,14 @@ const newOrder: Order = {
 	orderStatus: true,
 };
 
-describe('Order Type Suite', () => {
-	it('checks order`s status to be "completed"', () => {
-		expect(newOrder.orderStatus).toBeTruthy();
-	});
+export const orderTypeSpecs = () => {
+	describe('Order Type Suite', () => {
+		it('checks order`s status to be "completed"', () => {
+			expect(newOrder.orderStatus).toBeTruthy();
+		});
 
-	it('checks order`s userID to be "user_id"', () => {
-		expect(newOrder.userID).toBe('user_id');
+		it('checks order`s userID to be "user_id"', () => {
+			expect(newOrder.userID).toBe('user_id');
+		});
 	});
-});
+};

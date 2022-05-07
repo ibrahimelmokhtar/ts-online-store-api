@@ -19,14 +19,14 @@ class UserModel {
 			let sentValues: Array<string> = [];
 			if (process.env.NODE_ENV === 'test') {
 				sql =
-					'INSERT INTO users (id, first_name, last_name, user_name, email, password) VALUES ($6, $1, $2, $3, $4, $5) RETURNING *';
+					'INSERT INTO users (id, first_name, last_name, user_name, email, password) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *';
 				sentValues = [
+					user.id as string,
 					user.firstName,
 					user.lastName,
 					user.userName,
 					user.email,
 					encrypt(user.password),
-					user.id as string,
 				];
 			} else {
 				sql =
@@ -49,7 +49,7 @@ class UserModel {
 		} catch (error) {
 			if (process.env.NODE_ENV !== 'test') {
 				console.error(
-					`Unable to create ${user.userName}: ${
+					`User Model: Unable to create ${user.userName}: ${
 						(error as Error).message
 					}`
 				);
@@ -79,7 +79,9 @@ class UserModel {
 		} catch (error) {
 			if (process.env.NODE_ENV !== 'test') {
 				console.error(
-					`Unable to show ${userID}: ${(error as Error).message}`
+					`User Model: Unable to show ${userID}: ${
+						(error as Error).message
+					}`
 				);
 			}
 		}
@@ -106,7 +108,9 @@ class UserModel {
 		} catch (error) {
 			if (process.env.NODE_ENV !== 'test') {
 				console.error(
-					`Unable to show users: ${(error as Error).message}`
+					`User Model: Unable to show users: ${
+						(error as Error).message
+					}`
 				);
 			}
 		}
@@ -143,7 +147,9 @@ class UserModel {
 		} catch (error) {
 			if (process.env.NODE_ENV !== 'test') {
 				console.error(
-					`Unable to update ${userID}: ${(error as Error).message}`
+					`User Model: Unable to update ${userID}: ${
+						(error as Error).message
+					}`
 				);
 			}
 		}
@@ -171,7 +177,9 @@ class UserModel {
 		} catch (error) {
 			if (process.env.NODE_ENV !== 'test') {
 				console.error(
-					`Unable to delete ${userID}: ${(error as Error).message}`
+					`User Model: Unable to delete ${userID}: ${
+						(error as Error).message
+					}`
 				);
 			}
 		}

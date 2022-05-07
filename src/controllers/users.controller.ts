@@ -27,7 +27,9 @@ export const createController = async (
 		});
 	} catch (error) {
 		console.error(
-			`Error while creating new user: ${(error as Error).message}`
+			`User Controller: Error while creating new user: ${
+				(error as Error).message
+			}`
 		);
 	}
 };
@@ -52,7 +54,11 @@ export const showController = async (
 			message: 'User shown successfully.',
 		});
 	} catch (error) {
-		console.error(`Error while showing user: ${(error as Error).message}`);
+		console.error(
+			`User Controller: Error while showing user: ${
+				(error as Error).message
+			}`
+		);
 	}
 };
 
@@ -67,16 +73,22 @@ export const showAllController = async (
 ): Promise<void> => {
 	try {
 		// use user model to show all User objects:
-		const users: User[] = (await userModel.showAllUsers()) as User[];
+		const users: Array<User> =
+			(await userModel.showAllUsers()) as Array<User>;
 
 		// send a response back to the user:
 		res.json({
 			status: 'success',
+			totalUsers: users?.length,
 			data: users,
 			message: 'Users shown successfully.',
 		});
 	} catch (error) {
-		console.error(`Error while showing users: ${(error as Error).message}`);
+		console.error(
+			`User Controller: Error while showing users: ${
+				(error as Error).message
+			}`
+		);
 	}
 };
 
@@ -104,7 +116,11 @@ export const updateController = async (
 			message: 'User updated successfully.',
 		});
 	} catch (error) {
-		console.error(`Error while showing users: ${(error as Error).message}`);
+		console.error(
+			`User Controller: Error while updating user: ${
+				(error as Error).message
+			}`
+		);
 	}
 };
 
@@ -128,6 +144,10 @@ export const deleteController = async (
 			message: 'User deleted successfully.',
 		});
 	} catch (error) {
-		console.error(`Error while deleting user: ${(error as Error).message}`);
+		console.error(
+			`User Controller: Error while deleting user: ${
+				(error as Error).message
+			}`
+		);
 	}
 };

@@ -7,12 +7,14 @@ const newProduct: Product = {
 	category: 'product_category',
 };
 
-describe('Product Type Suite', () => {
-	it('checks product`s price to be $19.99', () => {
-		expect(newProduct.price).toBe(19.99);
-	});
+export const productTypeSpecs = () => {
+	describe('Product Type Suite', () => {
+		it('checks product`s price to be $19.99', () => {
+			expect(newProduct.price).toBe(19.99);
+		});
 
-	it('checks product`s category to be "product_category"', () => {
-		expect(newProduct.category).toBe('product_category');
+		it('checks product`s category to be "product_category"', () => {
+			expect(newProduct.category).toBe('product_category');
+		});
 	});
-});
+};
