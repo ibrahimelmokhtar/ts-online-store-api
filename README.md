@@ -43,19 +43,32 @@ To use this project, you need to follow the commands below:
    ```
 
 4. *For applying configured styling*, run the following commands:
-   - *Prettier styling*:
+   - ***Prettier** styling*:
 
         ```bash
         npm run prettier
         ```
 
-   - *ESLint styling*:
+   - ***ESLint** styling*:
 
         ```bash
         npm run lint
         ```
 
-5. *For working on the development phase*, run the following commands:
+5. *For manipulating the database*, run the following commands:
+   - *Run **Up** Migrations*:
+
+        ```bash
+        npm run migration:run
+        ```
+
+   - *Run **Down** Migrations*:
+
+        ```bash
+        npm run migration:reset
+        ```
+
+6. *For working on the **development** phase*, run the following commands:
    - *Live debugging while development*:
 
         ```bash
@@ -68,19 +81,7 @@ To use this project, you need to follow the commands below:
         npm run test
         ```
 
-   - *Run Up Migrations*:
-
-        ```bash
-        npm run migration:run
-        ```
-
-   - *Run Down Migrations*:
-
-        ```bash
-        npm run migration:reset
-        ```
-
-6. *For working with the production phase*, run the following commands:
+7. *For working with the **production** phase*, run the following commands:
 
    - *Build the project*:
 
@@ -100,7 +101,7 @@ To use this project, you need to follow the commands below:
         npm run start
         ```
 
-7. Open the local website on `http://127.0.0.1:5000/{process}/{opetationType}/{:queryParameters}`, more information about {process}, {operationType} and {:queryParameters} will be explained in [API Docmentation](#api-documentation)
+8. Open the local website on `http://127.0.0.1:5000/{process}/{opetationType}/{:queryParameters}`, more information about {process}, {operationType} and {:queryParameters} will be explained in [API Docmentation](#api-documentation)
 
 # Development
 
@@ -135,7 +136,10 @@ This project has the structure shown below:
             ├─── index.spec.ts
         ├─── index.ts
     ├─── helpers/
-        ├─── reporter.ts
+        ├─── guards/
+            ├─── password.hashing.ts
+        ├─── testing/
+            ├─── reporter.ts
     ├─── middlewares/
         ├─── validator.middleware.ts
     ├─── models/
@@ -190,6 +194,7 @@ These packages are required to run this project smoothly without any errors.
 
 These packages can be found in the `"dependencies"` object inside the `package.json` file.
 
+- [bcrypt](https://www.npmjs.com/package/bcrypt) - A bcrypt library for NodeJS.
 - [cors](https://www.npmjs.com/package/cors) - Node.js CORS middleware.
 - [db-migrate](https://www.npmjs.com/package/db-migrate) - Database migration framework for node.js.
 - [db-migrate-pg](https://www.npmjs.com/package/db-migrate-pg) - A postgresql driver for db-migrate.
@@ -205,6 +210,7 @@ These packages can be found in the `"dependencies"` object inside the `package.j
 
 These packages can be found in the `"devDependencies"` object inside the `package.json` file.
 
+- [@types/bcrypt](https://www.npmjs.com/package/@types/bcrypt) - TypeScript definitions for bcrypt.
 - [@types/express](https://www.npmjs.com/package/@types/express) - TypeScript definitions for Express.
 - [@types/jasmine](https://www.npmjs.com/package/@types/jasmine) - TypeScript definitions for Jasmine.
 - [@types/morgan](https://www.npmjs.com/package/@types/morgan) - TypeScript definitions for morgan.

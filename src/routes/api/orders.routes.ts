@@ -5,7 +5,7 @@ const ordersRoute: Router = Router();
 
 // sample GET method from orders route:
 ordersRoute.get('/', async (_req: Request, res: Response): Promise<void> => {
-	res.send('inside << orders >> route');
+	res.json({ message: 'inside << orders >> route.' });
 });
 
 export default ordersRoute;

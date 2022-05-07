@@ -1,6 +1,7 @@
 import User from '../types/user.type';
 import pool from '../database';
 import { PoolClient } from 'pg';
+import { encrypt } from '../helpers/guards/encrypt';
 
 class UserModel {
 	/**
@@ -24,7 +25,7 @@ class UserModel {
 					user.lastName,
 					user.userName,
 					user.email,
-					user.password,
+					encrypt(user.password),
 					user.id as string,
 				];
 			} else {
@@ -35,7 +36,7 @@ class UserModel {
 					user.lastName,
 					user.userName,
 					user.email,
-					user.password,
+					encrypt(user.password),
 				];
 			}
 			const result = await client.query(sql, sentValues);
@@ -131,7 +132,7 @@ class UserModel {
 				user.lastName,
 				user.userName,
 				user.email,
-				user.password,
+				encrypt(user.password),
 			]);
 
 			// release connection:

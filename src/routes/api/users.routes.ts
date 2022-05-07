@@ -11,7 +11,7 @@ const usersRoute: Router = Router();
 
 // sample GET method from users route:
 usersRoute.get('/', async (_req: Request, res: Response): Promise<void> => {
-	res.send('inside << users >> route');
+	res.json({ message: 'inside << users >> route' });
 });
 
 // available routes for CRUD operations within /users route:
