@@ -1,6 +1,10 @@
+import { productModelSpecs } from './product.model.spec';
 import { userModelSpecs } from './user.model.spec';
 
 describe('Models Suites', () => {
-	// user type suite:
+	// product model suite:
+	productModelSpecs();
+
+	// user model suite:
 	userModelSpecs();
 });
