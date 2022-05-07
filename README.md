@@ -121,7 +121,10 @@ This project has the structure shown below:
     ├─── sqls/
         ├─── 20220505125703-users-table-down.sql
         ├─── 20220505125703-users-table-up.sql
+        ├─── 20220507132301-products-table-down.sql
+        ├─── 20220507132301-products-table-up.sql
     ├─── 20220505125703-users-table.js
+    ├─── 20220507132301-products-table.js
 ├─── spec/
     ├─── support/
         ├─── jasmine.json
@@ -130,6 +133,7 @@ This project has the structure shown below:
         ├─── env.config.ts
         ├─── server.config.ts
     ├─── controllers/
+        ├─── products.controller.ts
         ├─── users.controller.ts
     ├─── database/
         ├─── __tests__/
@@ -137,14 +141,17 @@ This project has the structure shown below:
         ├─── index.ts
     ├─── helpers/
         ├─── guards/
-            ├─── password.hashing.ts
+            ├─── encrypt.ts
         ├─── testing/
             ├─── reporter.ts
     ├─── middlewares/
         ├─── validator.middleware.ts
     ├─── models/
         ├─── __tests__/
+            ├─── index.spec.ts
+            ├─── product.model.spec.ts
             ├─── user.model.spec.ts
+        ├─── product.model.ts
         ├─── user.model.ts
     ├─── routes/
         ├─── __tests__/
@@ -161,6 +168,7 @@ This project has the structure shown below:
         ├─── users.schemas.ts
     ├─── types/
         ├─── __tests__/
+            ├─── index.spec.ts
             ├─── order.type.spec.ts
             ├─── product.type.spec.ts
             ├─── user.type.spec.ts
