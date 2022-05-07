@@ -16,11 +16,16 @@ These are the notes from a meeting with the frontend developer that describe wha
     - [Update Specific User](#update-specific-user)
     - [Delete Specific User](#delete-specific-user)
   - [`/products` Endpoints](#products-endpoints)
+    - [Create New Product](#create-new-product)
+    - [Show Specific Product](#show-specific-product)
+    - [Show All Products](#show-all-products)
+    - [Update Specific Product](#update-specific-product)
+    - [Delete Specific Product](#delete-specific-product)
   - [`/orders` Endpoints](#orders-endpoints)
 - [Data Shapes](#data-shapes)
-  - [Product Shape](#product-shape)
   - [User Shape](#user-shape)
-  - [Orders Shape](#orders-shape)
+  - [Product Shape](#product-shape)
+  - [Order Shape](#order-shape)
 
 # API Endpoints
 
@@ -41,8 +46,11 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 - Response Body: `User object`
 - Example:
 
-    ```json
+    ```http
     - Request URL: /users/create/
+    ```
+
+    ```json
     - Request Body:
         {
             "first_name": "Ibrahim",
@@ -51,17 +59,19 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
             "email": "test@test.com",
             "password": "password123"
         }
+    ```
 
+    ```json
     - Response Body:
         {
             "status": "success",
             "data": {
-                "id": 1,
+                "id": "d485b697-69c2-4198-8231-f6054841baaf",
                 "first_name": "Ibrahim",
                 "last_name": "El-Mokhtar",
                 "user_name": "ibrahimelmokhtar",
                 "email": "test@test.com",
-                "password": "password123"
+                "password": "$2b$10$1mOTa6VX2zuJr/MAZIaxBOFjnwFLR4TWAHZT34As4mVd4LQ9nDXz2"
             },
             "message": "User created successfully."
         }
@@ -78,19 +88,21 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 - Response Body: `User object`
 - Example:
 
-    ```json
-    - Request URL: /users/show/1
+    ```http
+    - Request URL: /users/show/d485b697-69c2-4198-8231-f6054841baaf
+    ```
 
+    ```json
     - Response Body:
         {
             "status": "success",
             "data": {
-                "id": 1,
+                "id": "d485b697-69c2-4198-8231-f6054841baaf",
                 "first_name": "Ibrahim",
                 "last_name": "El-Mokhtar",
                 "user_name": "ibrahimelmokhtar",
                 "email": "test@test.com",
-                "password": "password123"
+                "password": "$2b$10$1mOTa6VX2zuJr/MAZIaxBOFjnwFLR4TWAHZT34As4mVd4LQ9nDXz2"
             },
             "message": "User shown successfully."
         }
@@ -107,27 +119,30 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 - Response Body: `Array of User objects`
 - Example:
 
-    ```json
+    ```http
     - Request URL: /users/showAll
+    ```
 
+    ```json
     - Response Body:
         {
             "status": "success",
+            "totalUsers": 2,
             "data": [{
-                "id": 1,
+                "id": "d485b697-69c2-4198-8231-f6054841baaf",
                 "first_name": "Ibrahim",
                 "last_name": "El-Mokhtar",
                 "user_name": "ibrahimelmokhtar",
                 "email": "test@test.com",
-                "password": "password123"
+                "password": "$2b$10$1mOTa6VX2zuJr/MAZIaxBOFjnwFLR4TWAHZT34As4mVd4LQ9nDXz2"
             },
             {
-                "id": 2,
+                "id": "b2eee22f-4e60-464d-9456-314ae190388d",
                 "first_name": "James",
                 "last_name": "Bond",
                 "user_name": "jamesbond",
                 "email": "email@email.com",
-                "password": "password123123"
+                "password": "$2b$10$JzbrVDsB0AbYmDYV7TgqGuTNKiHJP9brF1xVrV6krgNw/VBoRemce"
             }],
             "message": "Users shown successfully."
         }
@@ -144,8 +159,11 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 - Response Body: `User object`
 - Example:
 
+    ```http
+    - Request URL: /users/update/d485b697-69c2-4198-8231-f6054841baaf
+    ```
+
     ```json
-    - Request URL: /users/update/1
     - Request Body:
         {
             "first_name": "Ibrahim",
@@ -154,17 +172,19 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
             "email": "email@email.com",
             "password": "password123123"
         }
+    ```
 
+    ```json
     - Response Body:
         {
             "status": "success",
             "data": {
-                "id": 1,
+                "id": "d485b697-69c2-4198-8231-f6054841baaf",
                 "first_name": "Ibrahim",
                 "last_name": "El-Mokhtar",
                 "user_name": "ibrahimelmokhtar",
                 "email": "email@email.com",
-                "password": "password123123"
+                "password": "$2b$10$T77i34Eg9xI/1jJr8ZJkUupn1CvcfbhE1t7afKZ4AtIo8sPtYbJ4m"
             },
             "message": "User updated successfully."
         }
@@ -181,19 +201,21 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 - Response Body: `User object`
 - Example:
 
-    ```json
-    - Request URL: /users/delete/1
+    ```http
+    - Request URL: /users/delete/d485b697-69c2-4198-8231-f6054841baaf
+    ```
 
+    ```json
     - Response Body:
         {
             "status": "success",
             "data": {
-                "id": 1,
+                "id": "d485b697-69c2-4198-8231-f6054841baaf",
                 "first_name": "Ibrahim",
                 "last_name": "El-Mokhtar",
                 "user_name": "ibrahimelmokhtar",
                 "email": "test@test.com",
-                "password": "password123"
+                "password": "$2b$10$1mOTa6VX2zuJr/MAZIaxBOFjnwFLR4TWAHZT34As4mVd4LQ9nDXz2"
             },
             "message": "User deleted successfully."
         }
@@ -203,6 +225,176 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 [(Back to top)](#table-of-contents)
 
+### Create New Product
+
+[(Back to top)](#table-of-contents)
+
+- HTTP Method: **`POST`**
+- Endpoint: `/products/create`
+- Request Body: `Product object`
+- Request Params: `N/A`
+- Response Body: `Product object`
+- Example:
+
+    ```http
+    - Request URL: /products/create/
+    ```
+
+    ```json
+    - Request Body:
+        {
+            "name": "T-Shirt",
+            "price": 50.99,
+            "category": "Clothes"
+        }
+    ```
+
+    ```json
+    - Response Body:
+        {
+            "status": "success",
+            "data": {
+                "id": "515de79c-a194-47d1-8e76-af097da06ed0",
+                "name": "T-Shirt",
+                "price": 50.99,
+                "categoty": "Clothes"
+            },
+            "message": "Product created successfully."
+        }
+    ```
+
+### Show Specific Product
+
+[(Back to top)](#table-of-contents)
+
+- HTTP Method: **`GET`**
+- Endpoint: `/products/show/:id`
+- Request Body: `N/A`
+- Request Params: `:id [integer]`
+- Response Body: `Product object`
+- Example:
+
+    ```http
+    - Request URL: /products/show/515de79c-a194-47d1-8e76-af097da06ed0
+    ```
+
+    ```json
+    - Response Body:
+        {
+            "status": "success",
+            "data": {
+                "id": "515de79c-a194-47d1-8e76-af097da06ed0",
+                "name": "T-Shirt",
+                "price": 50.99,
+                "category": "Clothes"
+            },
+            "message": "Product shown successfully."
+        }
+    ```
+
+### Show All Products
+
+[(Back to top)](#table-of-contents)
+
+- HTTP Method: **`GET`**
+- Endpoint: `/products/showAll`
+- Request Body: `N/A`
+- Request Params: `N/A`
+- Response Body: `Array of Product objects`
+- Example:
+
+    ```http
+    - Request URL: /products/showAll
+    ```
+
+    ```json
+    - Response Body:
+        {
+            "status": "success",
+            "totalProducts": 2,
+            "data": [{
+                "id": "515de79c-a194-47d1-8e76-af097da06ed0",
+                "name": "T-SHirt",
+                "price": 50.99,
+                "category": "Clothes"
+            },
+            {
+                "id": "de26da30-2622-4f46-b777-a698c216f365",
+                "name": "Hat",
+                "price": 9.88,
+                "category": "Clothes"
+            }],
+            "message": "Products shown successfully."
+        }
+    ```
+
+### Update Specific Product
+
+[(Back to top)](#table-of-contents)
+
+- HTTP Method: **`PUT`**
+- Endpoint: `/products/update/:id`
+- Request Body: `Product object`
+- Request Params: `:id [integer]`
+- Response Body: `Product object`
+- Example:
+
+    ```http
+    - Request URL: /products/update/515de79c-a194-47d1-8e76-af097da06ed0
+    ```
+
+    ```json
+    - Request Body:
+        {
+            "name": "T-Shirt",
+            "price": 40.88,
+            "category": "Clothes"
+        }
+    ```
+
+    ```json
+    - Response Body:
+        {
+            "status": "success",
+            "data": {
+                "id": "515de79c-a194-47d1-8e76-af097da06ed0",
+                "name": "T-Shirt",
+                "price": 40.88,
+                "category": "Clothes"
+            },
+            "message": "Product updated successfully."
+        }
+    ```
+
+### Delete Specific Product
+
+[(Back to top)](#table-of-contents)
+
+- HTTP Method: **`DELETE`**
+- Endpoint: `/products/delete/:id`
+- Request Body: `N/A`
+- Request Params: `:id [integer]`
+- Response Body: `Product object`
+- Example:
+
+    ```http
+    - Request URL: /products/delete/515de79c-a194-47d1-8e76-af097da06ed0
+    ```
+
+    ```json
+    - Response Body:
+        {
+            "status": "success",
+            "data": {
+                "id": "515de79c-a194-47d1-8e76-af097da06ed0",
+                "name": "T-Shirt",
+                "price": 50.99,
+                "category": "Clothes"
+            },
+            "message": "Product deleted successfully."
+        }
+    ```
+
 ## `/orders` Endpoints
 
 [(Back to top)](#table-of-contents)
@@ -210,13 +402,6 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 # Data Shapes
 
 [(Back to top)](#table-of-contents)
-
-## Product Shape
-
-- [OPTIONAL] id
-- name
-- price
-- category
 
 ## User Shape
 
@@ -227,7 +412,14 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 - email
 - password
 
-## Orders Shape
+## Product Shape
+
+- [OPTIONAL] id
+- name
+- price
+- category
+
+## Order Shape
 
 - [OPTIONAL] id
 - id of each product in the order
