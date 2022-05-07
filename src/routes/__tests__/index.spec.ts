@@ -6,7 +6,8 @@ import { usersEndpointsSpecs } from './users.routes.spec';
 
 const req = supertest(app);
 
-describe('Server Endpoints Suites', () => {
+describe('├─── Server Endpoints Suites', () => {
+	// main endpoint suite:
 	describe('Main Endpoint Suite', () => {
 		it('GET (/) route response', async () => {
 			const res = await req.get('/');

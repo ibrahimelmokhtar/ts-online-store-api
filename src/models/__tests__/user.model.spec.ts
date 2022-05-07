@@ -7,13 +7,13 @@ import { NIL as NIL_UUID } from 'uuid';
 const userModel = new UserModel();
 
 export const userModelSpecs = () => {
-	describe('User Model Suite', () => {
+	describe('├─── User Model Suite', () => {
 		// create users table:
 		beforeAll(async () => {
 			const client: PoolClient = await pool.connect();
 			const sql = `
 		CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-        CREATE TABLE users (
+        CREATE TABLE IF NOT EXISTS users (
             id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
             first_name VARCHAR(100) NOT NULL,
             last_name VARCHAR(100) NOT NULL,
@@ -22,6 +22,7 @@ export const userModelSpecs = () => {
             password VARCHAR(100) NOT NULL
         );`;
 			await client.query(sql);
+			client.release();
 		});
 
 		it('creates new user within the database', async () => {
@@ -79,6 +80,7 @@ export const userModelSpecs = () => {
 			const client: PoolClient = await pool.connect();
 			const sql = 'DROP TABLE users';
 			await client.query(sql);
+			client.release();
 		});
 	});
 };

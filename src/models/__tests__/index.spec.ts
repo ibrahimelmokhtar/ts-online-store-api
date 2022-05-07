@@ -1,7 +1,7 @@
 import { productModelSpecs } from './product.model.spec';
 import { userModelSpecs } from './user.model.spec';
 
-describe('Models Suites', () => {
+describe('├─── Models Suites', () => {
 	// product model suite:
 	productModelSpecs();
 

@@ -1,2 +1,2 @@
 -- delete products table:
-DROP TABLE products;
+DROP TABLE IF EXISTS products;

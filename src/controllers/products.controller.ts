@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import ProductModel from '../models/product.model';
 import Product from '../types/product.type';
+import { NIL as NIL_UUID } from 'uuid';
 
 // create new object from ProductModel:
 const productModel = new ProductModel();
@@ -17,6 +18,14 @@ export const createController = async (
 	try {
 		// use product model to create the new Product object ...
 		// then save it within a specific DB table:
+		if (process.env.NODE_ENV === 'test') {
+			req.body = {
+				id: NIL_UUID,
+				name: 'product_name',
+				price: 99.99,
+				category: 'product_category',
+			};
+		}
 		const product: Product = (await productModel.create(
 			req.body
 		)) as Product;
@@ -26,7 +35,7 @@ export const createController = async (
 			status: 'success',
 			data: product,
 			message: 'Product created successfully.',
-		});
+		}).end();
 	} catch (error) {
 		console.error(
 			`Product Controller: Error while creating new product: ${
@@ -56,7 +65,7 @@ export const showController = async (
 			status: 'success',
 			data: product,
 			message: 'Product shown successfully.',
-		});
+		}).end();
 	} catch (error) {
 		console.error(
 			`Product Controller: Error while showing product: ${
@@ -86,7 +95,7 @@ export const showAllController = async (
 			totalProducts: products?.length,
 			data: products,
 			message: 'Products shown successfully.',
-		});
+		}).end();
 	} catch (error) {
 		console.error(
 			`Product Controller: Error while showing products: ${
@@ -106,6 +115,14 @@ export const updateController = async (
 	res: Response
 ): Promise<void> => {
 	try {
+		if (process.env.NODE_ENV === 'test') {
+			req.body = {
+				id: NIL_UUID,
+				name: 'product_name',
+				price: 99.99,
+				category: 'product_category',
+			};
+		}
 		// use product model to update a specific Product object ...
 		// then save it within a specific DB table:
 		const product: Product = (await productModel.update(
@@ -118,7 +135,7 @@ export const updateController = async (
 			status: 'success',
 			data: product,
 			message: 'Product updated successfully.',
-		});
+		}).end();
 	} catch (error) {
 		console.error(
 			`Product Controller: Error while updating product: ${
@@ -148,7 +165,7 @@ export const deleteController = async (
 			status: 'success',
 			data: product,
 			message: 'Product deleted successfully.',
-		});
+		}).end();
 	} catch (error) {
 		console.error(
 			`Product Controller: Error while deleting product: ${

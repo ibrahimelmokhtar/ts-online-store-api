@@ -38,13 +38,11 @@ class ProductModel {
 			// return created product:
 			return result.rows[0];
 		} catch (error) {
-			if (process.env.NODE_ENV !== 'test') {
-				console.error(
-					`Product Model: Unable to create ${product.name}: ${
-						(error as Error).message
-					}`
-				);
-			}
+			console.error(
+				`Product Model: Unable to create ${product.name}: ${
+					(error as Error).message
+				}`
+			);
 		}
 	};
 
@@ -68,13 +66,11 @@ class ProductModel {
 			// return a specific product:
 			return result.rows[0];
 		} catch (error) {
-			if (process.env.NODE_ENV !== 'test') {
-				console.error(
-					`Product Model: Unable to show ${productID}: ${
-						(error as Error).message
-					}`
-				);
-			}
+			console.error(
+				`Product Model: Unable to show ${productID}: ${
+					(error as Error).message
+				}`
+			);
 		}
 	};
 
@@ -97,13 +93,11 @@ class ProductModel {
 			// return all products:
 			return result.rows;
 		} catch (error) {
-			if (process.env.NODE_ENV !== 'test') {
-				console.error(
-					`Product Model: Unable to show products: ${
-						(error as Error).message
-					}`
-				);
-			}
+			console.error(
+				`Product Model: Unable to show products: ${
+					(error as Error).message
+				}`
+			);
 		}
 	};
 
@@ -137,13 +131,11 @@ class ProductModel {
 			// return updated product:
 			return result.rows[0];
 		} catch (error) {
-			if (process.env.NODE_ENV !== 'test') {
-				console.error(
-					`Product Model: Unable to update ${productID}: ${
-						(error as Error).message
-					}`
-				);
-			}
+			console.error(
+				`Product Model: Unable to update ${productID}: ${
+					(error as Error).message
+				}`
+			);
 		}
 	};
 
@@ -168,13 +160,11 @@ class ProductModel {
 			// return deleted product:
 			return result.rows[0];
 		} catch (error) {
-			if (process.env.NODE_ENV !== 'test') {
-				console.error(
-					`Product Model: Unable to delete ${productID}: ${
-						(error as Error).message
-					}`
-				);
-			}
+			console.error(
+				`Product Model: Unable to delete ${productID}: ${
+					(error as Error).message
+				}`
+			);
 		}
 	};
 }

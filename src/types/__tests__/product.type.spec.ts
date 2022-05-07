@@ -8,7 +8,7 @@ const newProduct: Product = {
 };
 
 export const productTypeSpecs = () => {
-	describe('Product Type Suite', () => {
+	describe('├─── Product Type Suite', () => {
 		it('checks product`s price to be $19.99', () => {
 			expect(newProduct.price).toBe(19.99);
 		});

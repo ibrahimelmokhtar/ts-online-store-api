@@ -7,6 +7,7 @@ const pool = new Pool({
 	host: config.postgresHost,
 	database: config.postgresDB,
 	password: config.postgresPassword,
+	// port: parseInt(config.postgresPort as string, 10),
 	port: config.postgresPort as unknown as number,
 });
 
@@ -14,6 +15,12 @@ const pool = new Pool({
 pool.on('error', (error: Error): void => {
 	console.error(error.message);
 	process.exit(-1);
+});
+
+pool.on('connect', () => {
+	console.log(
+		`total: ${pool.totalCount}, idle: ${pool.idleCount}, waiting: ${pool.waitingCount}`
+	);
 });
 
 export default pool;

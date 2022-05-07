@@ -9,13 +9,13 @@ const newOrder: Order = {
 };
 
 export const orderTypeSpecs = () => {
-	describe('Order Type Suite', () => {
-		it('checks order`s status to be "completed"', () => {
-			expect(newOrder.orderStatus).toBeTruthy();
-		});
-
+	describe('├─── Order Type Suite', () => {
 		it('checks order`s userID to be "user_id"', () => {
 			expect(newOrder.userID).toBe('user_id');
+		});
+
+		it('checks order`s ID to be "order_id"', () => {
+			expect(newOrder.id).toBe('order_id');
 		});
 	});
 };

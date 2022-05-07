@@ -1,6 +1,6 @@
 import pool from '../index';
 
-describe('Database Connection Suite', () => {
+describe('├─── Database Connection Suite', () => {
 	const currentDate = new Date().toDateString();
 
 	it(`checks DB connection's date to be "${currentDate}"`, async () => {

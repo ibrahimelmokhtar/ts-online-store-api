@@ -10,8 +10,8 @@ const newUser: User = {
 };
 
 export const userTypeSpecs = () => {
-	describe('User Type Suite', () => {
-		it('checks user`s firstName to be "first_name"', () => {
+	describe('├─── User Type Suite', () => {
+		it('checks user`s first name to be "first_name"', () => {
 			expect(newUser.firstName).toBe('first_name');
 		});
 

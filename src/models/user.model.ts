@@ -47,13 +47,11 @@ class UserModel {
 			// return created user:
 			return result.rows[0];
 		} catch (error) {
-			if (process.env.NODE_ENV !== 'test') {
-				console.error(
-					`User Model: Unable to create ${user.userName}: ${
-						(error as Error).message
-					}`
-				);
-			}
+			console.error(
+				`User Model: Unable to create ${user.userName}: ${
+					(error as Error).message
+				}`
+			);
 		}
 	};
 
@@ -77,13 +75,11 @@ class UserModel {
 			// return a specific user:
 			return result.rows[0];
 		} catch (error) {
-			if (process.env.NODE_ENV !== 'test') {
-				console.error(
-					`User Model: Unable to show ${userID}: ${
-						(error as Error).message
-					}`
-				);
-			}
+			console.error(
+				`User Model: Unable to show ${userID}: ${
+					(error as Error).message
+				}`
+			);
 		}
 	};
 
@@ -106,13 +102,9 @@ class UserModel {
 			// return all users:
 			return result.rows;
 		} catch (error) {
-			if (process.env.NODE_ENV !== 'test') {
-				console.error(
-					`User Model: Unable to show users: ${
-						(error as Error).message
-					}`
-				);
-			}
+			console.error(
+				`User Model: Unable to show users: ${(error as Error).message}`
+			);
 		}
 	};
 
@@ -145,13 +137,11 @@ class UserModel {
 			// return updated user:
 			return result.rows[0];
 		} catch (error) {
-			if (process.env.NODE_ENV !== 'test') {
-				console.error(
-					`User Model: Unable to update ${userID}: ${
-						(error as Error).message
-					}`
-				);
-			}
+			console.error(
+				`User Model: Unable to update ${userID}: ${
+					(error as Error).message
+				}`
+			);
 		}
 	};
 
@@ -175,13 +165,11 @@ class UserModel {
 			// return deleted user:
 			return result.rows[0];
 		} catch (error) {
-			if (process.env.NODE_ENV !== 'test') {
-				console.error(
-					`User Model: Unable to delete ${userID}: ${
-						(error as Error).message
-					}`
-				);
-			}
+			console.error(
+				`User Model: Unable to delete ${userID}: ${
+					(error as Error).message
+				}`
+			);
 		}
 	};
 }

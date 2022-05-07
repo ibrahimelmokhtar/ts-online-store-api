@@ -7,19 +7,20 @@ import { NIL as NIL_UUID } from 'uuid';
 const productModel = new ProductModel();
 
 export const productModelSpecs = () => {
-	describe('Product Model Suite', () => {
+	describe('├─── Product Model Suite', () => {
 		// create products table:
 		beforeAll(async () => {
 			const client: PoolClient = await pool.connect();
 			const sql = `
 		CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-        CREATE TABLE products (
+        CREATE TABLE IF NOT EXISTS products (
             id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
             name VARCHAR(100) NOT NULL,
             price FLOAT NOT NULL,
             category VARCHAR(50) NOT NULL
         );`;
 			await client.query(sql);
+			client.release();
 		});
 
 		it('creates new product within the database', async () => {
@@ -80,6 +81,7 @@ export const productModelSpecs = () => {
 			const client: PoolClient = await pool.connect();
 			const sql = 'DROP TABLE products';
 			await client.query(sql);
+			client.release();
 		});
 	});
 };
