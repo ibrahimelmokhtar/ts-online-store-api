@@ -1,5 +1,8 @@
-import { PoolClient } from 'pg';
-import pool from '../../database';
+import { UNIQUE_UUID } from './../../constants/unique.uuid';
+import {
+	DEFAULT_PRODUCT,
+	OTHER_PRODUCT,
+} from '../../constants/product.type.constant';
 import Product from '../../types/product.type';
 import ProductModel from '../product.model';
 import { NIL as NIL_UUID } from 'uuid';
@@ -7,32 +10,14 @@ import { NIL as NIL_UUID } from 'uuid';
 const productModel = new ProductModel();
 
 export const productModelSpecs = () => {
-	describe('├─── Product Model Suite', () => {
-		// create products table:
-		beforeAll(async () => {
-			const client: PoolClient = await pool.connect();
-			const sql = `
-		CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-        CREATE TABLE IF NOT EXISTS products (
-            id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-            name VARCHAR(100) NOT NULL,
-            price FLOAT NOT NULL,
-            category VARCHAR(50) NOT NULL
-        );`;
-			await client.query(sql);
-			client.release();
-		});
+	const product: Product = DEFAULT_PRODUCT;
 
+	describe('├─── Product Model Suite', () => {
 		it('creates new product within the database', async () => {
-			const product: Product = {
-				id: NIL_UUID,
-				name: 'product_name',
-				price: 99.99,
-				category: 'product_category',
-			};
 			const createdProduct: Product = (await productModel.create(
-				product
+				DEFAULT_PRODUCT
 			)) as Product;
+			(await productModel.create(OTHER_PRODUCT)) as Product;
 
 			expect(createdProduct.name).toEqual(product.name);
 		});
@@ -47,19 +32,12 @@ export const productModelSpecs = () => {
 
 		it('shows all products from the database', async () => {
 			const products: Product[] =
-				(await productModel.showAllProducts()) as Product[];
+				(await productModel.showAll()) as Product[];
 
-			expect(products.length).toEqual(1);
+			expect(products.length).toEqual(2);
 		});
 
 		it('updates a specific product within the database', async () => {
-			const product: Product = {
-				id: NIL_UUID,
-				name: 'product_name',
-				price: 99.99,
-				category: 'product_category',
-			};
-
 			const updatedProduct: Product = (await productModel.update(
 				product.id as string,
 				product
@@ -70,18 +48,10 @@ export const productModelSpecs = () => {
 
 		it('deletes a specific product from the database', async () => {
 			const product: Product = (await productModel.delete(
-				NIL_UUID
+				UNIQUE_UUID
 			)) as Product;
 
-			expect(product.id).toEqual(NIL_UUID);
-		});
-
-		// delete products table:
-		afterAll(async () => {
-			const client: PoolClient = await pool.connect();
-			const sql = 'DROP TABLE products';
-			await client.query(sql);
-			client.release();
+			expect(product.id).toEqual(UNIQUE_UUID);
 		});
 	});
 };

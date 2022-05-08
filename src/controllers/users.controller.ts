@@ -79,8 +79,7 @@ export const showAllController = async (
 ): Promise<void> => {
 	try {
 		// use user model to show all User objects:
-		const users: Array<User> =
-			(await userModel.showAllUsers()) as Array<User>;
+		const users: Array<User> = (await userModel.showAll()) as Array<User>;
 
 		// send a response back to the user:
 		res.json({

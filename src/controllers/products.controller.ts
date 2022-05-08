@@ -1,4 +1,4 @@
-import { DEFAULT_PRODUCT } from './../constants/product.type.constant';
+import { DEFAULT_PRODUCT } from '../constants/product.type.constant';
 import { Request, Response } from 'express';
 import ProductModel from '../models/product.model';
 import Product from '../types/product.type';
@@ -84,7 +84,7 @@ export const showAllController = async (
 	try {
 		// use product model to show all Product objects:
 		const products: Array<Product> =
-			(await productModel.showAllProducts()) as Array<Product>;
+			(await productModel.showAll()) as Array<Product>;
 
 		// send a response back to the product:
 		res.json({

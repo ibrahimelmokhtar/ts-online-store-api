@@ -87,7 +87,7 @@ class UserModel {
 	 * @description Show all User objects from the database.
 	 * @returns {User[]} Array of User objects.
 	 */
-	showAllUsers = async (): Promise<User[] | void> => {
+	showAll = async (): Promise<User[] | void> => {
 		try {
 			// connect to database:
 			const client: PoolClient = await pool.connect();

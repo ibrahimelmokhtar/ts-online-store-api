@@ -9,7 +9,6 @@
   "scripts": {
     "build": "npx tsc",
     "clean": "rimraf ./build",
-    "jasmine": "SET NODE_ENV=test&&jasmine",
     "lint": "eslint . --ext .ts",
     "migration:reset": "db-migrate reset",
     "migration:run": "db-migrate up",
@@ -18,7 +17,7 @@
     "pretest": "npm run build",
     "prettier": "prettier --config .prettierrc src/**/*.ts --write",
     "start": "node ./build/server.js",
-    "test": "npm run jasmine",
+    "test": "SET NODE_ENV=test&& npm run migration:reset && npm run migration:run && jasmine",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./build --onSuccess \"node ./build/server.js\""
   },
   "repository": {
