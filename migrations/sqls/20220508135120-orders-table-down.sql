@@ -1,2 +1,2 @@
--- delete products table:
+-- delete orders table:
 DROP TABLE IF EXISTS orders;

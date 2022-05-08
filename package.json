@@ -17,7 +17,9 @@
     "pretest": "npm run build",
     "prettier": "prettier --config .prettierrc src/**/*.ts --write",
     "start": "node ./build/server.js",
-    "test": "SET NODE_ENV=test&& npm run migration:reset && npm run migration:run && jasmine",
+    "test": "SET NODE_ENV=test&& db-migrate reset && db-migrate up && jasmine",
+    "test:migration:reset": "SET NODE_ENV=test&& db-migrate reset",
+    "test:migration:run": "SET NODE_ENV=test&& db-migrate up",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./build --onSuccess \"node ./build/server.js\""
   },
   "repository": {
