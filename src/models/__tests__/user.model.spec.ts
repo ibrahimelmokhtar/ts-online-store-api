@@ -1,4 +1,4 @@
-import { UNIQUE_UUID } from './../../constants/unique.uuid';
+import { UNIQUE_UUID } from '../../constants/unique.uuid.constant';
 import User from '../../types/user.type';
 import UserModel from '../user.model';
 import { DEFAULT_USER, OTHER_USER } from '../../constants/user.type.constant';

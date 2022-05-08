@@ -123,8 +123,14 @@ This project has the structure shown below:
         ├─── 20220505125703-users-table-up.sql
         ├─── 20220507132301-products-table-down.sql
         ├─── 20220507132301-products-table-up.sql
+        ├─── 20220508135120-orders-table-down.sql
+        ├─── 20220508135120-orders-table-up.sql
+        ├─── 20220508135656-order-products-table-down.sql
+        ├─── 20220508135656-order-products-table-up.sql
     ├─── 20220505125703-users-table.js
     ├─── 20220507132301-products-table.js
+    ├─── 20220508135120-orders-table.js
+    ├─── 20220508135656-order-products-table.js
 ├─── spec/
     ├─── support/
         ├─── jasmine.json
@@ -133,9 +139,12 @@ This project has the structure shown below:
         ├─── env.config.ts
         ├─── server.config.ts
     ├─── constants/
+        ├─── order.type.constant.ts
         ├─── product.type.constant.ts
+        ├─── unique.uuid.constant.ts
         ├─── user.type.constant.ts
     ├─── controllers/
+        ├─── orders.controller.ts
         ├─── products.controller.ts
         ├─── users.controller.ts
     ├─── database/
@@ -152,8 +161,10 @@ This project has the structure shown below:
     ├─── models/
         ├─── __tests__/
             ├─── index.spec.ts
+            ├─── order.model.spec.ts
             ├─── product.model.spec.ts
             ├─── user.model.spec.ts
+        ├─── order.model.ts
         ├─── product.model.ts
         ├─── user.model.ts
     ├─── routes/
@@ -168,6 +179,7 @@ This project has the structure shown below:
             ├─── users.routes.ts
         ├─── index.ts
     ├─── schemas/
+        ├─── orders.schemas.ts
         ├─── products.schemas.ts
         ├─── users.schemas.ts
     ├─── types/

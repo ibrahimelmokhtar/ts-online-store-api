@@ -4,7 +4,7 @@ import {
 } from '../../constants/product.type.constant';
 import Product from '../../types/product.type';
 import ProductModel from '../product.model';
-import { UNIQUE_UUID } from '../../constants/unique.uuid';
+import { UNIQUE_UUID } from '../../constants/unique.uuid.constant';
 
 const productModel = new ProductModel();
 

@@ -1,4 +1,4 @@
-import { UNIQUE_UUID } from './../../constants/unique.uuid';
+import { UNIQUE_UUID } from '../../constants/unique.uuid.constant';
 import { NIL as NIL_UUID } from 'uuid';
 import {
 	DEFAULT_ORDER,
