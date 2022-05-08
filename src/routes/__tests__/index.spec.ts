@@ -8,7 +8,7 @@ const req = supertest(app);
 
 describe('├─── Server Endpoints Suites', () => {
 	// main endpoint suite:
-	describe('Main Endpoint Suite', () => {
+	describe('├─── Main Endpoint Suite', () => {
 		it('GET (/) route response', async () => {
 			const res = await req.get('/');
 			expect(res.statusCode).toBe(200);

@@ -132,6 +132,9 @@ This project has the structure shown below:
     ├─── config/
         ├─── env.config.ts
         ├─── server.config.ts
+    ├─── constants/
+        ├─── product.type.constant.ts
+        ├─── user.type.constant.ts
     ├─── controllers/
         ├─── products.controller.ts
         ├─── users.controller.ts
@@ -165,6 +168,7 @@ This project has the structure shown below:
             ├─── users.routes.ts
         ├─── index.ts
     ├─── schemas/
+        ├─── products.schemas.ts
         ├─── users.schemas.ts
     ├─── types/
         ├─── __tests__/
