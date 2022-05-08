@@ -17,10 +17,11 @@ pool.on('error', (error: Error): void => {
 	process.exit(-1);
 });
 
-pool.on('connect', () => {
-	console.log(
-		`total: ${pool.totalCount}, idle: ${pool.idleCount}, waiting: ${pool.waitingCount}`
-	);
-});
+// USED WHILE DEBUGGING:
+// pool.on('connect', () => {
+// 	console.log(
+// 		`total: ${pool.totalCount}, idle: ${pool.idleCount}, waiting: ${pool.waitingCount}`
+// 	);
+// });
 
 export default pool;

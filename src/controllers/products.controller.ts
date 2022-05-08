@@ -1,7 +1,7 @@
+import { DEFAULT_PRODUCT } from './../constants/product.type.constant';
 import { Request, Response } from 'express';
 import ProductModel from '../models/product.model';
 import Product from '../types/product.type';
-import { NIL as NIL_UUID } from 'uuid';
 
 // create new object from ProductModel:
 const productModel = new ProductModel();
@@ -16,16 +16,13 @@ export const createController = async (
 	res: Response
 ): Promise<void> => {
 	try {
+		// use DEFAULT_PRODUCT while testing:
+		if (process.env.NODE_ENV === 'test') {
+			req.body = DEFAULT_PRODUCT;
+		}
+
 		// use product model to create the new Product object ...
 		// then save it within a specific DB table:
-		if (process.env.NODE_ENV === 'test') {
-			req.body = {
-				id: NIL_UUID,
-				name: 'product_name',
-				price: 99.99,
-				category: 'product_category',
-			};
-		}
 		const product: Product = (await productModel.create(
 			req.body
 		)) as Product;
@@ -115,14 +112,11 @@ export const updateController = async (
 	res: Response
 ): Promise<void> => {
 	try {
+		// use DEFAULT_PRODUCT while testing:
 		if (process.env.NODE_ENV === 'test') {
-			req.body = {
-				id: NIL_UUID,
-				name: 'product_name',
-				price: 99.99,
-				category: 'product_category',
-			};
+			req.body = DEFAULT_PRODUCT;
 		}
+
 		// use product model to update a specific Product object ...
 		// then save it within a specific DB table:
 		const product: Product = (await productModel.update(

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
+import { DEFAULT_USER } from '../constants/user.type.constant';
 import UserModel from '../models/user.model';
 import User from '../types/user.type';
-import { NIL as NIL_UUID } from 'uuid';
 
 // create new object from UserModel:
 const userModel = new UserModel();
@@ -16,18 +16,13 @@ export const createController = async (
 	res: Response
 ): Promise<void> => {
 	try {
+		// use DEFAULT_USER while testing:
+		if (process.env.NODE_ENV === 'test') {
+			req.body = DEFAULT_USER;
+		}
+
 		// use user model to create the new User object ...
 		// then save it within a specific DB table:
-		if (process.env.NODE_ENV === 'test') {
-			req.body = {
-				id: NIL_UUID,
-				firstName: 'first_name',
-				lastName: 'last_name',
-				userName: 'user_name',
-				email: 'email@email.com',
-				password: 'password',
-			};
-		}
 		const user: User = (await userModel.create(req.body)) as User;
 
 		// send a response back to the user:
@@ -113,16 +108,11 @@ export const updateController = async (
 	res: Response
 ): Promise<void> => {
 	try {
+		// use DEFAULT_USER while testing:
 		if (process.env.NODE_ENV === 'test') {
-			req.body = {
-				id: NIL_UUID,
-				firstName: 'first_name',
-				lastName: 'last_name',
-				userName: 'user_name',
-				email: 'email@email.com',
-				password: 'password',
-			};
+			req.body = DEFAULT_USER;
 		}
+
 		// use user model to update a specific User object ...
 		// then save it within a specific DB table:
 		const user: User = (await userModel.update(
