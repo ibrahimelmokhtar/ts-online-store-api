@@ -1,4 +1,10 @@
 import { Request, Response, Router } from 'express';
+import * as ordersController from '../../controllers/orders.controller';
+import validateRequest from '../../middlewares/validator.middleware';
+import {
+	orderBodyValidationRules,
+	orderParamsValidationRules,
+} from '../../schemas/orders.schemas';
 
 // create Express Router:
 const ordersRoute: Router = Router();
@@ -7,5 +13,76 @@ const ordersRoute: Router = Router();
 ordersRoute.get('/', async (_req: Request, res: Response): Promise<void> => {
 	res.json({ message: 'inside << orders >> route.' });
 });
+
+// available routes for CRUD operations within /orders route:
+
+// CREATE ONE:
+ordersRoute.post(
+	'/create',
+	orderBodyValidationRules,
+	validateRequest,
+	ordersController.createController
+);
+
+// READ ONE:
+ordersRoute.get(
+	'/show',
+	orderParamsValidationRules,
+	validateRequest,
+	(_req: Request, res: Response) => {
+		res.json({
+			message: 'Order ID is required ...',
+		});
+	}
+);
+
+ordersRoute.get(
+	'/show/:id',
+	orderParamsValidationRules,
+	validateRequest,
+	ordersController.showController
+);
+
+// READ ALL:
+ordersRoute.get('/showAll', ordersController.showAllController);
+
+// UPDATE ONE:
+ordersRoute.put(
+	'/update',
+	orderParamsValidationRules,
+	validateRequest,
+	(_req: Request, res: Response) => {
+		res.json({
+			message: 'Order ID is required ...',
+		});
+	}
+);
+
+ordersRoute.put(
+	'/update/:id',
+	orderParamsValidationRules,
+	orderBodyValidationRules,
+	validateRequest,
+	ordersController.updateController
+);
+
+// DELETE ONE:
+ordersRoute.delete(
+	'/delete',
+	orderParamsValidationRules,
+	validateRequest,
+	(_req: Request, res: Response) => {
+		res.json({
+			message: 'Order ID is required ...',
+		});
+	}
+);
+
+ordersRoute.delete(
+	'/delete/:id',
+	orderParamsValidationRules,
+	validateRequest,
+	ordersController.deleteController
+);
 
 export default ordersRoute;

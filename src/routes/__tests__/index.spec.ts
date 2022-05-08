@@ -15,12 +15,12 @@ describe('├─── Server Endpoints Suites', () => {
 		});
 	});
 
-	// orders endpoints suite:
-	ordersEndpointsSpecs();
+	// users endpoints suite:
+	usersEndpointsSpecs();
 
 	// products endpoints suite:
 	productsEndpointsSpecs();
 
-	// users endpoints suite:
-	usersEndpointsSpecs();
+	// orders endpoints suite:
+	ordersEndpointsSpecs();
 });
