@@ -42,8 +42,6 @@ class OrderProductModel {
 		orderProduct: OrderProduct
 	): Promise<OrderProduct | void> => {
 		try {
-			console.log(`orderID from MODEL: ${orderID}`);
-
 			// connect to database:
 			const client: PoolClient = await pool.connect();
 
@@ -82,8 +80,6 @@ class OrderProductModel {
 
 			// run desired query:
 			const result = await client.query(sql, sentValues);
-
-			console.log(result.rows[0]);
 
 			// release connection:
 			client.release();

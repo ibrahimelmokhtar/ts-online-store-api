@@ -21,7 +21,7 @@ export const usersEndpointsSpecs = () => {
 			expect(res.statusCode).toBe(200);
 		});
 
-		it('GET (/users/show/:id) route response', async () => {
+		it('GET (/users/show/:userID) route response', async () => {
 			const res = await req.get(`/users/show/${NIL_UUID}`);
 			expect(res.statusCode).toBe(200);
 		});
@@ -31,14 +31,14 @@ export const usersEndpointsSpecs = () => {
 			expect(res.statusCode).toBe(200);
 		});
 
-		it('PUT (/users/update/:id) route response', async () => {
+		it('PUT (/users/update/:userID) route response', async () => {
 			const res = await req
 				.put(`/users/update/${UNIQUE_UUID}`)
 				.send(OTHER_USER);
 			expect(res.statusCode).toBe(200);
 		});
 
-		it('DELETE (/users/delete/:id) route response', async () => {
+		it('DELETE (/users/delete/:userID) route response', async () => {
 			const res = await req.delete(`/users/delete/${UNIQUE_UUID}`);
 			expect(res.statusCode).toBe(200);
 		});

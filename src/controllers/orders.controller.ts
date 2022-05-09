@@ -1,4 +1,3 @@
-import { DEFAULT_ORDER } from '../constants/order.type.constant';
 import { Request, Response } from 'express';
 import Order from '../types/order.type';
 import OrderModel from '../models/order.model';
@@ -16,11 +15,6 @@ export const createController = async (
 	res: Response
 ): Promise<void> => {
 	try {
-		// use DEFAULT_ORDER while testing:
-		if (process.env.NODE_ENV === 'test') {
-			req.body = DEFAULT_ORDER;
-		}
-
 		// use order model to create the new Order object ...
 		// then save it within a specific DB table:
 		const order: Order = (await orderModel.create(req.body)) as Order;
@@ -51,7 +45,9 @@ export const showController = async (
 ): Promise<void> => {
 	try {
 		// use order model to show a specific Order object:
-		const order: Order = (await orderModel.show(req.params.id)) as Order;
+		const order: Order = (await orderModel.show(
+			req.params.orderID
+		)) as Order;
 
 		// send a response back to the order:
 		res.json({
@@ -108,15 +104,10 @@ export const updateController = async (
 	res: Response
 ): Promise<void> => {
 	try {
-		// use DEFAULT_ORDER while testing:
-		if (process.env.NODE_ENV === 'test') {
-			req.body = DEFAULT_ORDER;
-		}
-
 		// use order model to update a specific Order object ...
 		// then save it within a specific DB table:
 		const order: Order = (await orderModel.update(
-			req.params.id,
+			req.params.orderID,
 			req.body
 		)) as Order;
 
@@ -146,7 +137,9 @@ export const deleteController = async (
 ): Promise<void> => {
 	try {
 		// use order model to delete a specific Order object:
-		const order: Order = (await orderModel.delete(req.params.id)) as Order;
+		const order: Order = (await orderModel.delete(
+			req.params.orderID
+		)) as Order;
 
 		// send a response back to the order:
 		res.json({

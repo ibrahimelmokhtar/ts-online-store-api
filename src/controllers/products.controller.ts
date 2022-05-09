@@ -1,4 +1,3 @@
-import { DEFAULT_PRODUCT } from '../constants/product.type.constant';
 import { Request, Response } from 'express';
 import ProductModel from '../models/product.model';
 import Product from '../types/product.type';
@@ -16,11 +15,6 @@ export const createController = async (
 	res: Response
 ): Promise<void> => {
 	try {
-		// use DEFAULT_PRODUCT while testing:
-		if (process.env.NODE_ENV === 'test') {
-			req.body = DEFAULT_PRODUCT;
-		}
-
 		// use product model to create the new Product object ...
 		// then save it within a specific DB table:
 		const product: Product = (await productModel.create(
@@ -54,7 +48,7 @@ export const showController = async (
 	try {
 		// use product model to show a specific Product object:
 		const product: Product = (await productModel.show(
-			req.params.id
+			req.params.productID
 		)) as Product;
 
 		// send a response back to the product:
@@ -112,15 +106,10 @@ export const updateController = async (
 	res: Response
 ): Promise<void> => {
 	try {
-		// use DEFAULT_PRODUCT while testing:
-		if (process.env.NODE_ENV === 'test') {
-			req.body = DEFAULT_PRODUCT;
-		}
-
 		// use product model to update a specific Product object ...
 		// then save it within a specific DB table:
 		const product: Product = (await productModel.update(
-			req.params.id,
+			req.params.productID,
 			req.body
 		)) as Product;
 
@@ -151,7 +140,7 @@ export const deleteController = async (
 	try {
 		// use product model to delete a specific Product object:
 		const product: Product = (await productModel.delete(
-			req.params.id
+			req.params.productID
 		)) as Product;
 
 		// send a response back to the product:

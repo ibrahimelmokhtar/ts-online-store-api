@@ -30,7 +30,7 @@ export const productBodyValidationRules = [
 ];
 
 export const productParamsValidationRules = [
-	param('id')
+	param('productID')
 		.isUUID(4)
 		.withMessage('Product`s ID is NOT UUID')
 		.exists()

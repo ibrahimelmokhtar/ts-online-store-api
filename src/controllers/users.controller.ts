@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { DEFAULT_USER } from '../constants/user.type.constant';
 import UserModel from '../models/user.model';
 import User from '../types/user.type';
 
@@ -16,11 +15,6 @@ export const createController = async (
 	res: Response
 ): Promise<void> => {
 	try {
-		// use DEFAULT_USER while testing:
-		if (process.env.NODE_ENV === 'test') {
-			req.body = DEFAULT_USER;
-		}
-
 		// use user model to create the new User object ...
 		// then save it within a specific DB table:
 		const user: User = (await userModel.create(req.body)) as User;
@@ -51,7 +45,7 @@ export const showController = async (
 ): Promise<void> => {
 	try {
 		// use user model to show a specific User object:
-		const user: User = (await userModel.show(req.params.id)) as User;
+		const user: User = (await userModel.show(req.params.userID)) as User;
 
 		// send a response back to the user:
 		res.json({
@@ -107,15 +101,10 @@ export const updateController = async (
 	res: Response
 ): Promise<void> => {
 	try {
-		// use DEFAULT_USER while testing:
-		if (process.env.NODE_ENV === 'test') {
-			req.body = DEFAULT_USER;
-		}
-
 		// use user model to update a specific User object ...
 		// then save it within a specific DB table:
 		const user: User = (await userModel.update(
-			req.params.id,
+			req.params.userID,
 			req.body
 		)) as User;
 
@@ -145,7 +134,7 @@ export const deleteController = async (
 ): Promise<void> => {
 	try {
 		// use user model to delete a specific User object:
-		const user: User = (await userModel.delete(req.params.id)) as User;
+		const user: User = (await userModel.delete(req.params.userID)) as User;
 
 		// send a response back to the user:
 		res.json({

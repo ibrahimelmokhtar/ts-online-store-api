@@ -24,7 +24,7 @@ export const productsEndpointsSpecs = () => {
 			expect(res.statusCode).toBe(200);
 		});
 
-		it('GET (/products/show/:id) route response', async () => {
+		it('GET (/products/show/:productID) route response', async () => {
 			const res = await req.get(`/products/show/${NIL_UUID}`);
 			expect(res.statusCode).toBe(200);
 		});
@@ -34,14 +34,14 @@ export const productsEndpointsSpecs = () => {
 			expect(res.statusCode).toBe(200);
 		});
 
-		it('UPDATE (/products/update/:id) route response', async () => {
+		it('UPDATE (/products/update/:productID) route response', async () => {
 			const res = await req
 				.put(`/products/update/${UNIQUE_UUID}`)
 				.send(OTHER_PRODUCT);
 			expect(res.statusCode).toBe(200);
 		});
 
-		it('DELETE (/products/delete/:id) route response', async () => {
+		it('DELETE (/products/delete/:productID) route response', async () => {
 			const res = await req.delete(`/products/delete/${UNIQUE_UUID}`);
 			expect(res.statusCode).toBe(200);
 		});

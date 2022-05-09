@@ -19,7 +19,7 @@ export const orderBodyValidationRules = [
 ];
 
 export const orderParamsValidationRules = [
-	param('id')
+	param('orderID')
 		.isUUID(4)
 		.withMessage('Order`s ID is NOT UUID')
 		.exists()

@@ -11,7 +11,7 @@ const mainRoute: Router = Router();
 mainRoute.use('/users', usersRoute);
 mainRoute.use('/products', productsRoute);
 mainRoute.use('/orders', ordersRoute);
-mainRoute.use('/orders/:orderID', orderProductsRoute);
+mainRoute.use('/orders', orderProductsRoute);
 
 // sample GET method from main route:
 mainRoute.get('/', async (_req: Request, res: Response): Promise<void> => {

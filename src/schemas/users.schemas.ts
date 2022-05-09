@@ -45,7 +45,7 @@ export const userBodyValidationRules = [
 ];
 
 export const userParamsValidationRules = [
-	param('id')
+	param('userID')
 		.isUUID(4)
 		.withMessage('User`s ID is NOT UUID')
 		.exists()
