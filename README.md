@@ -145,6 +145,7 @@ This project has the structure shown below:
         ├─── unique.uuid.constant.ts
         ├─── user.type.constant.ts
     ├─── controllers/
+        ├─── orderProducts.controller.ts
         ├─── orders.controller.ts
         ├─── products.controller.ts
         ├─── users.controller.ts
@@ -173,15 +174,18 @@ This project has the structure shown below:
     ├─── routes/
         ├─── __tests__/
             ├─── index.spec.ts
+            ├─── orderProducts.routes.spec.ts
             ├─── orders.routes.spec.ts
             ├─── products.routes.spec.ts
             ├─── users.routes.spec.ts
         ├─── api/
+            ├─── orderProducts.routes.ts
             ├─── orders.routes.ts
             ├─── products.routes.ts
             ├─── users.routes.ts
         ├─── index.ts
     ├─── schemas/
+        ├─── orderProducts.schemas.ts
         ├─── orders.schemas.ts
         ├─── products.schemas.ts
         ├─── users.schemas.ts
