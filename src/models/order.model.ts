@@ -76,9 +76,9 @@ class OrderModel {
 
 	/**
 	 * @description Show all Order objects from the database.
-	 * @returns {Order[]} Array of Order objects.
+	 * @returns {Array<Order>} Array of Order objects.
 	 */
-	showAll = async (): Promise<Order[] | void> => {
+	showAll = async (): Promise<Array<Order> | void> => {
 		try {
 			// connect to database:
 			const client: PoolClient = await pool.connect();

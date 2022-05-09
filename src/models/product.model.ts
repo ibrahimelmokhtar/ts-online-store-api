@@ -76,9 +76,9 @@ class ProductModel {
 
 	/**
 	 * @description Show all Product objects from the database.
-	 * @returns {Product[]} Array of Product objects.
+	 * @returns {Array<Product>} Array of Product objects.
 	 */
-	showAll = async (): Promise<Product[] | void> => {
+	showAll = async (): Promise<Array<Product> | void> => {
 		try {
 			// connect to database:
 			const client: PoolClient = await pool.connect();

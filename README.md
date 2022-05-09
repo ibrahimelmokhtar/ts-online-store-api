@@ -140,6 +140,7 @@ This project has the structure shown below:
         ├─── server.config.ts
     ├─── constants/
         ├─── order.type.constant.ts
+        ├─── orderProduct.type.constant.ts
         ├─── product.type.constant.ts
         ├─── unique.uuid.constant.ts
         ├─── user.type.constant.ts
@@ -162,9 +163,11 @@ This project has the structure shown below:
         ├─── __tests__/
             ├─── index.spec.ts
             ├─── order.model.spec.ts
+            ├─── orderProduct.model.spec.ts
             ├─── product.model.spec.ts
             ├─── user.model.spec.ts
         ├─── order.model.ts
+        ├─── orderProduct.model.ts
         ├─── product.model.ts
         ├─── user.model.ts
     ├─── routes/
@@ -186,9 +189,11 @@ This project has the structure shown below:
         ├─── __tests__/
             ├─── index.spec.ts
             ├─── order.type.spec.ts
+            ├─── orderProduct.type.spec.ts
             ├─── product.type.spec.ts
             ├─── user.type.spec.ts
         ├─── order.type.ts
+        ├─── orderProduct.type.ts
         ├─── product.type.ts
         ├─── user.type.ts
     ├─── server.ts

@@ -3,6 +3,6 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE TABLE IF NOT EXISTS order_products (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
     order_id UUID REFERENCES orders(id) NOT NULL,
-    product_quantity INTEGER NOT NULL,
-    product_id UUID REFERENCES products(id) NOT NULL
+    product_id UUID REFERENCES products(id) NOT NULL,
+    quantity INTEGER NOT NULL
 );

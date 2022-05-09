@@ -22,6 +22,11 @@ These are the notes from a meeting with the frontend developer that describe wha
     - [Update Specific Product](#update-specific-product)
     - [Delete Specific Product](#delete-specific-product)
   - [`/orders` Endpoints](#orders-endpoints)
+    - [Create New Order](#create-new-order)
+    - [Show Specific Order](#show-specific-order)
+    - [Show All Orders](#show-all-orders)
+    - [Update Specific Order](#update-specific-order)
+    - [Delete Specific Order](#delete-specific-order)
 - [Data Shapes](#data-shapes)
   - [User Shape](#user-shape)
   - [Product Shape](#product-shape)
@@ -84,7 +89,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 - HTTP Method: **`GET`**
 - Endpoint: `/users/show/:id`
 - Request Body: `N/A`
-- Request Params: `:id [integer]`
+- Request Params: `:id [UUIDv4]`
 - Response Body: `User object`
 - Example:
 
@@ -155,7 +160,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 - HTTP Method: **`PUT`**
 - Endpoint: `/users/update/:id`
 - Request Body: `User object`
-- Request Params: `:id [integer]`
+- Request Params: `:id [UUIDv4]`
 - Response Body: `User object`
 - Example:
 
@@ -197,7 +202,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 - HTTP Method: **`DELETE`**
 - Endpoint: `/users/delete/:id`
 - Request Body: `N/A`
-- Request Params: `:id [integer]`
+- Request Params: `:id [UUIDv4]`
 - Response Body: `User object`
 - Example:
 
@@ -222,8 +227,6 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
     ```
 
 ## `/products` Endpoints
-
-[(Back to top)](#table-of-contents)
 
 ### Create New Product
 
@@ -270,7 +273,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 - HTTP Method: **`GET`**
 - Endpoint: `/products/show/:id`
 - Request Body: `N/A`
-- Request Params: `:id [integer]`
+- Request Params: `:id [UUIDv4]`
 - Response Body: `Product object`
 - Example:
 
@@ -335,7 +338,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 - HTTP Method: **`PUT`**
 - Endpoint: `/products/update/:id`
 - Request Body: `Product object`
-- Request Params: `:id [integer]`
+- Request Params: `:id [UUIDv4]`
 - Response Body: `Product object`
 - Example:
 
@@ -373,7 +376,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 - HTTP Method: **`DELETE`**
 - Endpoint: `/products/delete/:id`
 - Request Body: `N/A`
-- Request Params: `:id [integer]`
+- Request Params: `:id [UUIDv4]`
 - Response Body: `Product object`
 - Example:
 
@@ -397,7 +400,167 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 ## `/orders` Endpoints
 
+### Create New Order
+
 [(Back to top)](#table-of-contents)
+
+- HTTP Method: **`POST`**
+- Endpoint: `/orders/create`
+- Request Body: `Order object`
+- Request Params: `N/A`
+- Response Body: `Order object`
+- Example:
+
+    ```http
+    - Request URL: /orders/create/
+    ```
+
+    ```json
+    - Request Body:
+        {
+            "userID": "d485b697-69c2-4198-8231-f6054841baaf",
+            "isDone": false,
+        }
+    ```
+
+    ```json
+    - Response Body:
+        {
+            "status": "success",
+            "data": {
+                "id": "72aa3c1e-290b-458b-9522-e10d98ab6131",
+                "is_done": false,
+                "user_id": "d485b697-69c2-4198-8231-f6054841baaf"
+            },
+            "message": "Order created successfully."
+        }
+    ```
+
+### Show Specific Order
+
+[(Back to top)](#table-of-contents)
+
+- HTTP Method: **`GET`**
+- Endpoint: `/orders/show/:id`
+- Request Body: `N/A`
+- Request Params: `:id [UUIDv4]`
+- Response Body: `order object`
+- Example:
+
+    ```http
+    - Request URL: /orders/show/72aa3c1e-290b-458b-9522-e10d98ab6131
+    ```
+
+    ```json
+    - Response Body:
+        {
+            "status": "success",
+            "data": {
+                "id": "72aa3c1e-290b-458b-9522-e10d98ab6131",
+                "is_done": false,
+                "user_id": "d485b697-69c2-4198-8231-f6054841baaf"
+            },
+            "message": "Order shown successfully."
+        }
+    ```
+
+### Show All Orders
+
+[(Back to top)](#table-of-contents)
+
+- HTTP Method: **`GET`**
+- Endpoint: `/orders/showAll`
+- Request Body: `N/A`
+- Request Params: `N/A`
+- Response Body: `Array of Order objects`
+- Example:
+
+    ```http
+    - Request URL: /orders/showAll
+    ```
+
+    ```json
+    - Response Body:
+        {
+            "status": "success",
+            "totalUsers": 2,
+            "data": [{
+            "id": "72aa3c1e-290b-458b-9522-e10d98ab6131",
+            "is_done": false,
+            "user_id": "9c9b58d5-7bfb-4be0-b1c3-95479df6d821"
+        },
+        {
+            "id": "7b5b366e-935f-4e6e-8a9d-271725b153e3",
+            "is_done": true,
+            "user_id": "9c9b58d5-7bfb-4be0-b1c3-95479df6d821"
+        }],
+            "message": "Orders shown successfully."
+        }
+    ```
+
+### Update Specific Order
+
+[(Back to top)](#table-of-contents)
+
+- HTTP Method: **`PUT`**
+- Endpoint: `/orders/update/:id`
+- Request Body: `Order object`
+- Request Params: `:id [UUIDv4]`
+- Response Body: `Order object`
+- Example:
+
+    ```http
+    - Request URL: /orders/update/72aa3c1e-290b-458b-9522-e10d98ab6131
+    ```
+
+    ```json
+    - Request Body:
+        {
+            "isDone": true,
+            "userID": "9c9b58d5-7bfb-4be0-b1c3-95479df6d821"
+        }
+    ```
+
+    ```json
+    - Response Body:
+        {
+            "status": "success",
+            "data": {
+                "id": "72aa3c1e-290b-458b-9522-e10d98ab6131",
+                "is_done": true,
+                "user_id": "9c9b58d5-7bfb-4be0-b1c3-95479df6d821"
+            },
+            "message": "Order updated successfully."
+        }
+    ```
+
+### Delete Specific Order
+
+[(Back to top)](#table-of-contents)
+
+- HTTP Method: **`DELETE`**
+- Endpoint: `/orders/delete/:id`
+- Request Body: `N/A`
+- Request Params: `:id [UUIDv4]`
+- Response Body: `Order object`
+- Example:
+
+    ```http
+    - Request URL: /orders/delete/7b5b366e-935f-4e6e-8a9d-271725b153e3
+    ```
+
+    ```json
+    - Response Body:
+        {
+            "status": "success",
+            "data": {
+                "id": "7b5b366e-935f-4e6e-8a9d-271725b153e3",
+                "is_done": false,
+                "user_id": "9c9b58d5-7bfb-4be0-b1c3-95479df6d821"
+            },
+            "message": "Order deleted successfully."
+        }
+    ```
 
 # Data Shapes
 
@@ -405,24 +568,31 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 ## User Shape
 
-- [OPTIONAL] id
-- firstName
-- lastName
-- userName
-- email
-- password
+| Parameter | Data Type | Additional Information |
+| :--------- | :---------: | :---------: |
+| `id` | uuid (v4) | *automatically generated* |
+| `firstName` | string | - |
+| `lastName` | string | - |
+| `userName` | string | - |
+| `email` | string | - |
+| `password` | string | *will be hashed before saving into database* |
 
 ## Product Shape
 
-- [OPTIONAL] id
-- name
-- price
-- category
+| Parameter | Data Type | Additional Information |
+| :--------- | :---------: | :---------: |
+| `id` | uuid (v4) | *automatically generated* |
+| `name` | string | - |
+| `price` | float | - |
+| `category` | string | - |
 
 ## Order Shape
 
-- [OPTIONAL] id
+| Parameter | Data Type | Additional Information |
+| :--------- | :---------: | :---------: |
+| `id` | uuid (v4) | *automatically generated* |
+| `isDone` | boolean | *`true`: completed, `false`: active* |
+| `userID` | uuid (v4) | *must be in `users` table* |
+
 - id of each product in the order
 - quantity of each product in the order
-- userID
-- status of order (active or complete)
