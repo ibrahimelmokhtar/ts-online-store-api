@@ -1,4 +1,3 @@
-import { DEFAULT_ORDER_PRODUCT } from '../constants/orderProduct.type.constant';
 import { PoolClient } from 'pg';
 import pool from '../database';
 import OrderProduct from '../types/orderProduct.type';
@@ -25,7 +24,7 @@ class OrderProductModel {
 			return result.rows[0]['is_done'];
 		} catch (error) {
 			console.error(
-				`Cart Model: Unable to check ${orderID} status: ${
+				`OrderProduct Model: Unable to check order status ${orderID}: ${
 					(error as Error).message
 				}`
 			);
@@ -35,16 +34,16 @@ class OrderProductModel {
 	/**
 	 * @description Add new product into order_products table.
 	 * @param {string} orderID
-	 * @param {string} productID
-	 * @param {number} quantity
-	 * @returns {Cart} Added Cart object.
+	 * @param {OrderProduct} orderProduct
+	 * @returns {OrderProduct} Added OrderProduct object.
 	 */
 	addProduct = async (
 		orderID: string,
-		quantity: number,
-		productID: string
+		orderProduct: OrderProduct
 	): Promise<OrderProduct | void> => {
 		try {
+			console.log(`orderID from MODEL: ${orderID}`);
+
 			// connect to database:
 			const client: PoolClient = await pool.connect();
 
@@ -54,22 +53,28 @@ class OrderProductModel {
 				sql =
 					'INSERT INTO order_products (id, order_id, product_id, quantity) VALUES ($1, $2, $3, $4) RETURNING *';
 				sentValues = [
-					DEFAULT_ORDER_PRODUCT.id as string,
+					orderProduct.id as string,
 					orderID,
-					productID,
-					quantity,
+					orderProduct.productID,
+					orderProduct.quantity,
 				];
 			} else {
 				sql =
 					'INSERT INTO order_products (order_id, product_id, quantity) VALUES ($1, $2, $3) RETURNING *';
-				sentValues = [orderID, productID, quantity];
+				sentValues = [
+					orderID,
+					orderProduct.productID,
+					orderProduct.quantity,
+				];
 			}
 
 			// check order's status to be (false)--->(active):
-			if (await this.checkOrderStatus(orderID)) {
+			if (await this.checkOrderStatus(orderProduct.orderID)) {
 				console.log(
-					`Cart Model: Unable to add product into ${orderID}: Order status is ${await this.checkOrderStatus(
-						orderID
+					`OrderProduct Model: Unable to add product into ${
+						orderProduct.orderID
+					}: Order status is ${await this.checkOrderStatus(
+						orderProduct.orderID
 					)}`
 				);
 				return;
@@ -78,16 +83,18 @@ class OrderProductModel {
 			// run desired query:
 			const result = await client.query(sql, sentValues);
 
+			console.log(result.rows[0]);
+
 			// release connection:
 			client.release();
 
-			// return a specific cart:
+			// return a specific orderProduct:
 			return result.rows[0];
 		} catch (error) {
 			console.error(
-				`Cart Model: Unable to add product ${productID} into ${orderID}: ${
-					(error as Error).message
-				}`
+				`OrderProduct Model: Unable to add product ${
+					orderProduct.productID
+				} into ${orderID}: ${(error as Error).message}`
 			);
 		}
 	};
@@ -115,11 +122,11 @@ class OrderProductModel {
 			// release connection:
 			client.release();
 
-			// return a specific cart:
+			// return a specific orderProduct:
 			return result.rows[0];
 		} catch (error) {
 			console.error(
-				`Cart Model: Unable to show product ${productID} within ${orderID}: ${
+				`OrderProduct Model: Unable to show product ${productID} within ${orderID}: ${
 					(error as Error).message
 				}`
 			);
@@ -146,11 +153,11 @@ class OrderProductModel {
 			// release connection:
 			client.release();
 
-			// return a specific cart:
+			// return a specific orderProduct:
 			return result.rows;
 		} catch (error) {
 			console.error(
-				`Cart Model: Unable to show products within ${orderID}: ${
+				`OrderProduct Model: Unable to show products within ${orderID}: ${
 					(error as Error).message
 				}`
 			);
@@ -179,7 +186,7 @@ class OrderProductModel {
 			// check order's status to be (false)--->(active):
 			if (await this.checkOrderStatus(orderID)) {
 				console.log(
-					`Cart Model: Unable to add product into ${orderID}: Order status is ${await this.checkOrderStatus(
+					`OrderProduct Model: Unable to add product into ${orderID}: Order status is ${await this.checkOrderStatus(
 						orderID
 					)}`
 				);
@@ -195,11 +202,11 @@ class OrderProductModel {
 			// release connection:
 			client.release();
 
-			// return a specific cart:
+			// return a specific orderProduct:
 			return result.rows[0];
 		} catch (error) {
 			console.error(
-				`Cart Model: Unable to update product ${productID} within ${orderID}: ${
+				`OrderProduct Model: Unable to update product ${productID} within ${orderID}: ${
 					(error as Error).message
 				}`
 			);
@@ -225,7 +232,7 @@ class OrderProductModel {
 			// check order's status to be (false)--->(active):
 			if (await this.checkOrderStatus(orderID)) {
 				console.log(
-					`Cart Model: Unable to add product into ${orderID}: Order status is ${await this.checkOrderStatus(
+					`OrderProduct Model: Unable to add product into ${orderID}: Order status is ${await this.checkOrderStatus(
 						orderID
 					)}`
 				);
@@ -238,11 +245,11 @@ class OrderProductModel {
 			// release connection:
 			client.release();
 
-			// return a specific cart:
+			// return a specific orderProduct:
 			return result.rows[0];
 		} catch (error) {
 			console.error(
-				`Cart Model: Unable to delete product ${productID} from ${orderID}: ${
+				`OrderProduct Model: Unable to delete product ${productID} from ${orderID}: ${
 					(error as Error).message
 				}`
 			);

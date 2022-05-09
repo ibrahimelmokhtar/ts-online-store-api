@@ -37,7 +37,7 @@ ordersRoute.get(
 );
 
 ordersRoute.get(
-	'/show/:id',
+	'/show/:orderID',
 	orderParamsValidationRules,
 	validateRequest,
 	ordersController.showController
@@ -59,7 +59,7 @@ ordersRoute.put(
 );
 
 ordersRoute.put(
-	'/update/:id',
+	'/update/:orderID',
 	orderParamsValidationRules,
 	orderBodyValidationRules,
 	validateRequest,
@@ -79,7 +79,7 @@ ordersRoute.delete(
 );
 
 ordersRoute.delete(
-	'/delete/:id',
+	'/delete/:orderID',
 	orderParamsValidationRules,
 	validateRequest,
 	ordersController.deleteController

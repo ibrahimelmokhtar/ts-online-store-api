@@ -1,6 +1,11 @@
 import supertest from 'supertest';
 import app from '../../server';
 import { NIL as NIL_UUID } from 'uuid';
+import {
+	DEFAULT_PRODUCT,
+	OTHER_PRODUCT,
+} from '../../constants/product.type.constant';
+import { UNIQUE_UUID } from '../../constants/unique.uuid.constant';
 
 const req = supertest(app);
 
@@ -12,7 +17,10 @@ export const productsEndpointsSpecs = () => {
 		});
 
 		it('POST (/products/create) route response', async () => {
-			const res = await req.post('/products/create');
+			// THIS WILL REMAIN IN DB TABLE FOR FURTHER INTEGRATION TESTING:
+			await req.post('/products/create').send(DEFAULT_PRODUCT);
+
+			const res = await req.post('/products/create').send(OTHER_PRODUCT);
 			expect(res.statusCode).toBe(200);
 		});
 
@@ -27,12 +35,14 @@ export const productsEndpointsSpecs = () => {
 		});
 
 		it('UPDATE (/products/update/:id) route response', async () => {
-			const res = await req.put(`/products/update/${NIL_UUID}`);
+			const res = await req
+				.put(`/products/update/${UNIQUE_UUID}`)
+				.send(OTHER_PRODUCT);
 			expect(res.statusCode).toBe(200);
 		});
 
 		it('DELETE (/products/delete/:id) route response', async () => {
-			const res = await req.delete(`/products/delete/${NIL_UUID}`);
+			const res = await req.delete(`/products/delete/${UNIQUE_UUID}`);
 			expect(res.statusCode).toBe(200);
 		});
 	});

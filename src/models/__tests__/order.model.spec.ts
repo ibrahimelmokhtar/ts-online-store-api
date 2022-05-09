@@ -29,7 +29,8 @@ export const orderModelSpecs = () => {
 		});
 
 		it('shows all orders from the database', async () => {
-			const orders: Order[] = (await orderModel.showAll()) as Order[];
+			const orders: Array<Order> =
+				(await orderModel.showAll()) as Array<Order>;
 
 			expect(orders.length).toEqual(2);
 		});

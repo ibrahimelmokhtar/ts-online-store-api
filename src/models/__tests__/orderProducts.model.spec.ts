@@ -21,9 +21,8 @@ export const orderProductModelSpecs = () => {
 		it('adds new product into specific order', async () => {
 			const createdOrderProduct: OrderProduct =
 				(await orderProductsModel.addProduct(
-					DEFAULT_ORDER_PRODUCT.orderID,
-					DEFAULT_ORDER_PRODUCT.quantity,
-					DEFAULT_ORDER_PRODUCT.productID
+					DEFAULT_ORDER_PRODUCT.id as string,
+					DEFAULT_ORDER_PRODUCT
 				)) as OrderProduct;
 
 			expect(createdOrderProduct.quantity).toBe(

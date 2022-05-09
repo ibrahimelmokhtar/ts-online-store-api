@@ -14,7 +14,7 @@ export const orderProductTypeSpecs = () => {
 			expect(newOrderProduct.orderID).toBe(NIL_UUID);
 		});
 
-		it('checks orderProduct`s quantity to be "5"', () => {
+		it('checks orderProduct`s quantity to be 5', () => {
 			expect(newOrderProduct.quantity).toEqual(5);
 		});
 	});

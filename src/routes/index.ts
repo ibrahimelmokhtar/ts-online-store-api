@@ -2,6 +2,7 @@ import { Request, Response, Router } from 'express';
 import usersRoute from './api/users.routes';
 import productsRoute from './api/products.routes';
 import ordersRoute from './api/orders.routes';
+import orderProductsRoute from './api/orderProducts.routes';
 
 // create Express Router:
 const mainRoute: Router = Router();
@@ -10,6 +11,7 @@ const mainRoute: Router = Router();
 mainRoute.use('/users', usersRoute);
 mainRoute.use('/products', productsRoute);
 mainRoute.use('/orders', ordersRoute);
+mainRoute.use('/orders/:orderID', orderProductsRoute);
 
 // sample GET method from main route:
 mainRoute.get('/', async (_req: Request, res: Response): Promise<void> => {

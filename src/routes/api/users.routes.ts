@@ -37,7 +37,7 @@ usersRoute.get(
 );
 
 usersRoute.get(
-	'/show/:id',
+	'/show/:userID',
 	userParamsValidationRules,
 	validateRequest,
 	usersController.showController
@@ -59,7 +59,7 @@ usersRoute.put(
 );
 
 usersRoute.put(
-	'/update/:id',
+	'/update/:userID',
 	userParamsValidationRules,
 	userBodyValidationRules,
 	validateRequest,
@@ -79,7 +79,7 @@ usersRoute.delete(
 );
 
 usersRoute.delete(
-	'/delete/:id',
+	'/delete/:userID',
 	userParamsValidationRules,
 	validateRequest,
 	usersController.deleteController

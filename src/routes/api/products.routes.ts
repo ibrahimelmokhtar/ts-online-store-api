@@ -37,7 +37,7 @@ productsRoute.get(
 );
 
 productsRoute.get(
-	'/show/:id',
+	'/show/:productID',
 	productParamsValidationRules,
 	validateRequest,
 	productsController.showController
@@ -59,7 +59,7 @@ productsRoute.put(
 );
 
 productsRoute.put(
-	'/update/:id',
+	'/update/:productID',
 	productParamsValidationRules,
 	productBodyValidationRules,
 	validateRequest,
@@ -79,7 +79,7 @@ productsRoute.delete(
 );
 
 productsRoute.delete(
-	'/delete/:id',
+	'/delete/:productID',
 	productParamsValidationRules,
 	validateRequest,
 	productsController.deleteController
