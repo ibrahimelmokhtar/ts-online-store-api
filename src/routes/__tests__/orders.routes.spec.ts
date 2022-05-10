@@ -1,7 +1,8 @@
 import {
 	DEFAULT_ORDER,
+	DONE_ORDER,
 	OTHER_ORDER,
-} from './../../constants/order.type.constant';
+} from '../../constants/order.type.constant';
 import supertest from 'supertest';
 import app from '../../server';
 import { NIL as NIL_UUID } from 'uuid';
@@ -37,7 +38,7 @@ export const ordersEndpointsSpecs = () => {
 		it('UPDATE (/orders/update/:orderID) route response', async () => {
 			const res = await req
 				.put(`/orders/update/${UNIQUE_UUID}`)
-				.send(OTHER_ORDER);
+				.send(DONE_ORDER);
 			expect(res.statusCode).toBe(200);
 		});
 

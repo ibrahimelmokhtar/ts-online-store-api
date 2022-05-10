@@ -3,6 +3,7 @@ import * as ordersController from '../../controllers/orders.controller';
 import validateRequest from '../../middlewares/validator.middleware';
 import {
 	orderBodyValidationRules,
+	orderStatusBodyValidationRules,
 	orderParamsValidationRules,
 } from '../../schemas/orders.schemas';
 
@@ -48,7 +49,7 @@ ordersRoute.get('/showAll', ordersController.showAllController);
 
 // UPDATE ONE:
 ordersRoute.put(
-	'/update',
+	'/updateStatus',
 	orderParamsValidationRules,
 	validateRequest,
 	(_req: Request, res: Response) => {
@@ -59,9 +60,9 @@ ordersRoute.put(
 );
 
 ordersRoute.put(
-	'/update/:orderID',
+	'/updateStatus/:orderID',
 	orderParamsValidationRules,
-	orderBodyValidationRules,
+	orderStatusBodyValidationRules,
 	validateRequest,
 	ordersController.updateController
 );
