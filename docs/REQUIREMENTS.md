@@ -110,12 +110,14 @@ These are the notes from a meeting with the frontend developer that describe wha
     <thead>
         <tr>
             <th rowspan=2 bgColor="cccccc"></th>
-            <th colspan=3 bgColor="cccccc">column name</th>
+            <th colspan=5 bgColor="cccccc">column name</th>
         </tr>
         <tr>
             <th bgColor="eeeeee">id</th>
             <th bgColor="eeeeee">is_done</th>
             <th bgColor="eeeeee">user_id</th>
+            <th bgColor="eeeeee">products_ids</th>
+            <th bgColor="eeeeee">products_quantities</th>
         </tr>
     </thead>
     <tbody>
@@ -124,6 +126,8 @@ These are the notes from a meeting with the frontend developer that describe wha
             <td align="center">UUID</td>
             <td align="center">BOOLEAN</td>
             <td align="center">UUID</td>
+            <td align="center">UUID[ ]</td>
+            <td align="center">INTEGER[ ]</td>
         </tr>
     </tbody>
 </table>
@@ -185,6 +189,8 @@ These are the notes from a meeting with the frontend developer that describe wha
 | **`id`** | uuid (v4) | *automatically generated* |
 | **`isDone`** | boolean | *`true`: completed, `false`: active* |
 | **`userID`** | uuid (v4) | *must be in `users` table* |
+| **`productsIDs`** | uuid[ ] (v4) | *must be in `products` table* |
+| **`productsQuantities`** | integer [ ] | - |
 
 ## OrderProducts Shape
 
@@ -436,7 +442,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
                 "id": "515de79c-a194-47d1-8e76-af097da06ed0",
                 "name": "T-Shirt",
                 "price": 50.99,
-                "categoty": "Clothes"
+                "categoty": "Clothing"
             },
             "message": "Product created successfully."
         }
@@ -465,7 +471,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
                 "id": "515de79c-a194-47d1-8e76-af097da06ed0",
                 "name": "T-Shirt",
                 "price": 50.99,
-                "category": "Clothes"
+                "category": "Clothing"
             },
             "message": "Product shown successfully."
         }
@@ -495,13 +501,13 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
                 "id": "515de79c-a194-47d1-8e76-af097da06ed0",
                 "name": "T-SHirt",
                 "price": 50.99,
-                "category": "Clothes"
+                "category": "Clothing"
             },
             {
                 "id": "de26da30-2622-4f46-b777-a698c216f365",
                 "name": "Hat",
                 "price": 9.88,
-                "category": "Clothes"
+                "category": "Clothing"
             }],
             "message": "Products shown successfully."
         }
@@ -527,7 +533,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
         {
             "name": "T-Shirt",
             "price": 40.88,
-            "category": "Clothes"
+            "category": "Clothing"
         }
     ```
 
@@ -539,7 +545,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
                 "id": "515de79c-a194-47d1-8e76-af097da06ed0",
                 "name": "T-Shirt",
                 "price": 40.88,
-                "category": "Clothes"
+                "category": "Clothing"
             },
             "message": "Product updated successfully."
         }
@@ -568,7 +574,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
                 "id": "515de79c-a194-47d1-8e76-af097da06ed0",
                 "name": "T-Shirt",
                 "price": 50.99,
-                "category": "Clothes"
+                "category": "Clothing"
             },
             "message": "Product deleted successfully."
         }
@@ -594,8 +600,10 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
     ```json
     - Request Body:
         {
-            "userID": "d485b697-69c2-4198-8231-f6054841baaf",
+            "userID": "08068ea7-471c-402e-8f89-f3437a205a48",
             "isDone": false,
+            "productsIDs": ["53d01fd5-7fcb-4f1e-84d7-227c50089651", "3dce8160-630e-4cb9-8a75-0bb8fcf638dc"],
+            "productsQuantities": [2, 1]
         }
     ```
 
@@ -604,9 +612,17 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
         {
             "status": "success",
             "data": {
-                "id": "72aa3c1e-290b-458b-9522-e10d98ab6131",
+                "id": "4428b5d9-a52f-4fa8-8494-92bf5c050c04",
                 "is_done": false,
-                "user_id": "d485b697-69c2-4198-8231-f6054841baaf"
+                "user_id": "08068ea7-471c-402e-8f89-f3437a205a48",
+                "products_ids": [
+                    "53d01fd5-7fcb-4f1e-84d7-227c50089651",
+                    "3dce8160-630e-4cb9-8a75-0bb8fcf638dc"
+                ],
+                "products_quantities": [
+                    2,
+                    1
+                ]
             },
             "message": "Order created successfully."
         }
@@ -624,7 +640,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 - **Example**:
 
     ```http
-    - Request URL: /orders/show/72aa3c1e-290b-458b-9522-e10d98ab6131
+    - Request URL: /orders/show/4428b5d9-a52f-4fa8-8494-92bf5c050c04
     ```
 
     ```json
@@ -632,9 +648,17 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
         {
             "status": "success",
             "data": {
-                "id": "72aa3c1e-290b-458b-9522-e10d98ab6131",
+                "id": "4428b5d9-a52f-4fa8-8494-92bf5c050c04",
                 "is_done": false,
-                "user_id": "d485b697-69c2-4198-8231-f6054841baaf"
+                "user_id": "08068ea7-471c-402e-8f89-f3437a205a48",
+                "products_ids": [
+                    "53d01fd5-7fcb-4f1e-84d7-227c50089651",
+                    "3dce8160-630e-4cb9-8a75-0bb8fcf638dc"
+                ],
+                "products_quantities": [
+                    2,
+                    1
+                ]
             },
             "message": "Order shown successfully."
         }
@@ -658,20 +682,29 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
     ```json
     - Response Body:
         {
-            "status": "success",
-            "totalUsers": 2,
-            "data": [{
-            "id": "72aa3c1e-290b-458b-9522-e10d98ab6131",
-            "is_done": false,
-            "user_id": "9c9b58d5-7bfb-4be0-b1c3-95479df6d821"
-        },
-        {
-            "id": "7b5b366e-935f-4e6e-8a9d-271725b153e3",
-            "is_done": true,
-            "user_id": "9c9b58d5-7bfb-4be0-b1c3-95479df6d821"
+        "status": "success",
+        "totalOrders": 2,
+        "data": [{
+                "id": "3bc72e17-10d0-4f81-bd8e-0b0f72791b78",
+                "is_done": false,
+                "user_id": "08068ea7-471c-402e-8f89-f3437a205a48",
+                "products_ids": [
+                    "53d01fd5-7fcb-4f1e-84d7-227c50089651"
+                ],
+                "products_quantities": [ 3 ]
+            },
+            {
+                "id": "4428b5d9-a52f-4fa8-8494-92bf5c050c04",
+                "is_done": false,
+                "user_id": "08068ea7-471c-402e-8f89-f3437a205a48",
+                "products_ids": [
+                    "53d01fd5-7fcb-4f1e-84d7-227c50089651",
+                    "3dce8160-630e-4cb9-8a75-0bb8fcf638dc"
+                ],
+                "products_quantities": [ 2, 1 ]
         }],
-            "message": "Orders shown successfully."
-        }
+        "message": "Orders shown successfully."
+    }
     ```
 
 ### Update Specific Order
@@ -679,21 +712,21 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 [(Back to top)](#table-of-contents)
 
 - **HTTP Method**: **`PUT`**
-- **Endpoint**: **`/orders/update/:orderID`**
+- **Endpoint**: **`/orders/updateStatus/:orderID`**
 - **Request Body**: **`Order object`**
 - **Request Params**: **`:orderID [UUIDv4]`**
 - **Response Body**: **`Order object`**
 - **Example**:
 
     ```http
-    - Request URL: /orders/update/72aa3c1e-290b-458b-9522-e10d98ab6131
+    - Request URL: /orders/updateStatus/4428b5d9-a52f-4fa8-8494-92bf5c050c04
     ```
 
     ```json
     - Request Body:
         {
+            // we only need the order status:
             "isDone": true,
-            "userID": "9c9b58d5-7bfb-4be0-b1c3-95479df6d821"
         }
     ```
 
@@ -702,9 +735,14 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
         {
             "status": "success",
             "data": {
-                "id": "72aa3c1e-290b-458b-9522-e10d98ab6131",
+                "id": "4428b5d9-a52f-4fa8-8494-92bf5c050c04",
                 "is_done": true,
-                "user_id": "9c9b58d5-7bfb-4be0-b1c3-95479df6d821"
+                "user_id": "08068ea7-471c-402e-8f89-f3437a205a48",
+                "products_ids": [
+                    "53d01fd5-7fcb-4f1e-84d7-227c50089651",
+                    "3dce8160-630e-4cb9-8a75-0bb8fcf638dc"
+                ],
+                "products_quantities": [ 2, 1 ]
             },
             "message": "Order updated successfully."
         }
@@ -722,7 +760,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 - **Example**:
 
     ```http
-    - Request URL: /orders/delete/7b5b366e-935f-4e6e-8a9d-271725b153e3
+    - Request URL: /orders/delete/4428b5d9-a52f-4fa8-8494-92bf5c050c04
     ```
 
     ```json
@@ -730,9 +768,14 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
         {
             "status": "success",
             "data": {
-                "id": "7b5b366e-935f-4e6e-8a9d-271725b153e3",
+                "id": "4428b5d9-a52f-4fa8-8494-92bf5c050c04",
                 "is_done": false,
-                "user_id": "9c9b58d5-7bfb-4be0-b1c3-95479df6d821"
+                "user_id": "08068ea7-471c-402e-8f89-f3437a205a48",
+                "products_ids": [
+                    "53d01fd5-7fcb-4f1e-84d7-227c50089651",
+                    "3dce8160-630e-4cb9-8a75-0bb8fcf638dc"
+                ],
+                "products_quantities": [ 2, 1 ]
             },
             "message": "Order deleted successfully."
         }
