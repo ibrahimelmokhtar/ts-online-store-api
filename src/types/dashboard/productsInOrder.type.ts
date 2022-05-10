@@ -1,6 +1,8 @@
 type ProductsInOrder = {
 	orderID: string;
 	isDone: boolean;
+	userID: string;
+	userName: string;
 	ProductID: string;
 	productName: string;
 	productCategory: string;

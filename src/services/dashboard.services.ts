@@ -9,8 +9,13 @@ class Dashboard {
 			const client: PoolClient = await pool.connect();
 
 			// run desired query:
-			const sql: string =
-				'SELECT order_id, is_done AS is_order_done, name AS product_name, category AS product_category, price AS product_price, quantity AS product_quantity, (price*quantity) AS total_price FROM order_products INNER JOIN orders ON orders.id=order_products.order_id INNER JOIN products ON products.id=order_products.product_id';
+			const sql: string = `
+				SELECT order_id, is_done AS is_order_done, user_id, user_name,  name AS product_name, category AS product_category, price AS product_price, quantity AS product_quantity, (price*quantity) AS total_price
+				FROM order_products
+				INNER JOIN orders ON orders.id=order_products.order_id
+				INNER JOIN users ON orders.user_id=users.id
+				INNER JOIN products ON products.id=order_products.product_id
+				ORDER BY total_price DESC, user_name, is_order_done DESC`;
 			const result = await client.query(sql);
 
 			// release connection:
