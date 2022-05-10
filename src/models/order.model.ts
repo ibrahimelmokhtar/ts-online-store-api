@@ -22,19 +22,19 @@ class OrderModel {
 					'INSERT INTO orders (id, is_done, user_id, products_ids, products_quantities) VALUES ($1::UUID, $2::BOOLEAN, $3::UUID, $4::UUID[], $5::INTEGER[]) RETURNING *';
 				sentValues = [
 					order.id as string,
-					order.isDone,
-					order.userID as string,
-					order.productsIDs,
-					order.productsQuantities,
+					order.is_done,
+					order.user_id as string,
+					order.products_ids,
+					order.products_quantities,
 				];
 			} else {
 				sql =
 					'INSERT INTO orders (is_done, user_id, products_ids, products_quantities) VALUES ($1::BOOLEAN, $2::UUID, $3::UUID[], $4::INTEGER[]) RETURNING *';
 				sentValues = [
-					order.isDone,
-					order.userID as string,
-					order.productsIDs,
-					order.productsQuantities,
+					order.is_done,
+					order.user_id as string,
+					order.products_ids,
+					order.products_quantities,
 				];
 			}
 
@@ -49,7 +49,7 @@ class OrderModel {
 		} catch (error) {
 			console.error(
 				`Order Model: Unable to create order for user ${
-					order.userID
+					order.user_id
 				}: ${(error as Error).message}`
 			);
 		}

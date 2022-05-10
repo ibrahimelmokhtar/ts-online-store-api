@@ -11,11 +11,11 @@ export const orderTypeSpecs = () => {
 		});
 
 		it('checks order`s userID to be "NIL_UUID"', () => {
-			expect(newOrder.userID).toBe(NIL_UUID);
+			expect(newOrder.user_id).toBe(NIL_UUID);
 		});
 
 		it('checks order`s status to be "false"', () => {
-			expect(newOrder.isDone).toBe(false);
+			expect(newOrder.is_done).toBe(false);
 		});
 	});
 };

@@ -1,14 +1,14 @@
 type ProductsInOrder = {
-	orderID: string;
-	isDone: boolean;
-	userID: string;
-	userName: string;
-	ProductID: string;
-	productName: string;
-	productCategory: string;
-	productPrice: number;
-	productQuantity: number;
-	totalPrice: number;
+	order_id: string;
+	is_done: boolean;
+	user_id: string;
+	user_name: string;
+	Product_id: string;
+	product_name: string;
+	product_category: string;
+	product_price: number;
+	product_quantity: number;
+	total_price: number;
 };
 
 export default ProductsInOrder;

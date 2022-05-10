@@ -4,18 +4,18 @@ import { UNIQUE_UUID } from './unique.uuid.constant';
 
 export const DEFAULT_USER: User = {
 	id: NIL_UUID,
-	firstName: 'first_name',
-	lastName: 'last_name',
-	userName: 'user_name',
+	first_name: 'first_name',
+	last_name: 'last_name',
+	user_name: 'user_name',
 	email: 'email@email.com',
 	password: 'password',
 };
 
 export const OTHER_USER: User = {
 	id: UNIQUE_UUID,
-	firstName: 'first_name',
-	lastName: 'last_name',
-	userName: 'user_name',
+	first_name: 'first_name',
+	last_name: 'last_name',
+	user_name: 'user_name',
 	email: 'email@email.com',
 	password: 'password',
 };

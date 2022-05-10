@@ -35,9 +35,9 @@ export const ordersEndpointsSpecs = () => {
 			expect(res.statusCode).toBe(200);
 		});
 
-		it('UPDATE (/orders/update/:orderID) route response', async () => {
+		it('UPDATE (/orders/updateStatus/:orderID) route response', async () => {
 			const res = await req
-				.put(`/orders/update/${UNIQUE_UUID}`)
+				.put(`/orders/updateStatus/${UNIQUE_UUID}`)
 				.send(DONE_ORDER);
 			expect(res.statusCode).toBe(200);
 		});

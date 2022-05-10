@@ -39,7 +39,7 @@ export const orderModelSpecs = () => {
 		it('updates a specific order status within the database', async () => {
 			const updatedOrder: Order = (await orderModel.updateOrderStatus(
 				OTHER_ORDER.id as string,
-				DONE_ORDER.isDone
+				DONE_ORDER.is_done
 			)) as Order;
 
 			expect(updatedOrder.id).toEqual(OTHER_ORDER.id);

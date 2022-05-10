@@ -31,7 +31,6 @@
       "vars-on-top": "error",
       "prefer-const": "error",
 
-      "camelcase": "warn",
       "comma-spacing": [ "warn", { "before": false, "after": true } ],
       "comma-style": [ "warn", "last" ],
 

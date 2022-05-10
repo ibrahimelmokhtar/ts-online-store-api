@@ -22,9 +22,9 @@ class UserModel {
 					'INSERT INTO users (id, first_name, last_name, user_name, email, password) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *';
 				sentValues = [
 					user.id as string,
-					user.firstName,
-					user.lastName,
-					user.userName,
+					user.first_name,
+					user.last_name,
+					user.user_name,
 					user.email,
 					encrypt(user.password),
 				];
@@ -32,9 +32,9 @@ class UserModel {
 				sql =
 					'INSERT INTO users (first_name, last_name, user_name, email, password) VALUES ($1, $2, $3, $4, $5) RETURNING *';
 				sentValues = [
-					user.firstName,
-					user.lastName,
-					user.userName,
+					user.first_name,
+					user.last_name,
+					user.user_name,
 					user.email,
 					encrypt(user.password),
 				];
@@ -48,7 +48,7 @@ class UserModel {
 			return result.rows[0];
 		} catch (error) {
 			console.error(
-				`User Model: Unable to create ${user.userName}: ${
+				`User Model: Unable to create ${user.user_name}: ${
 					(error as Error).message
 				}`
 			);
@@ -124,9 +124,9 @@ class UserModel {
 				'UPDATE users SET first_name=($2), last_name=($3), user_name=($4), email=($5), password=($6) WHERE id=($1) RETURNING *';
 			const result = await client.query(sql, [
 				userID,
-				user.firstName,
-				user.lastName,
-				user.userName,
+				user.first_name,
+				user.last_name,
+				user.user_name,
 				user.email,
 				encrypt(user.password),
 			]);

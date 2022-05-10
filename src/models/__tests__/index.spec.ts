@@ -1,7 +1,7 @@
 import { userModelSpecs } from './user.model.spec';
 import { productModelSpecs } from './product.model.spec';
 import { orderModelSpecs } from './order.model.spec';
-// import { orderProductModelSpecs } from './orderProducts.model.spec';
+import { orderProductModelSpecs } from './orderProducts.model.spec';
 import { PoolClient } from 'pg';
 import pool from '../../database';
 import { NIL as NIL_UUID } from 'uuid';
@@ -17,7 +17,7 @@ describe('├─── Models Suites', () => {
 	orderModelSpecs();
 
 	// cart model suite:
-	// orderProductModelSpecs();
+	orderProductModelSpecs();
 
 	// DELETE DEFAULT ENTRIES FROM CREATED TABLES:
 	// THEY MUST BE DELETED IN THAT SEQUENCE.

@@ -1,9 +1,9 @@
 type Order = {
 	id?: string;
-	userID: string;
-	isDone: boolean;
-	productsIDs: Array<string>;
-	productsQuantities: Array<number>;
+	user_id: string;
+	is_done: boolean;
+	products_ids: Array<string>;
+	products_quantities: Array<number>;
 };
 
 export default Order;

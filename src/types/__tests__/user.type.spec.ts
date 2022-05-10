@@ -11,7 +11,7 @@ export const userTypeSpecs = () => {
 		});
 
 		it('checks user`s first name to be "first_name"', () => {
-			expect(newUser.firstName).toBe('first_name');
+			expect(newUser.first_name).toBe('first_name');
 		});
 
 		it('checks user`s password to be "password"', () => {
