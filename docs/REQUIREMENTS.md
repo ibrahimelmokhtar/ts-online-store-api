@@ -32,11 +32,14 @@ These are the notes from a meeting with the frontend developer that describe wha
     - [Show All Products Within Order](#show-all-products-within-order)
     - [Update Product Within Order](#update-product-within-order)
     - [Delete Product From Order](#delete-product-from-order)
+  - [`/dashboard` Endpoints](#dashboard-endpoints)
+    - [Show All Products In Orders](#show-all-products-in-orders)
 - [Data Shapes](#data-shapes)
   - [User Shape](#user-shape)
   - [Product Shape](#product-shape)
   - [Order Shape](#order-shape)
   - [OrderProducts Shape](#orderproducts-shape)
+  - [ProductsInOrder Shape](#productsinorder-shape)
 
 # API Endpoints
 
@@ -50,12 +53,12 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 [(Back to top)](#table-of-contents)
 
-- HTTP Method: **`POST`**
-- Endpoint: `/users/create`
-- Request Body: `User object`
-- Request Params: `N/A`
-- Response Body: `User object`
-- Example:
+- **HTTP Method**: **`POST`**
+- **Endpoint**: **`/users/create`**
+- **Request Body**: **`User object`**
+- **Request Params**: **`N/A`**
+- **Response Body**: **`User object`**
+- **Example**:
 
     ```http
     - Request URL: /users/create/
@@ -92,12 +95,12 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 [(Back to top)](#table-of-contents)
 
-- HTTP Method: **`GET`**
-- Endpoint: `/users/show/:userID`
-- Request Body: `N/A`
-- Request Params: `:userID [UUIDv4]`
-- Response Body: `User object`
-- Example:
+- **HTTP Method**: **`GET`**
+- **Endpoint**: **`/users/show/:userID`**
+- **Request Body**: **`N/A`**
+- **Request Params**: **`:userID [UUIDv4]`**
+- **Response Body**: **`User object`**
+- **Example**:
 
     ```http
     - Request URL: /users/show/d485b697-69c2-4198-8231-f6054841baaf
@@ -123,12 +126,12 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 [(Back to top)](#table-of-contents)
 
-- HTTP Method: **`GET`**
-- Endpoint: `/users/showAll`
-- Request Body: `N/A`
-- Request Params: `N/A`
-- Response Body: `Array of User objects`
-- Example:
+- **HTTP Method**: **`GET`**
+- **Endpoint**: **`/users/showAll`**
+- **Request Body**: **`N/A`**
+- **Request Params**: **`N/A`**
+- **Response Body**: **`Array of User objects`**
+- **Example**:
 
     ```http
     - Request URL: /users/showAll
@@ -163,12 +166,12 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 [(Back to top)](#table-of-contents)
 
-- HTTP Method: **`PUT`**
-- Endpoint: `/users/update/:userID`
-- Request Body: `User object`
-- Request Params: `:userID [UUIDv4]`
-- Response Body: `User object`
-- Example:
+- **HTTP Method**: **`PUT`**
+- **Endpoint**: **`/users/update/:userID`**
+- **Request Body**: **`User object`**
+- **Request Params**: **`:userID [UUIDv4]`**
+- **Response Body**: **`User object`**
+- **Example**:
 
     ```http
     - Request URL: /users/update/d485b697-69c2-4198-8231-f6054841baaf
@@ -205,12 +208,12 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 [(Back to top)](#table-of-contents)
 
-- HTTP Method: **`DELETE`**
-- Endpoint: `/users/delete/:userID`
-- Request Body: `N/A`
-- Request Params: `:userID [UUIDv4]`
-- Response Body: `User object`
-- Example:
+- **HTTP Method**: **`DELETE`**
+- **Endpoint**: **`/users/delete/:userID`**
+- **Request Body**: **`N/A`**
+- **Request Params**: **`:userID [UUIDv4]`**
+- **Response Body**: **`User object`**
+- **Example**:
 
     ```http
     - Request URL: /users/delete/d485b697-69c2-4198-8231-f6054841baaf
@@ -238,12 +241,12 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 [(Back to top)](#table-of-contents)
 
-- HTTP Method: **`POST`**
-- Endpoint: `/products/create`
-- Request Body: `Product object`
-- Request Params: `N/A`
-- Response Body: `Product object`
-- Example:
+- **HTTP Method**: **`POST`**
+- **Endpoint**: **`/products/create`**
+- **Request Body**: **`Product object`**
+- **Request Params**: **`N/A`**
+- **Response Body**: **`Product object`**
+- **Example**:
 
     ```http
     - Request URL: /products/create/
@@ -276,12 +279,12 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 [(Back to top)](#table-of-contents)
 
-- HTTP Method: **`GET`**
-- Endpoint: `/products/show/:productID`
-- Request Body: `N/A`
-- Request Params: `:productID [UUIDv4]`
-- Response Body: `Product object`
-- Example:
+- **HTTP Method**: **`GET`**
+- **Endpoint**: **`/products/show/:productID`**
+- **Request Body**: **`N/A`**
+- **Request Params**: **`:productID [UUIDv4]`**
+- **Response Body**: **`Product object`**
+- **Example**:
 
     ```http
     - Request URL: /products/show/515de79c-a194-47d1-8e76-af097da06ed0
@@ -305,12 +308,12 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 [(Back to top)](#table-of-contents)
 
-- HTTP Method: **`GET`**
-- Endpoint: `/products/showAll`
-- Request Body: `N/A`
-- Request Params: `N/A`
-- Response Body: `Array of Product objects`
-- Example:
+- **HTTP Method**: **`GET`**
+- **Endpoint**: **`/products/showAll`**
+- **Request Body**: **`N/A`**
+- **Request Params**: **`N/A`**
+- **Response Body**: **`Array of Product objects`**
+- **Example**:
 
     ```http
     - Request URL: /products/showAll
@@ -341,12 +344,12 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 [(Back to top)](#table-of-contents)
 
-- HTTP Method: **`PUT`**
-- Endpoint: `/products/update/:productID`
-- Request Body: `Product object`
-- Request Params: `:productID [UUIDv4]`
-- Response Body: `Product object`
-- Example:
+- **HTTP Method**: **`PUT`**
+- **Endpoint**: **`/products/update/:productID`**
+- **Request Body**: **`Product object`**
+- **Request Params**: **`:productID [UUIDv4]`**
+- **Response Body**: **`Product object`**
+- **Example**:
 
     ```http
     - Request URL: /products/update/515de79c-a194-47d1-8e76-af097da06ed0
@@ -379,12 +382,12 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 [(Back to top)](#table-of-contents)
 
-- HTTP Method: **`DELETE`**
-- Endpoint: `/products/delete/:productID`
-- Request Body: `N/A`
-- Request Params: `:productID [UUIDv4]`
-- Response Body: `Product object`
-- Example:
+- **HTTP Method**: **`DELETE`**
+- **Endpoint**: **`/products/delete/:productID`**
+- **Request Body**: **`N/A`**
+- **Request Params**: **`:productID [UUIDv4]`**
+- **Response Body**: **`Product object`**
+- **Example**:
 
     ```http
     - Request URL: /products/delete/515de79c-a194-47d1-8e76-af097da06ed0
@@ -410,12 +413,12 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 [(Back to top)](#table-of-contents)
 
-- HTTP Method: **`POST`**
-- Endpoint: `/orders/create`
-- Request Body: `Order object`
-- Request Params: `N/A`
-- Response Body: `Order object`
-- Example:
+- **HTTP Method**: **`POST`**
+- **Endpoint**: **`/orders/create`**
+- **Request Body**: **`Order object`**
+- **Request Params**: **`N/A`**
+- **Response Body**: **`Order object`**
+- **Example**:
 
     ```http
     - Request URL: /orders/create/
@@ -446,12 +449,12 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 [(Back to top)](#table-of-contents)
 
-- HTTP Method: **`GET`**
-- Endpoint: `/orders/show/:orderID`
-- Request Body: `N/A`
-- Request Params: `:orderID [UUIDv4]`
-- Response Body: `order object`
-- Example:
+- **HTTP Method**: **`GET`**
+- **Endpoint**: **`/orders/show/:orderID`**
+- **Request Body**: **`N/A`**
+- **Request Params**: **`:orderID [UUIDv4]`**
+- **Response Body**: **`order object`**
+- **Example**:
 
     ```http
     - Request URL: /orders/show/72aa3c1e-290b-458b-9522-e10d98ab6131
@@ -474,12 +477,12 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 [(Back to top)](#table-of-contents)
 
-- HTTP Method: **`GET`**
-- Endpoint: `/orders/showAll`
-- Request Body: `N/A`
-- Request Params: `N/A`
-- Response Body: `Array of Order objects`
-- Example:
+- **HTTP Method**: **`GET`**
+- **Endpoint**: **`/orders/showAll`**
+- **Request Body**: **`N/A`**
+- **Request Params**: **`N/A`**
+- **Response Body**: **`Array of Order objects`**
+- **Example**:
 
     ```http
     - Request URL: /orders/showAll
@@ -508,12 +511,12 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 [(Back to top)](#table-of-contents)
 
-- HTTP Method: **`PUT`**
-- Endpoint: `/orders/update/:orderID`
-- Request Body: `Order object`
-- Request Params: `:orderID [UUIDv4]`
-- Response Body: `Order object`
-- Example:
+- **HTTP Method**: **`PUT`**
+- **Endpoint**: **`/orders/update/:orderID`**
+- **Request Body**: **`Order object`**
+- **Request Params**: **`:orderID [UUIDv4]`**
+- **Response Body**: **`Order object`**
+- **Example**:
 
     ```http
     - Request URL: /orders/update/72aa3c1e-290b-458b-9522-e10d98ab6131
@@ -544,12 +547,12 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 [(Back to top)](#table-of-contents)
 
-- HTTP Method: **`DELETE`**
-- Endpoint: `/orders/delete/:orderID`
-- Request Body: `N/A`
-- Request Params: `:orderID [UUIDv4]`
-- Response Body: `Order object`
-- Example:
+- **HTTP Method**: **`DELETE`**
+- **Endpoint**: **`/orders/delete/:orderID`**
+- **Request Body**: **`N/A`**
+- **Request Params**: **`:orderID [UUIDv4]`**
+- **Response Body**: **`Order object`**
+- **Example**:
 
     ```http
     - Request URL: /orders/delete/7b5b366e-935f-4e6e-8a9d-271725b153e3
@@ -572,12 +575,12 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 [(Back to top)](#table-of-contents)
 
-- HTTP Method: **`POST`**
-- Endpoint: `/orders/:orderID/products/add`
-- Request Body: `OrderProduct object`
-- Request Params: `:orderID [UUIDv4]`
-- Response Body: `OrderProduct object`
-- Example:
+- **HTTP Method**: **`POST`**
+- **Endpoint**: **`/orders/:orderID/products/add`**
+- **Request Body**: **`OrderProduct object`**
+- **Request Params**: **`:orderID [UUIDv4]`**
+- **Response Body**: **`OrderProduct object`**
+- **Example**:
 
     ```http
     - Request URL: /orders/72da8597-11cb-4ba5-b4ef-4125525e1084/products/add
@@ -609,12 +612,12 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 [(Back to top)](#table-of-contents)
 
-- HTTP Method: **`GET`**
-- Endpoint: `/orders/:orderID/products/show/:productID`
-- Request Body: `N/A`
-- Request Params: `:orderID [UUIDv4]`, `:productID [UUIDv4]`
-- Response Body: `OrderProduct object`
-- Example:
+- **HTTP Method**: **`GET`**
+- **Endpoint**: **`/orders/:orderID/products/show/:productID`**
+- **Request Body**: **`N/A`**
+- **Request Params**: **`:orderID [UUIDv4]`**, **`:productID [UUIDv4]`**
+- **Response Body**: **`OrderProduct object`**
+- **Example**:
 
     ```http
     - Request URL: /orders/72da8597-11cb-4ba5-b4ef-4125525e1084/products/show/ac85b670-9f17-4ae0-8c71-f517dc037e47
@@ -638,12 +641,12 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 [(Back to top)](#table-of-contents)
 
-- HTTP Method: **`GET`**
-- Endpoint: `/orders/:orderID/products/showAll`
-- Request Body: `N/A`
-- Request Params: `:orderID [UUIDv4]`
-- Response Body: `Array of OrderProduct objects`
-- Example:
+- **HTTP Method**: **`GET`**
+- **Endpoint**: **`/orders/:orderID/products/showAll`**
+- **Request Body**: **`N/A`**
+- **Request Params**: **`:orderID [UUIDv4]`**
+- **Response Body**: **`Array of OrderProduct objects`**
+- **Example**:
 
     ```http
     - Request URL: /orders/72da8597-11cb-4ba5-b4ef-4125525e1084/products/showAll
@@ -674,12 +677,12 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 [(Back to top)](#table-of-contents)
 
-- HTTP Method: **`PUT`**
-- Endpoint: `/orders/:orderID/products/update/:productID`
-- Request Body: `OrderProduct object`
-- Request Params: `:orderID [UUIDv4]`, `:productID [UUIDv4]`
-- Response Body: `OrderProduct object`
-- Example:
+- **HTTP Method**: **`PUT`**
+- **Endpoint**: **`/orders/:orderID/products/update/:productID`**
+- **Request Body**: **`OrderProduct object`**
+- **Request Params**: **`:orderID [UUIDv4]`**, **`:productID [UUIDv4]`**
+- **Response Body**: **`OrderProduct object`**
+- **Example**:
 
     ```http
     - Request URL: /orders/72da8597-11cb-4ba5-b4ef-4125525e1084/products/update/ac85b670-9f17-4ae0-8c71-f517dc037e47
@@ -711,12 +714,12 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 [(Back to top)](#table-of-contents)
 
-- HTTP Method: **`DELETE`**
-- Endpoint: `/orders/:orderID/products/delete/:productID`
-- Request Body: `N/A`
-- Request Params: `:orderID [UUIDv4]`, `:productID [UUIDv4]`
-- Response Body: `OrderProduct object`
-- Example:
+- **HTTP Method**: **`DELETE`**
+- **Endpoint**: **`/orders/:orderID/products/delete/:productID`**
+- **Request Body**: **`N/A`**
+- **Request Params**: **`:orderID [UUIDv4]`**, **`:productID [UUIDv4]`**
+- **Response Body**: **`OrderProduct object`**
+- **Example**:
 
     ```http
     - Request URL: /orders/72da8597-11cb-4ba5-b4ef-4125525e1084/products/delete/ac85b670-9f17-4ae0-8c71-f517dc037e47
@@ -736,6 +739,50 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
         }
     ```
 
+## `/dashboard` Endpoints
+
+### Show All Products In Orders
+
+[(Back to top)](#table-of-contents)
+
+- **HTTP Method**: **`GET`**
+- **Endpoint**: **`/dashboard/showProductsInOrders`**
+- **Request Body**: **`N/A`**
+- **Request Params**: **`N/A`**
+- **Response Body**: **`Array of ProductsInOrder objects`**
+- **Example**:
+
+    ```http
+    - Request URL: /dashboard/showProductsInOrders
+    ```
+
+    ```json
+    - Response Body:
+        {
+            "status": "success",
+            "totalProductsInOrders": 2,
+            "data": [{
+                    "order_id": "72da8597-11cb-4ba5-b4ef-4125525e1084",
+                    "is_order_done": true,
+                    "product_name": "T-Shirt",
+                    "product_category": "clothes",
+                    "product_price": 10.99,
+                    "product_quantity": 15,
+                    "total_price": 164.85
+                },
+                {
+                    "order_id": "a98da1b3-3d65-409c-af97-be13843104df",
+                    "is_order_done": false,
+                    "product_name": "T-Shirt",
+                    "product_category": "clothes",
+                    "product_price": 10.99,
+                    "product_quantity": 5,
+                    "total_price": 54.95
+            }],
+            "message": "Products in orders shown successfully."
+        }
+    ```
+
 # Data Shapes
 
 [(Back to top)](#table-of-contents)
@@ -744,35 +791,48 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 | Parameter | Data Type | Additional Information |
 | :--------- | :---------: | :---------: |
-| `id` | uuid (v4) | *automatically generated* |
-| `firstName` | string | - |
-| `lastName` | string | - |
-| `userName` | string | - |
-| `email` | string | - |
-| `password` | string | *will be hashed before saving into database* |
+| **`id`** | uuid (v4) | *automatically generated* |
+| **`firstName`** | string | - |
+| **`lastName`** | string | - |
+| **`userName`** | string | - |
+| **`email`** | string | - |
+| **`password`** | string | *will be hashed before saving into database* |
 
 ## Product Shape
 
 | Parameter | Data Type | Additional Information |
 | :--------- | :---------: | :---------: |
-| `id` | uuid (v4) | *automatically generated* |
-| `name` | string | - |
-| `price` | float | - |
-| `category` | string | - |
+| **`id`** | uuid (v4) | *automatically generated* |
+| **`name`** | string | - |
+| **`price`** | float | - |
+| **`category`** | string | - |
 
 ## Order Shape
 
 | Parameter | Data Type | Additional Information |
 | :--------- | :---------: | :---------: |
-| `id` | uuid (v4) | *automatically generated* |
-| `isDone` | boolean | *`true`: completed, `false`: active* |
-| `userID` | uuid (v4) | *must be in `users` table* |
+| **`id`** | uuid (v4) | *automatically generated* |
+| **`isDone`** | boolean | *`true`: completed, `false`: active* |
+| **`userID`** | uuid (v4) | *must be in `users` table* |
 
 ## OrderProducts Shape
 
 | Parameter | Data Type | Additional Information |
 | :--------- | :---------: | :---------: |
-| `id` | uuid (v4) | *automatically generated* |
-| `orderID` | uuid (v4) | *must be in `orders` table* |
-| `productID` | uuid (v4) | *must be in `products` table* |
-| `quantity` | integer | - |
+| **`id`** | uuid (v4) | *automatically generated* |
+| **`orderID`** | uuid (v4) | *must be in `orders` table* |
+| **`productID`** | uuid (v4) | *must be in `products` table* |
+| **`quantity`** | integer | - |
+
+## ProductsInOrder Shape
+
+| Parameter | Data Type | Additional Information |
+| :--------- | :---------: | :---------: |
+| **`orderID`** | uuid (v4) | *retrieved from `orders` table* |
+| **`isOrderDone`** | boolean | *`true`: completed, `false`: active* |
+| **`productID`** | uuid (v4) | *retrieved from `products` table* |
+| **`productName`** | string | *retrieved from `products` table* |
+| **`productCategory`** | string | *retrieved from `products` table* |
+| **`productPrice`** | float | *retrieved from `products` table* |
+| **`productQuantity`** | integer | *retrieved from `order_products` table* |
+| **`totalPrice`** | float | *calculated within sql command* |

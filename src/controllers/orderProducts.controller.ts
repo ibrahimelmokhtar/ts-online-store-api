@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-// import { DEFAULT_ORDER_PRODUCT } from '../constants/orderProduct.type.constant';
 import OrderProductModel from '../models/orderProduct.model';
 import OrderProduct from '../types/orderProduct.type';
 

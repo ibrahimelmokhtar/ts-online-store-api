@@ -6,6 +6,7 @@ import { orderProductsEndpointsSpecs } from './orderProducts.routes.spec';
 import { ordersEndpointsSpecs } from './orders.routes.spec';
 import { productsEndpointsSpecs } from './products.routes.spec';
 import { usersEndpointsSpecs } from './users.routes.spec';
+import { dashboardEndpointsSpecs } from './dashboard.routes.spec';
 
 const req = supertest(app);
 
@@ -29,6 +30,9 @@ describe('├─── Server Endpoints Suites', () => {
 
 	// orderProducts endpoints suite:
 	orderProductsEndpointsSpecs();
+
+	// dashboard endpoints suite:
+	dashboardEndpointsSpecs();
 
 	// DELETE DEFAULT ENTRIES FROM CREATED TABLES:
 	// THEY MUST BE DELETED IN THAT SEQUENCE.
