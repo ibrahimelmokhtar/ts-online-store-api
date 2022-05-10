@@ -51,7 +51,7 @@ export const showProductController = async (
 		// use orderProduct model to show a specific OrderProduct object:
 		const orderProduct: OrderProduct = (await orderProductModel.showProduct(
 			req.params.orderID,
-			req.body.productID
+			req.params.productID
 		)) as OrderProduct;
 
 		// send a response back to the product:
@@ -88,6 +88,7 @@ export const showAllProductsController = async (
 		// send a response back to the product:
 		res.json({
 			status: 'success',
+			totalProductsInOrder: orderProducts.length,
 			data: orderProducts,
 			message: 'Products shown successfully from the order.',
 		});
@@ -122,7 +123,7 @@ export const updateProductController = async (
 		res.json({
 			status: 'success',
 			data: orderProduct,
-			message: 'Product updated successfully from the order.',
+			message: 'Product updated successfully within the order.',
 		});
 	} catch (error) {
 		console.error(
