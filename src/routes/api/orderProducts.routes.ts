@@ -45,7 +45,6 @@ orderProductsRoute.get(
 	'/:orderID/products/show/:productID',
 	orderParamsValidationRules,
 	productParamsValidationRules,
-	orderProductBodyValidationRules,
 	validateRequest,
 	orderProductsController.showProductController
 );
@@ -56,47 +55,6 @@ orderProductsRoute.get(
 	orderParamsValidationRules,
 	validateRequest,
 	orderProductsController.showAllProductsController
-);
-
-// READ ALL PRODUCTS:
-orderProductsRoute.put(
-	'/:orderID/products/update',
-	orderParamsValidationRules,
-	validateRequest,
-	(_req: Request, res: Response) => {
-		res.json({
-			message: 'Product ID is required ...',
-		});
-	}
-);
-
-orderProductsRoute.put(
-	'/:orderID/products/update/:productID',
-	orderParamsValidationRules,
-	productParamsValidationRules,
-	orderProductBodyValidationRules,
-	validateRequest,
-	orderProductsController.updateProductController
-);
-
-// DELETE PRODUCT:
-orderProductsRoute.delete(
-	'/:orderID/products/delete',
-	orderParamsValidationRules,
-	validateRequest,
-	(_req: Request, res: Response) => {
-		res.json({
-			message: 'Product ID is required ...',
-		});
-	}
-);
-
-orderProductsRoute.delete(
-	'/:orderID/products/delete/:productID',
-	orderParamsValidationRules,
-	productParamsValidationRules,
-	validateRequest,
-	orderProductsController.deleteProductController
 );
 
 export default orderProductsRoute;

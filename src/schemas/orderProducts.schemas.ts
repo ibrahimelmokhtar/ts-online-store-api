@@ -1,7 +1,7 @@
 import { body } from 'express-validator';
 
 export const orderProductBodyValidationRules = [
-	body('productID')
+	body('product_id')
 		.isUUID(4)
 		.withMessage('Product`s ID is NOT UUID')
 		.exists()

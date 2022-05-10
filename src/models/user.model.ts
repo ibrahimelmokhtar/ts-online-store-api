@@ -19,7 +19,7 @@ class UserModel {
 			let sentValues: Array<string> = [];
 			if (process.env.NODE_ENV === 'test') {
 				sql =
-					'INSERT INTO users (id, first_name, last_name, user_name, email, password) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *';
+					'INSERT INTO users (id, first_name, last_name, user_name, email, password) VALUES ($1::UUID, $2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR) RETURNING *';
 				sentValues = [
 					user.id as string,
 					user.first_name,
@@ -30,7 +30,7 @@ class UserModel {
 				];
 			} else {
 				sql =
-					'INSERT INTO users (first_name, last_name, user_name, email, password) VALUES ($1, $2, $3, $4, $5) RETURNING *';
+					'INSERT INTO users (first_name, last_name, user_name, email, password) VALUES ($1::VARCHAR, $2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR) RETURNING *';
 				sentValues = [
 					user.first_name,
 					user.last_name,
@@ -121,7 +121,7 @@ class UserModel {
 
 			// run desired query:
 			const sql: string =
-				'UPDATE users SET first_name=($2), last_name=($3), user_name=($4), email=($5), password=($6) WHERE id=($1) RETURNING *';
+				'UPDATE users SET first_name=($2)::VARCHAR, last_name=($3)::VARCHAR, user_name=($4)::VARCHAR, email=($5)::VARCHAR, password=($6)::VARCHAR WHERE id=($1)::UUID RETURNING *';
 			const result = await client.query(sql, [
 				userID,
 				user.first_name,

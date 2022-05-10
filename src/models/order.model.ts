@@ -17,6 +17,8 @@ class OrderModel {
 			let sentValues: Array<
 				string | boolean | number | Array<string | number>
 			> = [];
+
+			// add products into orders table:
 			if (process.env.NODE_ENV === 'test') {
 				sql =
 					'INSERT INTO orders (id, is_done, user_id, products_ids, products_quantities) VALUES ($1::UUID, $2::BOOLEAN, $3::UUID, $4::UUID[], $5::INTEGER[]) RETURNING *';
@@ -40,6 +42,20 @@ class OrderModel {
 
 			// run desired query:
 			const result = await client.query(sql, sentValues);
+
+			// THEN: add products into order_products table:
+			for (let i = 0; i < order.products_ids.length; i++) {
+				sql =
+					'INSERT INTO order_products (order_id, product_id, product_quantity) VALUES ($1::UUID, $2::UUID, $3::INTEGER) RETURNING *';
+				sentValues = [
+					result.rows[0]['id'],
+					order.products_ids[i],
+					order.products_quantities[i],
+				];
+
+				// run desired query:
+				await client.query(sql, sentValues);
+			}
 
 			// release connection:
 			client.release();
@@ -153,9 +169,15 @@ class OrderModel {
 			// connect to database:
 			const client: PoolClient = await pool.connect();
 
-			// run desired query:
-			const sql: string =
-				'DELETE FROM orders WHERE id=($1)::UUID RETURNING *';
+			let sql: string = 'EMPTY SQL QUERY';
+
+			// delete order products from order_products table:
+			sql =
+				'DELETE FROM order_products WHERE order_id=($1)::UUID RETURNING *';
+			await client.query(sql, [orderID]);
+
+			// THEN: delete order from orders table:
+			sql = 'DELETE FROM orders WHERE id=($1)::UUID RETURNING *';
 			const result = await client.query(sql, [orderID]);
 
 			// release connection:

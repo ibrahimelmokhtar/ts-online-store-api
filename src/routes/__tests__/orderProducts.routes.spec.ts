@@ -1,4 +1,3 @@
-import { UNIQUE_UUID } from '../../constants/unique.uuid.constant';
 import supertest from 'supertest';
 import app from '../../server';
 import {
@@ -37,20 +36,6 @@ export const orderProductsEndpointsSpecs = () => {
 
 		it('GET (/orders/:orderID/products/showAll) route response', async () => {
 			const res = await req.get(`/orders/${NIL_UUID}/products/showAll`);
-			expect(res.statusCode).toBe(200);
-		});
-
-		it('UPDATE (/orders/:orderID/products/update/:productID) route response', async () => {
-			const res = await req
-				.put(`/orders/${NIL_UUID}/products/update/${NIL_UUID}`)
-				.send(DEFAULT_ORDER_PRODUCT);
-			expect(res.statusCode).toBe(200);
-		});
-
-		it('DELETE (/orders/:orderID/products/delete/:productID) route response', async () => {
-			const res = await req.delete(
-				`/orders/${NIL_UUID}/products/delete/${UNIQUE_UUID}`
-			);
 			expect(res.statusCode).toBe(200);
 		});
 	});

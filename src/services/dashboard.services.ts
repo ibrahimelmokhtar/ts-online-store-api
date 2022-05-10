@@ -10,7 +10,7 @@ class Dashboard {
 
 			// run desired query:
 			const sql: string = `
-				SELECT order_id, is_done AS is_order_done, user_id, user_name,  name AS product_name, category AS product_category, price AS product_price, quantity AS product_quantity, (price*quantity) AS total_price
+				SELECT order_id, is_done AS is_order_done, user_id, user_name,  name AS product_name, category AS product_category, price AS product_price, product_quantity, (price*product_quantity) AS total_price
 				FROM order_products
 				INNER JOIN orders ON orders.id=order_products.order_id
 				INNER JOIN users ON orders.user_id=users.id
@@ -25,7 +25,7 @@ class Dashboard {
 			return result.rows;
 		} catch (error) {
 			console.error(
-				`Order Model: Unable to show products in orders: ${
+				`Dashboard Services: Unable to show products in orders: ${
 					(error as Error).message
 				}`
 			);

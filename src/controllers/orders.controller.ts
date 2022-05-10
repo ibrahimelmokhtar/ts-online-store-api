@@ -108,7 +108,7 @@ export const updateController = async (
 		// then save it within a specific DB table:
 		const order: Order = (await orderModel.updateOrderStatus(
 			req.params.orderID,
-			req.body.isDone
+			req.body.is_done
 		)) as Order;
 
 		// send a response back to the order:

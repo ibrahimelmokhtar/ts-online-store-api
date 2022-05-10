@@ -1,7 +1,7 @@
 import { body, param } from 'express-validator';
 
 export const orderBodyValidationRules = [
-	body('userID')
+	body('user_id')
 		.isUUID(4)
 		.withMessage('Order`s user ID is NOT UUID')
 		.exists()
@@ -9,7 +9,7 @@ export const orderBodyValidationRules = [
 		.notEmpty()
 		.withMessage('Order`s user ID is empty'),
 
-	body('isDone')
+	body('is_done')
 		.exists()
 		.withMessage('Order`s status is required')
 		.notEmpty()
@@ -17,7 +17,7 @@ export const orderBodyValidationRules = [
 		.isBoolean()
 		.withMessage('Order`s status must be a boolean (true or false)'),
 
-	body('productsIDs')
+	body('products_ids')
 		.exists()
 		.withMessage('Order`s products IDs is required')
 		.notEmpty()
@@ -26,7 +26,7 @@ export const orderBodyValidationRules = [
 		.isArray({ min: 1 })
 		.withMessage('Order`s products IDs MIN length is 1'),
 
-	body('productsQuantities')
+	body('products_quantities')
 		.exists()
 		.withMessage('Order`s products quantities is required')
 		.notEmpty()
@@ -36,7 +36,7 @@ export const orderBodyValidationRules = [
 		.isArray({ min: 1 })
 		.withMessage('Order`s products quantities MIN length is 1')
 		.custom((value, { req }) => {
-			return value.length === req.body.productsIDs.length;
+			return value.length === req.body.products_ids.length;
 		})
 		.withMessage(
 			'Order`s products quantities array length MUST EQUAL products IDs array length'
@@ -44,7 +44,7 @@ export const orderBodyValidationRules = [
 ];
 
 export const orderStatusBodyValidationRules = [
-	body('isDone')
+	body('is_done')
 		.exists()
 		.withMessage('Order`s status is required')
 		.notEmpty()

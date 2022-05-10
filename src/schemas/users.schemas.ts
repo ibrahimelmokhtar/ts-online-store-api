@@ -1,7 +1,7 @@
 import { body, param } from 'express-validator';
 
 export const userBodyValidationRules = [
-	body('firstName')
+	body('first_name')
 		.exists()
 		.withMessage('User`s first name is required')
 		.notEmpty()
@@ -9,7 +9,7 @@ export const userBodyValidationRules = [
 		.isLength({ max: 100 })
 		.withMessage('User`s first name MAX length is 100'),
 
-	body('lastName')
+	body('last_name')
 		.exists()
 		.withMessage('User`s last name is required')
 		.notEmpty()
@@ -17,7 +17,7 @@ export const userBodyValidationRules = [
 		.isLength({ max: 100 })
 		.withMessage('User`s last name MAX length is 100'),
 
-	body('userName')
+	body('user_name')
 		.exists()
 		.withMessage('User`s user name is required')
 		.notEmpty()
@@ -45,7 +45,7 @@ export const userBodyValidationRules = [
 ];
 
 export const userParamsValidationRules = [
-	param('userID')
+	param('user_id')
 		.isUUID(4)
 		.withMessage('User`s ID is NOT UUID')
 		.exists()

@@ -36,13 +36,11 @@ These are the notes from a meeting with the frontend developer that describe wha
     - [Create New Order](#create-new-order)
     - [Show Specific Order](#show-specific-order)
     - [Show All Orders](#show-all-orders)
-    - [Update Specific Order](#update-specific-order)
+    - [Update Specific Order Status](#update-specific-order-status)
     - [Delete Specific Order](#delete-specific-order)
     - [Add New Product Into Order](#add-new-product-into-order)
     - [Show Specific Product From Order](#show-specific-product-from-order)
     - [Show All Products Within Order](#show-all-products-within-order)
-    - [Update Product Within Order](#update-product-within-order)
-    - [Delete Product From Order](#delete-product-from-order)
   - [`/dashboard` Endpoints](#dashboard-endpoints)
     - [Show All Products In Orders](#show-all-products-in-orders)
 
@@ -144,7 +142,7 @@ These are the notes from a meeting with the frontend developer that describe wha
             <th bgColor="eeeeee">id</th>
             <th bgColor="eeeeee">order_id</th>
             <th bgColor="eeeeee">product_id</th>
-            <th bgColor="eeeeee">quantity</th>
+            <th bgColor="eeeeee">product_quantity</th>
         </tr>
     </thead>
     <tbody>
@@ -167,9 +165,9 @@ These are the notes from a meeting with the frontend developer that describe wha
 | Parameter | Data Type | Additional Information |
 | :--------- | :---------: | :---------: |
 | **`id`** | uuid (v4) | *automatically generated* |
-| **`firstName`** | string | - |
-| **`lastName`** | string | - |
-| **`userName`** | string | - |
+| **`first_name`** | string | - |
+| **`last_name`** | string | - |
+| **`user_name`** | string | - |
 | **`email`** | string | - |
 | **`password`** | string | *will be hashed before saving into database* |
 
@@ -187,32 +185,32 @@ These are the notes from a meeting with the frontend developer that describe wha
 | Parameter | Data Type | Additional Information |
 | :--------- | :---------: | :---------: |
 | **`id`** | uuid (v4) | *automatically generated* |
-| **`isDone`** | boolean | *`true`: completed, `false`: active* |
-| **`userID`** | uuid (v4) | *must be in `users` table* |
-| **`productsIDs`** | uuid[ ] (v4) | *must be in `products` table* |
-| **`productsQuantities`** | integer [ ] | - |
+| **`is_done`** | boolean | *`true`: completed, `false`: active* |
+| **`user_id`** | uuid (v4) | *must be in `users` table* |
+| **`products_ids`** | uuid[ ] (v4) | *must be in `products` table* |
+| **`products_quantities`** | integer [ ] | - |
 
 ## OrderProducts Shape
 
 | Parameter | Data Type | Additional Information |
 | :--------- | :---------: | :---------: |
 | **`id`** | uuid (v4) | *automatically generated* |
-| **`orderID`** | uuid (v4) | *must be in `orders` table* |
-| **`productID`** | uuid (v4) | *must be in `products` table* |
-| **`quantity`** | integer | - |
+| **`order_id`** | uuid (v4) | *must be in `orders` table* |
+| **`product_id`** | uuid (v4) | *must be in `products` table* |
+| **`product_quantity`** | integer | - |
 
 ## ProductsInOrder Shape
 
 | Parameter | Data Type | Additional Information |
 | :--------- | :---------: | :---------: |
-| **`orderID`** | uuid (v4) | *retrieved from `orders` table* |
-| **`isOrderDone`** | boolean | *`true`: completed, `false`: active* |
-| **`productID`** | uuid (v4) | *retrieved from `products` table* |
-| **`productName`** | string | *retrieved from `products` table* |
-| **`productCategory`** | string | *retrieved from `products` table* |
-| **`productPrice`** | float | *retrieved from `products` table* |
-| **`productQuantity`** | integer | *retrieved from `order_products` table* |
-| **`totalPrice`** | float | *calculated within sql command* |
+| **`order_id`** | uuid (v4) | *retrieved from `orders` table* |
+| **`is_order_done`** | boolean | *`true`: completed, `false`: active* |
+| **`product_id`** | uuid (v4) | *retrieved from `products` table* |
+| **`product_name`** | string | *retrieved from `products` table* |
+| **`product_category`** | string | *retrieved from `products` table* |
+| **`product_price`** | float | *retrieved from `products` table* |
+| **`product_quantity`** | integer | *retrieved from `order_products` table* |
+| **`total_price`** | float | *calculated within sql command* |
 
 # API Endpoints
 
@@ -707,7 +705,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
     }
     ```
 
-### Update Specific Order
+### Update Specific Order Status
 
 [(Back to top)](#table-of-contents)
 
@@ -880,72 +878,6 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
                     "quantity": 15
             }],
             "message": "Products shown successfully from the order."
-        }
-    ```
-
-### Update Product Within Order
-
-[(Back to top)](#table-of-contents)
-
-- **HTTP Method**: **`PUT`**
-- **Endpoint**: **`/orders/:orderID/products/update/:productID`**
-- **Request Body**: **`OrderProduct object`**
-- **Request Params**: **`:orderID [UUIDv4]`**, **`:productID [UUIDv4]`**
-- **Response Body**: **`OrderProduct object`**
-- **Example**:
-
-    ```http
-    - Request URL: /orders/72da8597-11cb-4ba5-b4ef-4125525e1084/products/update/ac85b670-9f17-4ae0-8c71-f517dc037e47
-    ```
-
-    ```json
-    - Request Body:
-        {
-            "productID": "ac85b670-9f17-4ae0-8c71-f517dc037e47",
-            "quantity": 500
-        }
-    ```
-
-    ```json
-    - Response Body:
-        {
-            "status": "success",
-            "data": {
-                "id": "b6a62a3c-9195-482d-8f46-83c61d440951",
-                "order_id": "72da8597-11cb-4ba5-b4ef-4125525e1084",
-                "product_id": "ac85b670-9f17-4ae0-8c71-f517dc037e47",
-                "quantity": 500
-            },
-            "message": "Product updated successfully within the order."
-        }
-    ```
-
-### Delete Product From Order
-
-[(Back to top)](#table-of-contents)
-
-- **HTTP Method**: **`DELETE`**
-- **Endpoint**: **`/orders/:orderID/products/delete/:productID`**
-- **Request Body**: **`N/A`**
-- **Request Params**: **`:orderID [UUIDv4]`**, **`:productID [UUIDv4]`**
-- **Response Body**: **`OrderProduct object`**
-- **Example**:
-
-    ```http
-    - Request URL: /orders/72da8597-11cb-4ba5-b4ef-4125525e1084/products/delete/ac85b670-9f17-4ae0-8c71-f517dc037e47
-    ```
-
-    ```json
-    - Response Body:
-        {
-            "status": "success",
-            "data": {
-                "id": "b6a62a3c-9195-482d-8f46-83c61d440951",
-                "order_id": "72da8597-11cb-4ba5-b4ef-4125525e1084",
-                "product_id": "ac85b670-9f17-4ae0-8c71-f517dc037e47",
-                "quantity": 10
-            },
-            "message": "Product deleted successfully from the order."
         }
     ```
 
