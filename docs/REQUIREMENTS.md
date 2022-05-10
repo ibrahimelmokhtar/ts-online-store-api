@@ -8,6 +8,17 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 - [API Requirements](#api-requirements)
 - [Table of Contents](#table-of-contents)
+- [Database Schemas](#database-schemas)
+  - [`users` Table Schema](#users-table-schema)
+  - [`products` Table Schema](#products-table-schema)
+  - [`orders` Table Schema](#orders-table-schema)
+  - [`order_products` Table Schema](#order_products-table-schema)
+- [Data Shapes](#data-shapes)
+  - [User Shape](#user-shape)
+  - [Product Shape](#product-shape)
+  - [Order Shape](#order-shape)
+  - [OrderProducts Shape](#orderproducts-shape)
+  - [ProductsInOrder Shape](#productsinorder-shape)
 - [API Endpoints](#api-endpoints)
   - [`/users` Endpoints](#users-endpoints)
     - [Create New User](#create-new-user)
@@ -34,12 +45,168 @@ These are the notes from a meeting with the frontend developer that describe wha
     - [Delete Product From Order](#delete-product-from-order)
   - [`/dashboard` Endpoints](#dashboard-endpoints)
     - [Show All Products In Orders](#show-all-products-in-orders)
-- [Data Shapes](#data-shapes)
-  - [User Shape](#user-shape)
-  - [Product Shape](#product-shape)
-  - [Order Shape](#order-shape)
-  - [OrderProducts Shape](#orderproducts-shape)
-  - [ProductsInOrder Shape](#productsinorder-shape)
+
+# Database Schemas
+
+## `users` Table Schema
+
+<table>
+    <thead>
+        <tr>
+            <th rowspan=2 bgColor="cccccc"></th>
+            <th colspan=6 bgColor="cccccc">column name</th>
+        </tr>
+        <tr>
+            <th bgColor="eeeeee">id</th>
+            <th bgColor="eeeeee">first_name</th>
+            <th bgColor="eeeeee">last_name</th>
+            <th bgColor="eeeeee">user_name</th>
+            <th bgColor="eeeeee">email</th>
+            <th bgColor="eeeeee">password</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th bgColor="cccccc">column type</th>
+            <td align="center">UUID</td>
+            <td align="center">VARCHAR(100)</td>
+            <td align="center">VARCHAR(100)</td>
+            <td align="center">VARCHAR(50)</td>
+            <td align="center">VARCHAR(255)</td>
+            <td align="center">VARCHAR(100)</td>
+        </tr>
+    </tbody>
+</table>
+
+## `products` Table Schema
+
+<table>
+    <thead>
+        <tr>
+            <th rowspan=2 bgColor="cccccc"></th>
+            <th colspan=4 bgColor="cccccc">column name</th>
+        </tr>
+        <tr>
+            <th bgColor="eeeeee">id</th>
+            <th bgColor="eeeeee">name</th>
+            <th bgColor="eeeeee">price</th>
+            <th bgColor="eeeeee">category</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th bgColor="cccccc">column type</th>
+            <td align="center">UUID</td>
+            <td align="center">VARCHAR(100)</td>
+            <td align="center">FLOAT</td>
+            <td align="center">VARCHAR(50)</td>
+        </tr>
+    </tbody>
+</table>
+
+## `orders` Table Schema
+
+<table>
+    <thead>
+        <tr>
+            <th rowspan=2 bgColor="cccccc"></th>
+            <th colspan=3 bgColor="cccccc">column name</th>
+        </tr>
+        <tr>
+            <th bgColor="eeeeee">id</th>
+            <th bgColor="eeeeee">is_done</th>
+            <th bgColor="eeeeee">user_id</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th bgColor="cccccc">column type</th>
+            <td align="center">UUID</td>
+            <td align="center">BOOLEAN</td>
+            <td align="center">UUID</td>
+        </tr>
+    </tbody>
+</table>
+
+## `order_products` Table Schema
+
+<table>
+    <thead>
+        <tr>
+            <th rowspan=2 bgColor="cccccc"></th>
+            <th colspan=4 bgColor="cccccc">column name</th>
+        </tr>
+        <tr>
+            <th bgColor="eeeeee">id</th>
+            <th bgColor="eeeeee">order_id</th>
+            <th bgColor="eeeeee">product_id</th>
+            <th bgColor="eeeeee">quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th bgColor="cccccc">column type</th>
+            <td align="center">UUID</td>
+            <td align="center">UUID</td>
+            <td align="center">UUID</td>
+            <td align="center">INTEGER</td>
+        </tr>
+    </tbody>
+</table>
+
+# Data Shapes
+
+[(Back to top)](#table-of-contents)
+
+## User Shape
+
+| Parameter | Data Type | Additional Information |
+| :--------- | :---------: | :---------: |
+| **`id`** | uuid (v4) | *automatically generated* |
+| **`firstName`** | string | - |
+| **`lastName`** | string | - |
+| **`userName`** | string | - |
+| **`email`** | string | - |
+| **`password`** | string | *will be hashed before saving into database* |
+
+## Product Shape
+
+| Parameter | Data Type | Additional Information |
+| :--------- | :---------: | :---------: |
+| **`id`** | uuid (v4) | *automatically generated* |
+| **`name`** | string | - |
+| **`price`** | float | - |
+| **`category`** | string | - |
+
+## Order Shape
+
+| Parameter | Data Type | Additional Information |
+| :--------- | :---------: | :---------: |
+| **`id`** | uuid (v4) | *automatically generated* |
+| **`isDone`** | boolean | *`true`: completed, `false`: active* |
+| **`userID`** | uuid (v4) | *must be in `users` table* |
+
+## OrderProducts Shape
+
+| Parameter | Data Type | Additional Information |
+| :--------- | :---------: | :---------: |
+| **`id`** | uuid (v4) | *automatically generated* |
+| **`orderID`** | uuid (v4) | *must be in `orders` table* |
+| **`productID`** | uuid (v4) | *must be in `products` table* |
+| **`quantity`** | integer | - |
+
+## ProductsInOrder Shape
+
+| Parameter | Data Type | Additional Information |
+| :--------- | :---------: | :---------: |
+| **`orderID`** | uuid (v4) | *retrieved from `orders` table* |
+| **`isOrderDone`** | boolean | *`true`: completed, `false`: active* |
+| **`productID`** | uuid (v4) | *retrieved from `products` table* |
+| **`productName`** | string | *retrieved from `products` table* |
+| **`productCategory`** | string | *retrieved from `products` table* |
+| **`productPrice`** | float | *retrieved from `products` table* |
+| **`productQuantity`** | integer | *retrieved from `order_products` table* |
+| **`totalPrice`** | float | *calculated within sql command* |
 
 # API Endpoints
 
@@ -782,57 +949,3 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
             "message": "Products in orders shown successfully."
         }
     ```
-
-# Data Shapes
-
-[(Back to top)](#table-of-contents)
-
-## User Shape
-
-| Parameter | Data Type | Additional Information |
-| :--------- | :---------: | :---------: |
-| **`id`** | uuid (v4) | *automatically generated* |
-| **`firstName`** | string | - |
-| **`lastName`** | string | - |
-| **`userName`** | string | - |
-| **`email`** | string | - |
-| **`password`** | string | *will be hashed before saving into database* |
-
-## Product Shape
-
-| Parameter | Data Type | Additional Information |
-| :--------- | :---------: | :---------: |
-| **`id`** | uuid (v4) | *automatically generated* |
-| **`name`** | string | - |
-| **`price`** | float | - |
-| **`category`** | string | - |
-
-## Order Shape
-
-| Parameter | Data Type | Additional Information |
-| :--------- | :---------: | :---------: |
-| **`id`** | uuid (v4) | *automatically generated* |
-| **`isDone`** | boolean | *`true`: completed, `false`: active* |
-| **`userID`** | uuid (v4) | *must be in `users` table* |
-
-## OrderProducts Shape
-
-| Parameter | Data Type | Additional Information |
-| :--------- | :---------: | :---------: |
-| **`id`** | uuid (v4) | *automatically generated* |
-| **`orderID`** | uuid (v4) | *must be in `orders` table* |
-| **`productID`** | uuid (v4) | *must be in `products` table* |
-| **`quantity`** | integer | - |
-
-## ProductsInOrder Shape
-
-| Parameter | Data Type | Additional Information |
-| :--------- | :---------: | :---------: |
-| **`orderID`** | uuid (v4) | *retrieved from `orders` table* |
-| **`isOrderDone`** | boolean | *`true`: completed, `false`: active* |
-| **`productID`** | uuid (v4) | *retrieved from `products` table* |
-| **`productName`** | string | *retrieved from `products` table* |
-| **`productCategory`** | string | *retrieved from `products` table* |
-| **`productPrice`** | float | *retrieved from `products` table* |
-| **`productQuantity`** | integer | *retrieved from `order_products` table* |
-| **`totalPrice`** | float | *calculated within sql command* |
