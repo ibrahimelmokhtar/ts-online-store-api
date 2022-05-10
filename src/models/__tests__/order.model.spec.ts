@@ -2,6 +2,7 @@ import { UNIQUE_UUID } from '../../constants/unique.uuid.constant';
 import { NIL as NIL_UUID } from 'uuid';
 import {
 	DEFAULT_ORDER,
+	DONE_ORDER,
 	OTHER_ORDER,
 } from '../../constants/order.type.constant';
 import Order from '../../types/order.type';
@@ -35,10 +36,10 @@ export const orderModelSpecs = () => {
 			expect(orders.length).toEqual(2);
 		});
 
-		it('updates a specific order within the database', async () => {
-			const updatedOrder: Order = (await orderModel.update(
+		it('updates a specific order status within the database', async () => {
+			const updatedOrder: Order = (await orderModel.updateOrderStatus(
 				OTHER_ORDER.id as string,
-				OTHER_ORDER
+				DONE_ORDER.isDone
 			)) as Order;
 
 			expect(updatedOrder.id).toEqual(OTHER_ORDER.id);

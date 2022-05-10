@@ -14,19 +14,28 @@ class OrderModel {
 			const client: PoolClient = await pool.connect();
 
 			let sql: string = 'EMPTY SQL QUERY';
-			let sentValues: Array<string | boolean> = [];
+			let sentValues: Array<
+				string | boolean | number | Array<string | number>
+			> = [];
 			if (process.env.NODE_ENV === 'test') {
 				sql =
-					'INSERT INTO orders (id, is_done, user_id) VALUES ($1, $2, $3) RETURNING *';
+					'INSERT INTO orders (id, is_done, user_id, products_ids, products_quantities) VALUES ($1::UUID, $2::BOOLEAN, $3::UUID, $4::UUID[], $5::INTEGER[]) RETURNING *';
 				sentValues = [
 					order.id as string,
 					order.isDone,
 					order.userID as string,
+					order.productsIDs,
+					order.productsQuantities,
 				];
 			} else {
 				sql =
-					'INSERT INTO orders (is_done, user_id) VALUES ($1, $2) RETURNING *';
-				sentValues = [order.isDone, order.userID as string];
+					'INSERT INTO orders (is_done, user_id, products_ids, products_quantities) VALUES ($1::BOOLEAN, $2::UUID, $3::UUID[], $4::INTEGER[]) RETURNING *';
+				sentValues = [
+					order.isDone,
+					order.userID as string,
+					order.productsIDs,
+					order.productsQuantities,
+				];
 			}
 
 			// run desired query:
@@ -57,7 +66,7 @@ class OrderModel {
 			const client: PoolClient = await pool.connect();
 
 			// run desired query:
-			const sql: string = 'SELECT * FROM orders WHERE id=($1)';
+			const sql: string = 'SELECT * FROM orders WHERE id=($1)::UUID';
 			const result = await client.query(sql, [orderID]);
 
 			// release connection:
@@ -104,22 +113,21 @@ class OrderModel {
 	/**
 	 * @description Update a specific Order object.
 	 * @param {string} orderID
-	 * @param {Order} order
+	 * @param {boolean} orderStatus
 	 * @returns {Order} Updated Order object.
 	 */
-	update = async (orderID: string, order: Order): Promise<Order | void> => {
+	updateOrderStatus = async (
+		orderID: string,
+		orderStatus: boolean
+	): Promise<Order | void> => {
 		try {
 			// connect to database:
 			const client: PoolClient = await pool.connect();
 
 			// run desired query:
 			const sql: string =
-				'UPDATE orders SET is_done=($2), user_id=($3) WHERE id=($1) RETURNING *';
-			const result = await client.query(sql, [
-				orderID,
-				order.isDone,
-				order.userID,
-			]);
+				'UPDATE orders SET is_done=($2)::BOOLEAN WHERE id=($1)::UUID RETURNING *';
+			const result = await client.query(sql, [orderID, orderStatus]);
 
 			// release connection:
 			client.release();
@@ -146,7 +154,8 @@ class OrderModel {
 			const client: PoolClient = await pool.connect();
 
 			// run desired query:
-			const sql: string = 'DELETE FROM orders WHERE id=($1) RETURNING *';
+			const sql: string =
+				'DELETE FROM orders WHERE id=($1)::UUID RETURNING *';
 			const result = await client.query(sql, [orderID]);
 
 			// release connection:
