@@ -17,7 +17,16 @@ mainRoute.use('/dashboard', dashboardRoute);
 
 // sample GET method from main route:
 mainRoute.get('/', async (_req: Request, res: Response): Promise<void> => {
-	res.send('inside << main >> route');
+	res.json({
+		message: 'inside << main >> route',
+		possibleRoutes: [
+			'/users',
+			'/products',
+			'/orders',
+			'/orders/:orderID',
+			'/dashboard',
+		],
+	});
 });
 
 export default mainRoute;

@@ -16,6 +16,7 @@ const {
 	POSTGRES_PASSWORD,
 	BCRYPT_PASSWORD,
 	SALT_ROUNDS,
+	TOKEN_SECRET,
 } = process.env;
 
 export default {
@@ -28,4 +29,5 @@ export default {
 	postgresPassword: POSTGRES_PASSWORD,
 	bcryptPassword: BCRYPT_PASSWORD,
 	saltRounds: SALT_ROUNDS,
+	tokenSecret: TOKEN_SECRET,
 };

@@ -26,6 +26,7 @@ These are the notes from a meeting with the frontend developer that describe wha
     - [Show All Users](#show-all-users)
     - [Update Specific User](#update-specific-user)
     - [Delete Specific User](#delete-specific-user)
+    - [Signin User](#signin-user)
   - [`/products` Endpoints](#products-endpoints)
     - [Create New Product](#create-new-product)
     - [Show Specific Product](#show-specific-product)
@@ -406,6 +407,47 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
         }
     ```
 
+### Signin User
+
+[(Back to top)](#table-of-contents)
+
+- **HTTP Method**: **`POST`**
+- **Endpoint**: **`/users/signin`**
+- **Request Body**: **`User object`**
+- **Request Params**: **`N/A`**
+- **Response Body**: **`User object` + `token`**
+- **Example**:
+
+    ```http
+    - Request URL: /users/signin/
+    ```
+
+    ```json
+    - Request Body:
+        {
+            // we only need the user's email and password:
+            "email": "test@test.com",
+            "password": "password123"
+        }
+    ```
+
+    ```json
+    - Response Body:
+        {
+            "status": "success",
+            "data": {
+                "id": "d485b697-69c2-4198-8231-f6054841baaf",
+                "first_name": "Ibrahim",
+                "last_name": "El-Mokhtar",
+                "user_name": "ibrahimelmokhtar",
+                "email": "test@test.com",
+                "password": "$2b$10$1mOTa6VX2zuJr/MAZIaxBOFjnwFLR4TWAHZT34As4mVd4LQ9nDXz2",
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiYjUwYjNiYTktYmY5MS00YjA1LWJmODAtNTlkOTljNzFkYmE0IiwiZmlyc3RfbmFtZSI6IklicmFoaW0iLCJsYXN0X25hbWUiOiJFbC1Nb2todGFyIiwidXNlcl9uYW1lIjoiaWJyYWhpbWVsbW9raHRhciIsImVtYWlsIjoidGVzdEB0ZXN0LmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJDU3cGFIQ1hURm1jdDRTam04ZU1PVXU0NnpGcmMySFBCU1BrZlpVelYwdXlLWkNHa3c5WkJDIn0sImlhdCI6MTY1MjI3NzUzNX0.7pPPtjDomqteV0byD89oAQw6F5coF5l7ZOVo0O-gep0"
+            },
+            "message": "User created successfully."
+        }
+    ```
+
 ## `/products` Endpoints
 
 ### Create New Product
@@ -598,10 +640,10 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
     ```json
     - Request Body:
         {
-            "userID": "08068ea7-471c-402e-8f89-f3437a205a48",
-            "isDone": false,
-            "productsIDs": ["53d01fd5-7fcb-4f1e-84d7-227c50089651", "3dce8160-630e-4cb9-8a75-0bb8fcf638dc"],
-            "productsQuantities": [2, 1]
+            "user_id": "08068ea7-471c-402e-8f89-f3437a205a48",
+            "is_done": false,
+            "products_ids_": ["53d01fd5-7fcb-4f1e-84d7-227c50089651", "3dce8160-630e-4cb9-8a75-0bb8fcf638dc"],
+            "products_quantities": [2, 1]
         }
     ```
 
@@ -724,7 +766,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
     - Request Body:
         {
             // we only need the order status:
-            "isDone": true,
+            "is_done": true,
         }
     ```
 
@@ -797,8 +839,8 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
     ```json
     - Request Body:
         {
-            "productID": "ac85b670-9f17-4ae0-8c71-f517dc037e47",
-            "quantity": 10
+            "product_id": "ac85b670-9f17-4ae0-8c71-f517dc037e47",
+            "product_quantity": 10
         }
     ```
 
@@ -810,7 +852,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
                 "id": "b6a62a3c-9195-482d-8f46-83c61d440951",
                 "order_id": "72da8597-11cb-4ba5-b4ef-4125525e1084",
                 "product_id": "ac85b670-9f17-4ae0-8c71-f517dc037e47",
-                "quantity": 10
+                "product_quantity": 10
             },
             "message": "Product added successfully to the order."
         }
@@ -839,7 +881,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
                 "id": "ee75debb-f292-416a-95d3-0ea8a449d5f8",
                 "order_id": "72da8597-11cb-4ba5-b4ef-4125525e1084",
                 "product_id": "ac85b670-9f17-4ae0-8c71-f517dc037e47",
-                "quantity": 10
+                "product_quantity": 10
             },
             "message": "Product shown successfully from the order."
         }
@@ -869,13 +911,13 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
                     "id": "ee75debb-f292-416a-95d3-0ea8a449d5f8",
                     "order_id": "72da8597-11cb-4ba5-b4ef-4125525e1084",
                     "product_id": "ac85b670-9f17-4ae0-8c71-f517dc037e47",
-                    "quantity": 10
+                    "product_quantity": 10
                 },
                 {
                     "id": "e07f5c7f-3f63-4452-9921-ae53f4bd36ed",
                     "order_id": "72da8597-11cb-4ba5-b4ef-4125525e1084",
                     "product_id": "ac85b670-9f17-4ae0-8c71-f517dc037e47",
-                    "quantity": 15
+                    "product_quantity": 15
             }],
             "message": "Products shown successfully from the order."
         }

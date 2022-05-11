@@ -44,6 +44,26 @@ export const userBodyValidationRules = [
 		.withMessage('User`s password MAX length is 100'),
 ];
 
+export const userAuthenticateBodyValidationRules = [
+	body('email')
+		.exists()
+		.withMessage('User`s email is required')
+		.notEmpty()
+		.withMessage('User`s email is empty')
+		.isEmail()
+		.withMessage('User`s email is NOT a valid email structure')
+		.isLength({ max: 255 })
+		.withMessage('User`s email MAX length is 255'),
+
+	body('password')
+		.exists()
+		.withMessage('User`s password is required')
+		.notEmpty()
+		.withMessage('User`s password is empty')
+		.isLength({ max: 100 })
+		.withMessage('User`s password MAX length is 100'),
+];
+
 export const userParamsValidationRules = [
 	param('userID')
 		.isUUID(4)

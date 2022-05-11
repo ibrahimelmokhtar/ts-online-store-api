@@ -235,6 +235,7 @@ These packages can be found in the `"dependencies"` object inside the `package.j
 - [express](https://www.npmjs.com/package/express) - Fast, unopinionated, minimalist web framework.
 - [express-validator](https://www.npmjs.com/package/express-validator) - Express middleware for the validator module.
 - [helmet](https://www.npmjs.com/package/helmet) - Help secure Express/Connect apps with various HTTP headers.
+- [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) - JSON Web Token implementation (symmetric and asymmetric).
 - [morgan](https://www.npmjs.com/package/morgan) - HTTP request logger middleware for node.js.
 - [pg](https://www.npmjs.com/package/pg) - PostgreSQL client.
 - [uuid](https://www.npmjs.com/package/uuid) - RFC4122 (v1, v4, and v5) UUIDs.
@@ -246,6 +247,7 @@ These packages can be found in the `"devDependencies"` object inside the `packag
 - [@types/bcrypt](https://www.npmjs.com/package/@types/bcrypt) - TypeScript definitions for bcrypt.
 - [@types/express](https://www.npmjs.com/package/@types/express) - TypeScript definitions for Express.
 - [@types/jasmine](https://www.npmjs.com/package/@types/jasmine) - TypeScript definitions for Jasmine.
+- [@types/jsonwebtoken](https://www.npmjs.com/package/@types/jsonwebtoken) - TypeScript definitions for jsonwebtoken.
 - [@types/morgan](https://www.npmjs.com/package/@types/morgan) - TypeScript definitions for morgan.
 - [@types/pg](https://www.npmjs.com/package/@types/pg) - TypeScript definitions for pg.
 - [@types/supertest](https://www.npmjs.com/package/@types/supertest) - TypeScript definitions for SuperTest.

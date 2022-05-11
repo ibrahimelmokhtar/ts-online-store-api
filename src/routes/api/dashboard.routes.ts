@@ -6,7 +6,10 @@ const dashboardRoute: Router = Router();
 
 // sample GET method from orders route:
 dashboardRoute.get('/', async (_req: Request, res: Response): Promise<void> => {
-	res.json({ message: 'inside << dashboard >> route.' });
+	res.json({
+		message: 'inside << dashboard >> route.',
+		possibleRoutes: ['/productsInOrders'],
+	});
 });
 
 // READ ALL:

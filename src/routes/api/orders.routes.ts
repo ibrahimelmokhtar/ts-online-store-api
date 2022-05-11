@@ -45,7 +45,7 @@ ordersRoute.get(
 	(_req: Request, res: Response) => {
 		res.json({
 			message: 'Order ID is required ...',
-		});
+		}).end();
 	}
 );
 
@@ -67,7 +67,7 @@ ordersRoute.put(
 	(_req: Request, res: Response) => {
 		res.json({
 			message: 'Order ID is required ...',
-		});
+		}).end();
 	}
 );
 
@@ -87,7 +87,7 @@ ordersRoute.delete(
 	(_req: Request, res: Response) => {
 		res.json({
 			message: 'Order ID is required ...',
-		});
+		}).end();
 	}
 );
 

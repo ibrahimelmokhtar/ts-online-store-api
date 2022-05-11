@@ -2,6 +2,7 @@ import { Request, Response, Router } from 'express';
 import * as usersController from '../../controllers/users.controller';
 import validateRequest from '../../middlewares/validator.middleware';
 import {
+	userAuthenticateBodyValidationRules,
 	userBodyValidationRules,
 	userParamsValidationRules,
 } from '../../schemas/users.schemas';
@@ -19,6 +20,7 @@ usersRoute.get('/', async (_req: Request, res: Response): Promise<void> => {
 			'/showAll',
 			'/update/:userID',
 			'/delete/:userID',
+			'/signin',
 		],
 	});
 });
@@ -41,7 +43,7 @@ usersRoute.get(
 	(_req: Request, res: Response) => {
 		res.json({
 			message: 'User ID is required ...',
-		});
+		}).end();
 	}
 );
 
@@ -63,7 +65,7 @@ usersRoute.put(
 	(_req: Request, res: Response) => {
 		res.json({
 			message: 'User ID is required ...',
-		});
+		}).end();
 	}
 );
 
@@ -83,7 +85,7 @@ usersRoute.delete(
 	(_req: Request, res: Response) => {
 		res.json({
 			message: 'User ID is required ...',
-		});
+		}).end();
 	}
 );
 
@@ -92,6 +94,14 @@ usersRoute.delete(
 	userParamsValidationRules,
 	validateRequest,
 	usersController.deleteController
+);
+
+// AUTHENTICATE ONE:
+usersRoute.post(
+	'/signin',
+	userAuthenticateBodyValidationRules,
+	validateRequest,
+	usersController.authenticateController
 );
 
 export default usersRoute;

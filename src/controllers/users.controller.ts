@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import UserModel from '../models/user.model';
 import User from '../types/user.type';
+import jwt from 'jsonwebtoken';
+import config from '../config/env.config';
 
 // create new object from UserModel:
 const userModel = new UserModel();
@@ -145,6 +147,48 @@ export const deleteController = async (
 	} catch (error) {
 		console.error(
 			`User Controller: Error while deleting user: ${
+				(error as Error).message
+			}`
+		);
+	}
+};
+
+/**
+ * @description Authenticate a specific User object within the database.
+ * @param {Request} req
+ * @param {Response} res
+ */
+export const authenticateController = async (
+	req: Request,
+	res: Response
+): Promise<void> => {
+	try {
+		// use user model to authenticate a specific User object:
+		const user: User = (await userModel.authenticate(
+			req.body.email,
+			req.body.password
+		)) as User;
+
+		if (!user) {
+			res.json({
+				status: 'error',
+				message:
+					'User email and/or password is wrong ... plesae try again.',
+			}).end();
+		} else {
+			// create user token:
+			const token = jwt.sign({ user }, config.tokenSecret as string);
+
+			// send a response back to the user:
+			res.json({
+				status: 'success',
+				data: { ...user, token },
+				message: 'User authenticated successfully.',
+			}).end();
+		}
+	} catch (error) {
+		console.error(
+			`User Controller: Error while authenticating user: ${
 				(error as Error).message
 			}`
 		);

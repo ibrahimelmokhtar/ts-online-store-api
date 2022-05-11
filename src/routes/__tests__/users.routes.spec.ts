@@ -42,5 +42,10 @@ export const usersEndpointsSpecs = () => {
 			const res = await req.delete(`/users/delete/${UNIQUE_UUID}`);
 			expect(res.statusCode).toBe(200);
 		});
+
+		it('POST (/users/signin) route response', async () => {
+			const res = await req.post('/users/signin').send(DEFAULT_USER);
+			expect(res.statusCode).toBe(200);
+		});
 	});
 };

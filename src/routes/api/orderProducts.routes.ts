@@ -14,7 +14,14 @@ orderProductsRoute.get(
 	orderParamsValidationRules,
 	validateRequest,
 	async (_req: Request, res: Response): Promise<void> => {
-		res.json({ message: 'inside << orderProducts >> route.' });
+		res.json({
+			message: 'inside << orderProducts >> route.',
+			possibleRoutes: [
+				'/products/add',
+				'/products/show/:productID',
+				'/products/showAll',
+			],
+		}).end();
 	}
 );
 
@@ -37,7 +44,7 @@ orderProductsRoute.get(
 	(_req: Request, res: Response) => {
 		res.json({
 			message: 'Product ID is required ...',
-		});
+		}).end();
 	}
 );
 

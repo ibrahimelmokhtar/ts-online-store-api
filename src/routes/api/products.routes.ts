@@ -41,7 +41,7 @@ productsRoute.get(
 	(_req: Request, res: Response) => {
 		res.json({
 			message: 'Product ID is required ...',
-		});
+		}).end();
 	}
 );
 
@@ -63,7 +63,7 @@ productsRoute.put(
 	(_req: Request, res: Response) => {
 		res.json({
 			message: 'Product ID is required ...',
-		});
+		}).end();
 	}
 );
 
@@ -83,7 +83,7 @@ productsRoute.delete(
 	(_req: Request, res: Response) => {
 		res.json({
 			message: 'Product ID is required ...',
-		});
+		}).end();
 	}
 );
 
