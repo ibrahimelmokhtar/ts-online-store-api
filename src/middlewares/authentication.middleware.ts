@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import { NextFunction, Request, Response } from 'express';
 import config from '../config/env.config';
 
@@ -37,63 +37,59 @@ const extractToken = (authHeader: string): string => {
  * @param {Response} res
  * @param {NextFunction} next
  */
-const authenticateUser = (req: Request, res: Response, next: NextFunction) => {
+export const authenticateUser = (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
 	try {
 		// obtain authorization token from request headers:
 		const authorizationHeader = req.headers.authorization;
-
 		// check authorization header existence:
-		if (authorizationHeader !== undefined) {
-			// check authorization header type to be Bearer type:
-			const isBearer: boolean = checkAuthType(
-				authorizationHeader,
-				'Bearer'
-			);
-			// check authorization header type:
-			if (isBearer) {
-				// extract the token from the authorization header:
-				const token = extractToken(authorizationHeader);
-
-				// verify extracted token:
-				const isValid = jwt.verify(token, config.tokenSecret as string);
-
-				// check token is valid:
-				if (isValid) {
-					next();
-				} else {
-					return res.status(400).json({
-						message:
-							'Authentication Middleware Error: Token is NOT valid',
-					});
-					// console.error(
-					// 	'Authentication Middleware Error: Token is NOT valid'
-					// );
-				}
-			} else {
-				return res.status(400).json({
-					message:
-						'Authentication Middleware Error: Token type is NOT "Bearer"',
-				});
-				// console.error(
-				// 	'Authentication Middleware Error: Token type is NOT "Bearer"'
-				// );
-			}
-		} else {
-			return res.status(400).json({
-				message: 'Authentication Middleware Error: No token provided',
+		if (!authorizationHeader) {
+			res.status(401).json({
+				status: '401 Unauthorized',
+				message: 'No token provided.',
 			});
-			// console.error('Authentication Middleware Error: No token provided');
+			return;
 		}
+
+		// check authorization header type to be Bearer type:
+		const isBearer: boolean = checkAuthType(authorizationHeader, 'Bearer');
+		// check authorization header type:
+		if (!isBearer) {
+			res.status(400).json({
+				status: 'Error 400: Bad Request',
+				message: 'Token type is NOT "Bearer".',
+			});
+			return;
+		}
+
+		// extract the token from the authorization header:
+		const token = extractToken(authorizationHeader);
+
+		// verify extracted token:
+		const payload = jwt.verify(
+			token,
+			config.tokenSecret as string
+		) as JwtPayload;
+
+		// check returned payload:
+		if (!payload) {
+			res.status(401).json({
+				status: 'Error 401: Unauthorized',
+				message: 'Token is NOT valid.',
+			});
+			return;
+		}
+
+		// proceed to next middleware:
+		next();
 	} catch (error) {
-		return res.status(400).json({
-			message: `Authentication Middleware Error: Unable to login: ${
+		console.error(
+			`Authentication Middleware Error: Unable to login: ${
 				(error as Error).message
-			}`,
-		});
-		// console.error(
-		// 	`AuthMiddleware Error: Unable to login: ${(error as Error).message}`
-		// );
+			}`
+		);
 	}
 };
-
-export default authenticateUser;
