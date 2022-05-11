@@ -11,7 +11,16 @@ const productsRoute: Router = Router();
 
 // sample GET method from products route:
 productsRoute.get('/', async (_req: Request, res: Response): Promise<void> => {
-	res.json({ message: 'inside << products >> route.' });
+	res.json({
+		message: 'inside << products >> route.',
+		possibleRoutes: [
+			'/create',
+			'/show/:productID',
+			'/showAll',
+			'/update/:productID',
+			'/delete/:productID',
+		],
+	});
 });
 
 // available routes for CRUD operations within /products route:

@@ -21,7 +21,7 @@ class Dashboard {
 			// release connection:
 			client.release();
 
-			// return a specific order:
+			// return a specific order products:
 			return result.rows;
 		} catch (error) {
 			console.error(

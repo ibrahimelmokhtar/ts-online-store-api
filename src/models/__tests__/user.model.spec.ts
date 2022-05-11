@@ -48,5 +48,14 @@ export const userModelSpecs = () => {
 
 			expect(user.id).toEqual(UNIQUE_UUID);
 		});
+
+		it('authenticates a specific user within the database', async () => {
+			const authenticatedUser: User = (await userModel.authenticate(
+				DEFAULT_USER.email,
+				DEFAULT_USER.password
+			)) as User;
+
+			expect(authenticatedUser.email).toEqual(DEFAULT_USER.email);
+		});
 	});
 };

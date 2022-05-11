@@ -2,6 +2,7 @@ import User from '../types/user.type';
 import pool from '../database';
 import { PoolClient } from 'pg';
 import { encrypt } from '../helpers/guards/encrypt';
+import { compare } from './../helpers/guards/compare';
 
 class UserModel {
 	/**
@@ -167,6 +168,39 @@ class UserModel {
 		} catch (error) {
 			console.error(
 				`User Model: Unable to delete ${userID}: ${
+					(error as Error).message
+				}`
+			);
+		}
+	};
+
+	authenticate = async (
+		email: string,
+		password: string
+	): Promise<User | void> => {
+		try {
+			// connect to database:
+			const client: PoolClient = await pool.connect();
+
+			// run desired query:
+			const sql: string = 'SELECT * FROM users WHERE email=($1)::VARCHAR';
+			const result = await client.query(sql, [email]);
+
+			// release connection:
+			client.release();
+
+			if (result.rowCount > 0) {
+				const hashedPassword: string = result.rows[0]['password'];
+				const isPasswordValid = compare(password, hashedPassword);
+				if (isPasswordValid) {
+					return result.rows[0];
+				}
+			} else {
+				console.log('User Model: Unable to authenticate user');
+			}
+		} catch (error) {
+			console.error(
+				`User Model: Unable to login ${email}: ${
 					(error as Error).message
 				}`
 			);

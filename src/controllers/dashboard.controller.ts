@@ -23,7 +23,7 @@ export const showProductsInOrdersController = async (
 		});
 	} catch (error) {
 		console.error(
-			`OrderProduct Controller: Error while showing products in orders: ${
+			`Dashboard Controller: Error while showing products in orders: ${
 				(error as Error).message
 			}`
 		);

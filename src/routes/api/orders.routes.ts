@@ -12,7 +12,19 @@ const ordersRoute: Router = Router();
 
 // sample GET method from orders route:
 ordersRoute.get('/', async (_req: Request, res: Response): Promise<void> => {
-	res.json({ message: 'inside << orders >> route.' });
+	res.json({
+		message: 'inside << orders >> route.',
+		possibleRoutes: [
+			'/create',
+			'/show/:orderID',
+			'/showAll',
+			'/updateStatus/:orderID',
+			'/delete/:orderID',
+			'/:orderID/products/add',
+			'/:orderID/products/show/:productID',
+			'/:orderID/products/showAll',
+		],
+	});
 });
 
 // available routes for CRUD operations within /orders route:
