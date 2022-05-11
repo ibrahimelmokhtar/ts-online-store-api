@@ -11,7 +11,6 @@ const validateRequest = (req: Request, res: Response, next: NextFunction) => {
 	const errors = validationResult(req);
 
 	if (!errors.isEmpty() && process.env.NODE_ENV !== 'test') {
-		console.log({ errors: errors.array({ onlyFirstError: true }) });
 		return res
 			.status(400)
 			.json({ errors: errors.array({ onlyFirstError: true }) });

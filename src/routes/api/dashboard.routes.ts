@@ -1,5 +1,6 @@
 import { Request, Response, Router } from 'express';
 import * as dashboardController from '../../controllers/dashboard.controller';
+import authenticateUser from '../../middlewares/authentication.middleware';
 
 // create Express Router:
 const dashboardRoute: Router = Router();
@@ -15,6 +16,7 @@ dashboardRoute.get('/', async (_req: Request, res: Response): Promise<void> => {
 // READ ALL:
 dashboardRoute.get(
 	'/productsInOrders',
+	authenticateUser,
 	dashboardController.showProductsInOrdersController
 );
 

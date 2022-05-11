@@ -2,7 +2,7 @@ import User from '../types/user.type';
 import pool from '../database';
 import { PoolClient } from 'pg';
 import { encrypt } from '../helpers/guards/encrypt';
-import { compare } from './../helpers/guards/compare';
+import { compare } from '../helpers/guards/compare';
 
 class UserModel {
 	/**

@@ -269,7 +269,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 - **HTTP Method**: **`GET`**
 - **Endpoint**: **`/users/show/:userID`**
-- **Request Body**: **`N/A`**
+- **Request Body**: **`N/A`** **[ token required ]**
 - **Request Params**: **`:userID [UUIDv4]`**
 - **Response Body**: **`User object`**
 - **Example**:
@@ -300,7 +300,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 - **HTTP Method**: **`GET`**
 - **Endpoint**: **`/users/showAll`**
-- **Request Body**: **`N/A`**
+- **Request Body**: **`N/A`** **[ token required ]**
 - **Request Params**: **`N/A`**
 - **Response Body**: **`Array of User objects`**
 - **Example**:
@@ -340,7 +340,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 - **HTTP Method**: **`PUT`**
 - **Endpoint**: **`/users/update/:userID`**
-- **Request Body**: **`User object`**
+- **Request Body**: **`User object`** **[ token required ]**
 - **Request Params**: **`:userID [UUIDv4]`**
 - **Response Body**: **`User object`**
 - **Example**:
@@ -382,7 +382,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 - **HTTP Method**: **`DELETE`**
 - **Endpoint**: **`/users/delete/:userID`**
-- **Request Body**: **`N/A`**
+- **Request Body**: **`N/A`** **[ token required ]**
 - **Request Params**: **`:userID [UUIDv4]`**
 - **Response Body**: **`User object`**
 - **Example**:
@@ -456,7 +456,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 - **HTTP Method**: **`POST`**
 - **Endpoint**: **`/products/create`**
-- **Request Body**: **`Product object`**
+- **Request Body**: **`Product object`** **[ token required ]**
 - **Request Params**: **`N/A`**
 - **Response Body**: **`Product object`**
 - **Example**:
@@ -494,7 +494,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 - **HTTP Method**: **`GET`**
 - **Endpoint**: **`/products/show/:productID`**
-- **Request Body**: **`N/A`**
+- **Request Body**: **`N/A`** **[ token required ]**
 - **Request Params**: **`:productID [UUIDv4]`**
 - **Response Body**: **`Product object`**
 - **Example**:
@@ -523,7 +523,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 - **HTTP Method**: **`GET`**
 - **Endpoint**: **`/products/showAll`**
-- **Request Body**: **`N/A`**
+- **Request Body**: **`N/A`** **[ token required ]**
 - **Request Params**: **`N/A`**
 - **Response Body**: **`Array of Product objects`**
 - **Example**:
@@ -559,7 +559,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 - **HTTP Method**: **`PUT`**
 - **Endpoint**: **`/products/update/:productID`**
-- **Request Body**: **`Product object`**
+- **Request Body**: **`Product object`** **[ token required ]**
 - **Request Params**: **`:productID [UUIDv4]`**
 - **Response Body**: **`Product object`**
 - **Example**:
@@ -597,7 +597,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 - **HTTP Method**: **`DELETE`**
 - **Endpoint**: **`/products/delete/:productID`**
-- **Request Body**: **`N/A`**
+- **Request Body**: **`N/A`** **[ token required ]**
 - **Request Params**: **`:productID [UUIDv4]`**
 - **Response Body**: **`Product object`**
 - **Example**:
@@ -628,7 +628,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 - **HTTP Method**: **`POST`**
 - **Endpoint**: **`/orders/create`**
-- **Request Body**: **`Order object`**
+- **Request Body**: **`Order object`** **[ token required ]**
 - **Request Params**: **`N/A`**
 - **Response Body**: **`Order object`**
 - **Example**:
@@ -674,7 +674,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 - **HTTP Method**: **`GET`**
 - **Endpoint**: **`/orders/show/:orderID`**
-- **Request Body**: **`N/A`**
+- **Request Body**: **`N/A`** **[ token required ]**
 - **Request Params**: **`:orderID [UUIDv4]`**
 - **Response Body**: **`order object`**
 - **Example**:
@@ -710,7 +710,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 - **HTTP Method**: **`GET`**
 - **Endpoint**: **`/orders/showAll`**
-- **Request Body**: **`N/A`**
+- **Request Body**: **`N/A`** **[ token required ]**
 - **Request Params**: **`N/A`**
 - **Response Body**: **`Array of Order objects`**
 - **Example**:
@@ -753,7 +753,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 - **HTTP Method**: **`PUT`**
 - **Endpoint**: **`/orders/updateStatus/:orderID`**
-- **Request Body**: **`Order object`**
+- **Request Body**: **`Order object`** **[ token required ]**
 - **Request Params**: **`:orderID [UUIDv4]`**
 - **Response Body**: **`Order object`**
 - **Example**:
@@ -794,7 +794,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 - **HTTP Method**: **`DELETE`**
 - **Endpoint**: **`/orders/delete/:orderID`**
-- **Request Body**: **`N/A`**
+- **Request Body**: **`N/A`** **[ token required ]**
 - **Request Params**: **`:orderID [UUIDv4]`**
 - **Response Body**: **`Order object`**
 - **Example**:
@@ -827,7 +827,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 - **HTTP Method**: **`POST`**
 - **Endpoint**: **`/orders/:orderID/products/add`**
-- **Request Body**: **`OrderProduct object`**
+- **Request Body**: **`OrderProduct object`** **[ token required ]**
 - **Request Params**: **`:orderID [UUIDv4]`**
 - **Response Body**: **`OrderProduct object`**
 - **Example**:
@@ -864,7 +864,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 - **HTTP Method**: **`GET`**
 - **Endpoint**: **`/orders/:orderID/products/show/:productID`**
-- **Request Body**: **`N/A`**
+- **Request Body**: **`N/A`** **[ token required ]**
 - **Request Params**: **`:orderID [UUIDv4]`**, **`:productID [UUIDv4]`**
 - **Response Body**: **`OrderProduct object`**
 - **Example**:
@@ -893,7 +893,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 - **HTTP Method**: **`GET`**
 - **Endpoint**: **`/orders/:orderID/products/showAll`**
-- **Request Body**: **`N/A`**
+- **Request Body**: **`N/A`** **[ token required ]**
 - **Request Params**: **`:orderID [UUIDv4]`**
 - **Response Body**: **`Array of OrderProduct objects`**
 - **Example**:
@@ -931,7 +931,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 
 - **HTTP Method**: **`GET`**
 - **Endpoint**: **`/dashboard/showProductsInOrders`**
-- **Request Body**: **`N/A`**
+- **Request Body**: **`N/A`** **[ token required ]**
 - **Request Params**: **`N/A`**
 - **Response Body**: **`Array of ProductsInOrder objects`**
 - **Example**:

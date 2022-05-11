@@ -1,6 +1,7 @@
 import { Request, Response, Router } from 'express';
 import * as ordersController from '../../controllers/orders.controller';
-import validateRequest from '../../middlewares/validator.middleware';
+import authenticateUser from '../../middlewares/authentication.middleware';
+import validateRequest from '../../middlewares/validation.middleware';
 import {
 	orderBodyValidationRules,
 	orderStatusBodyValidationRules,
@@ -34,6 +35,7 @@ ordersRoute.post(
 	'/create',
 	orderBodyValidationRules,
 	validateRequest,
+	authenticateUser,
 	ordersController.createController
 );
 
@@ -53,11 +55,16 @@ ordersRoute.get(
 	'/show/:orderID',
 	orderParamsValidationRules,
 	validateRequest,
+	authenticateUser,
 	ordersController.showController
 );
 
 // READ ALL:
-ordersRoute.get('/showAll', ordersController.showAllController);
+ordersRoute.get(
+	'/showAll',
+	authenticateUser,
+	ordersController.showAllController
+);
 
 // UPDATE ONE:
 ordersRoute.put(
@@ -76,6 +83,7 @@ ordersRoute.put(
 	orderParamsValidationRules,
 	orderStatusBodyValidationRules,
 	validateRequest,
+	authenticateUser,
 	ordersController.updateController
 );
 
@@ -95,6 +103,7 @@ ordersRoute.delete(
 	'/delete/:orderID',
 	orderParamsValidationRules,
 	validateRequest,
+	authenticateUser,
 	ordersController.deleteController
 );
 

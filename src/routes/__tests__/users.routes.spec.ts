@@ -21,30 +21,43 @@ export const usersEndpointsSpecs = () => {
 			expect(res.statusCode).toBe(200);
 		});
 
+		let token: string = 'Bearer ';
+		it('POST (/users/signin) route response', async () => {
+			const res = await req.post('/users/signin').send(DEFAULT_USER);
+
+			// set token value:
+			token += res.body.data.token;
+
+			expect(res.statusCode).toBe(200);
+		});
+
 		it('GET (/users/show/:userID) route response', async () => {
-			const res = await req.get(`/users/show/${NIL_UUID}`);
+			const res = await req
+				.get(`/users/show/${NIL_UUID}`)
+				.set('Authorization', token);
+
 			expect(res.statusCode).toBe(200);
 		});
 
 		it('GET (/users/showAll) route response', async () => {
-			const res = await req.get('/users/showAll');
+			const res = await req
+				.get('/users/showAll')
+				.set('Authorization', token);
 			expect(res.statusCode).toBe(200);
 		});
 
 		it('PUT (/users/update/:userID) route response', async () => {
 			const res = await req
 				.put(`/users/update/${UNIQUE_UUID}`)
+				.set('Authorization', token)
 				.send(OTHER_USER);
 			expect(res.statusCode).toBe(200);
 		});
 
 		it('DELETE (/users/delete/:userID) route response', async () => {
-			const res = await req.delete(`/users/delete/${UNIQUE_UUID}`);
-			expect(res.statusCode).toBe(200);
-		});
-
-		it('POST (/users/signin) route response', async () => {
-			const res = await req.post('/users/signin').send(DEFAULT_USER);
+			const res = await req
+				.delete(`/users/delete/${UNIQUE_UUID}`)
+				.set('Authorization', token);
 			expect(res.statusCode).toBe(200);
 		});
 	});

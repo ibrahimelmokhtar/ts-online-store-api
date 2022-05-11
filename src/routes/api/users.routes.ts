@@ -1,6 +1,7 @@
 import { Request, Response, Router } from 'express';
 import * as usersController from '../../controllers/users.controller';
-import validateRequest from '../../middlewares/validator.middleware';
+import authenticateUser from '../../middlewares/authentication.middleware';
+import validateRequest from '../../middlewares/validation.middleware';
 import {
 	userAuthenticateBodyValidationRules,
 	userBodyValidationRules,
@@ -51,11 +52,12 @@ usersRoute.get(
 	'/show/:userID',
 	userParamsValidationRules,
 	validateRequest,
+	authenticateUser,
 	usersController.showController
 );
 
 // READ ALL:
-usersRoute.get('/showAll', usersController.showAllController);
+usersRoute.get('/showAll', authenticateUser, usersController.showAllController);
 
 // UPDATE ONE:
 usersRoute.put(
@@ -74,6 +76,7 @@ usersRoute.put(
 	userParamsValidationRules,
 	userBodyValidationRules,
 	validateRequest,
+	authenticateUser,
 	usersController.updateController
 );
 
@@ -93,6 +96,7 @@ usersRoute.delete(
 	'/delete/:userID',
 	userParamsValidationRules,
 	validateRequest,
+	authenticateUser,
 	usersController.deleteController
 );
 

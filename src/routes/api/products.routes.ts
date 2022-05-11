@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express';
 import * as productsController from '../../controllers/products.controller';
-import validateRequest from '../../middlewares/validator.middleware';
+import validateRequest from '../../middlewares/validation.middleware';
 import {
 	productBodyValidationRules,
 	productParamsValidationRules,
