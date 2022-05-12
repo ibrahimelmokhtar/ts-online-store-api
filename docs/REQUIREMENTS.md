@@ -12,11 +12,6 @@ The company stakeholders want to create an online storefront to showcase their g
   - [`orders` Table Schema](#orders-table-schema)
   - [`order_products` Table Schema](#order_products-table-schema)
 - [Data Shapes](#data-shapes)
-  - [User Shape](#user-shape)
-  - [Product Shape](#product-shape)
-  - [Order Shape](#order-shape)
-  - [OrderProducts Shape](#orderproducts-shape)
-  - [ProductsInOrder Shape](#productsinorder-shape)
 - [API Endpoints](#api-endpoints)
   - [`/users` Endpoints](#users-endpoints)
     - [Create New User](#create-new-user)
@@ -47,169 +42,171 @@ The company stakeholders want to create an online storefront to showcase their g
 
 ## `users` Table Schema
 
-<table>
-    <thead>
-        <tr>
-            <th rowspan=2 bgColor="cccccc"></th>
-            <th colspan=6 bgColor="cccccc">column name</th>
-        </tr>
-        <tr>
-            <th bgColor="eeeeee">id</th>
-            <th bgColor="eeeeee">first_name</th>
-            <th bgColor="eeeeee">last_name</th>
-            <th bgColor="eeeeee">user_name</th>
-            <th bgColor="eeeeee">email</th>
-            <th bgColor="eeeeee">password</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <th bgColor="cccccc">column type</th>
-            <td align="center">UUID</td>
-            <td align="center">VARCHAR(100)</td>
-            <td align="center">VARCHAR(100)</td>
-            <td align="center">VARCHAR(50)</td>
-            <td align="center">VARCHAR(255)</td>
-            <td align="center">VARCHAR(100)</td>
-        </tr>
-    </tbody>
-</table>
+- Table "`public.users`"
+
+    | Column | Type | Collation | Nullable | Default |
+    | ------ | ------ | ------ | ------ | ------ |
+    | `id` | uuid | | not null | uuid_generate_v4() |
+    | `first_name` | character varying(100) | | not null | |
+    | `last_name` | character varying(100) | | not null | |
+    | `user_name` | character varying(50)  | | not null | |
+    | `email` | character varying(255) | | not null | |
+    | `password` | character varying(100) | | not null | |
+
+- Indexes:
+    "`users_pkey`" PRIMARY KEY, btree (`id`)
+
+- Referenced by:
+    TABLE "`orders`" CONSTRAINT "`orders_user_id_fkey`" FOREIGN KEY (`user_id`) REFERENCES `users(id)`
 
 ## `products` Table Schema
 
-<table>
-    <thead>
-        <tr>
-            <th rowspan=2 bgColor="cccccc"></th>
-            <th colspan=4 bgColor="cccccc">column name</th>
-        </tr>
-        <tr>
-            <th bgColor="eeeeee">id</th>
-            <th bgColor="eeeeee">name</th>
-            <th bgColor="eeeeee">price</th>
-            <th bgColor="eeeeee">category</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <th bgColor="cccccc">column type</th>
-            <td align="center">UUID</td>
-            <td align="center">VARCHAR(100)</td>
-            <td align="center">FLOAT</td>
-            <td align="center">VARCHAR(50)</td>
-        </tr>
-    </tbody>
-</table>
+- Table "`public.products`"
+    | Column | Type | Collation | Nullable | Default |
+    | ------ | ------ | ------ | ------ | ------ |
+    | `id` | uuid | | not null | uuid_generate_v4() |
+    | `name` | character varying(100) | | not null | |
+    | `price` | double precision | | not null | |
+    | `category` | character varying(50) | | not null | |
+
+- Indexes:
+    "`products_pkey`" PRIMARY KEY, btree (`id`)
+- Referenced by:
+    TABLE "`order_products`" CONSTRAINT "`order_products_product_id_fkey`" FOREIGN KEY (`product_id`) REFERENCES `products(id)`
 
 ## `orders` Table Schema
 
-<table>
-    <thead>
-        <tr>
-            <th rowspan=2 bgColor="cccccc"></th>
-            <th colspan=5 bgColor="cccccc">column name</th>
-        </tr>
-        <tr>
-            <th bgColor="eeeeee">id</th>
-            <th bgColor="eeeeee">is_done</th>
-            <th bgColor="eeeeee">user_id</th>
-            <th bgColor="eeeeee">products_ids</th>
-            <th bgColor="eeeeee">products_quantities</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <th bgColor="cccccc">column type</th>
-            <td align="center">UUID</td>
-            <td align="center">BOOLEAN</td>
-            <td align="center">UUID</td>
-            <td align="center">UUID[ ]</td>
-            <td align="center">INTEGER[ ]</td>
-        </tr>
-    </tbody>
-</table>
+- Table "`public.orders`"
+    | Column | Type | Collation | Nullable | Default |
+    | ------ | ------ | ------ | ------ | ------ |
+    | `id` | uuid | | not null | uuid_generate_v4() |
+    | `is_done` | boolean   | | not null | |
+    | `user_id` | uuid      | | not null | |
+    | `products_ids` | uuid [ ]    | | not null | |
+    | `products_quantities` | integer [ ] | | not null | |
+
+- Indexes:
+    "`orders_pkey`" PRIMARY KEY, btree (`id`)
+- Foreign-key constraints:
+    "`orders_user_id_fkey`" FOREIGN KEY (`user_id`) REFERENCES `users(id)`
+- Referenced by:
+    TABLE "`order_products`" CONSTRAINT "`order_products_order_id_fkey`" FOREIGN KEY (`order_id`) REFERENCES `orders(id)`
 
 ## `order_products` Table Schema
 
-<table>
-    <thead>
-        <tr>
-            <th rowspan=2 bgColor="cccccc"></th>
-            <th colspan=4 bgColor="cccccc">column name</th>
-        </tr>
-        <tr>
-            <th bgColor="eeeeee">id</th>
-            <th bgColor="eeeeee">order_id</th>
-            <th bgColor="eeeeee">product_id</th>
-            <th bgColor="eeeeee">product_quantity</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <th bgColor="cccccc">column type</th>
-            <td align="center">UUID</td>
-            <td align="center">UUID</td>
-            <td align="center">UUID</td>
-            <td align="center">INTEGER</td>
-        </tr>
-    </tbody>
-</table>
+- Table "`public.order_products`"
+    | Column | Type | Collation | Nullable | Default |
+    | ------ | ------ | ------ | ------ | ------ |
+    | id | uuid | | not null | uuid_generate_v4() |
+    | order_id | uuid | | not null | |
+    | product_id | uuid | | not null | |
+    | product_quantity | integer | | not null | |
+
+- Indexes:
+    "`order_products_pkey`" PRIMARY KEY, btree (`id`)
+- Foreign-key constraints:
+    "`order_products_order_id_fkey`" FOREIGN KEY (`order_id`) REFERENCES `orders(id)`
+    "`order_products_product_id_fkey`" FOREIGN KEY (`product_id`) REFERENCES `products(id)`
 
 # Data Shapes
 
 [(Back to top)](#table-of-contents)
 
-## User Shape
-
-| Parameter | Data Type | Additional Information |
-| :--------- | :---------: | :---------: |
-| **`id`** | uuid (v4) | *automatically generated* |
-| **`first_name`** | string | - |
-| **`last_name`** | string | - |
-| **`user_name`** | string | - |
-| **`email`** | string | - |
-| **`password`** | string | *will be hashed before saving into database* |
-
-## Product Shape
-
-| Parameter | Data Type | Additional Information |
-| :--------- | :---------: | :---------: |
-| **`id`** | uuid (v4) | *automatically generated* |
-| **`name`** | string | - |
-| **`price`** | float | - |
-| **`category`** | string | - |
-
-## Order Shape
-
-| Parameter | Data Type | Additional Information |
-| :--------- | :---------: | :---------: |
-| **`id`** | uuid (v4) | *automatically generated* |
-| **`is_done`** | boolean | *`true`: completed, `false`: active* |
-| **`user_id`** | uuid (v4) | *must be in `users` table* |
-| **`products_ids`** | uuid[ ] (v4) | *must be in `products` table* |
-| **`products_quantities`** | integer [ ] | - |
-
-## OrderProducts Shape
-
-| Parameter | Data Type | Additional Information |
-| :--------- | :---------: | :---------: |
-| **`id`** | uuid (v4) | *automatically generated* |
-| **`order_id`** | uuid (v4) | *must be in `orders` table* |
-| **`product_id`** | uuid (v4) | *must be in `products` table* |
-| **`product_quantity`** | integer | - |
-
-## ProductsInOrder Shape
-
-| Parameter | Data Type | Additional Information |
-| :--------- | :---------: | :---------: |
-| **`order_id`** | uuid (v4) | *retrieved from `orders` table* |
-| **`is_order_done`** | boolean | *`true`: completed, `false`: active* |
-| **`product_id`** | uuid (v4) | *retrieved from `products` table* |
-| **`product_name`** | string | *retrieved from `products` table* |
-| **`product_category`** | string | *retrieved from `products` table* |
-| **`product_price`** | float | *retrieved from `products` table* |
-| **`product_quantity`** | integer | *retrieved from `order_products` table* |
-| **`total_price`** | float | *calculated within sql command* |
+<table>
+    <thead>
+        <tr>
+            <th>Object</th>
+            <th>Data Shape</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody align="center">
+        <!-- User -->
+        <th rowspan=7>User</th>
+        <tr>
+            <td>id</td>
+            <td>User's ID</td>
+        </tr>
+        <tr>
+            <td>first_name</td>
+            <td>User's First Name</td>
+        </tr>
+        <tr>
+            <td>last_name</td>
+            <td>User's Last Name</td>
+        </tr>
+        <tr>
+            <td>user_name</td>
+            <td>User's Desired Username</td>
+        </tr>
+        <tr>
+            <td>email</td>
+            <td>User's Email</td>
+        </tr>
+        <tr>
+            <td>password</td>
+            <td>User's Desired Password</td>
+        </tr>
+        <!-- Product -->
+        <th rowspan=5>Product</th>
+        <tr>
+            <td>id</td>
+            <td>Product's ID</td>
+        </tr>
+        <tr>
+            <td>name</td>
+            <td>Product's Name</td>
+        </tr>
+        <tr>
+            <td>price</td>
+            <td>Product's Price</td>
+        </tr>
+        <tr>
+            <td>category</td>
+            <td>Product's Category</td>
+        </tr>
+        <!-- Order -->
+        <th rowspan=6>Order</th>
+        <tr>
+            <td>id</td>
+            <td>Order's ID</td>
+        </tr>
+        <tr>
+            <td>is_done</td>
+            <td>Order's Status</td>
+        </tr>
+        <tr>
+            <td>user_id</td>
+            <td>Order's UserID</td>
+        </tr>
+        <tr>
+            <td>products_ids</td>
+            <td>Order's Products IDs</td>
+        </tr>
+        <tr>
+            <td>products_quantities</td>
+            <td>Order's Products Quantities</td>
+        </tr>
+        <!-- OrderProduct -->
+        <th rowspan=5>OrderProduct</th>
+        <tr>
+            <td>id</td>
+            <td>OrderProduct's ID</td>
+        </tr>
+        <tr>
+            <td>order_id</td>
+            <td>Order's ID</td>
+        </tr>
+        <tr>
+            <td>product_id</td>
+            <td>Product's ID</td>
+        </tr>
+        <tr>
+            <td>product_quantity</td>
+            <td>Product's Quantity</td>
+        </tr>
+    </tbody>
+</table>
 
 # API Endpoints
 
