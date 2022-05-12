@@ -4,6 +4,67 @@ import Order from '../types/order.type';
 
 class OrderModel {
 	/**
+	 * @description Check order existence within the database via specific info (id).
+	 * @param {string} info
+	 * @returns {boolean} Order's existence status (true: is found, false: is NOT found).
+	 */
+	checkOrderExistence = async (info: string): Promise<boolean | void> => {
+		try {
+			// connect to database:
+			const client: PoolClient = await pool.connect();
+
+			// run desired query:
+			const sql: string = 'SELECT * FROM orders WHERE id=($1)::UUID';
+			const result = await client.query(sql, [info]);
+
+			// release connection:
+			client.release();
+
+			let isFound = false;
+			if (result.rows[0]) {
+				isFound = true;
+			}
+
+			// return order status:
+			return isFound;
+		} catch (error) {
+			console.error(
+				`Order Model: Unable to check ${info}: ${
+					(error as Error).message
+				}`
+			);
+		}
+	};
+
+	/**
+	 * @description Check specific order's status.
+	 * @param {string} orderID
+	 * @returns {boolean} Order's status (true: is completed, false: is NOT completed [still active]).
+	 */
+	checkOrderStatus = async (orderID: string): Promise<boolean | void> => {
+		try {
+			// connect to database:
+			const client: PoolClient = await pool.connect();
+
+			// run desired query:
+			const sql: string = 'SELECT * FROM orders WHERE id=($1)';
+			const result = await client.query(sql, [orderID]);
+
+			// release connection:
+			client.release();
+
+			// return a specific order's status:
+			return result.rows[0]['is_done'];
+		} catch (error) {
+			console.error(
+				`Order Model: Unable to check order status ${orderID}: ${
+					(error as Error).message
+				}`
+			);
+		}
+	};
+
+	/**
 	 * @description Create new Order within the database.
 	 * @param {Order} order
 	 * @returns {Order} Created Order object.

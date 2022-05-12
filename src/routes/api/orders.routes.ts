@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express';
 import * as ordersController from '../../controllers/orders.controller';
-import authenticateUser from '../../middlewares/authentication.middleware';
+import { authenticateUser } from '../../middlewares/authentication.middleware';
 import validateRequest from '../../middlewares/validation.middleware';
 import {
 	orderBodyValidationRules,
@@ -13,19 +13,23 @@ const ordersRoute: Router = Router();
 
 // sample GET method from orders route:
 ordersRoute.get('/', async (_req: Request, res: Response): Promise<void> => {
-	res.json({
-		message: 'inside << orders >> route.',
-		possibleRoutes: [
-			'/create',
-			'/show/:orderID',
-			'/showAll',
-			'/updateStatus/:orderID',
-			'/delete/:orderID',
-			'/:orderID/products/add',
-			'/:orderID/products/show/:productID',
-			'/:orderID/products/showAll',
-		],
-	});
+	res.status(404)
+		.json({
+			status: 'Error 404: Not Found',
+			message: 'inside << orders >> route.',
+			possibleRoutes: [
+				'/create',
+				'/show/:orderID',
+				'/showAll',
+				'/updateStatus/:orderID',
+				'/delete/:orderID',
+				'/:orderID/products/add',
+				'/:orderID/products/show/:productID',
+				'/:orderID/products/showAll',
+			],
+		})
+		.end();
+	return;
 });
 
 // available routes for CRUD operations within /orders route:
@@ -44,10 +48,14 @@ ordersRoute.get(
 	'/show',
 	orderParamsValidationRules,
 	validateRequest,
-	(_req: Request, res: Response) => {
-		res.json({
-			message: 'Order ID is required ...',
-		}).end();
+	async (_req: Request, res: Response): Promise<void> => {
+		res.status(404)
+			.json({
+				status: 'Error 404: Not Found',
+				message: 'Order ID is required.',
+			})
+			.end();
+		return;
 	}
 );
 
@@ -71,10 +79,14 @@ ordersRoute.put(
 	'/updateStatus',
 	orderParamsValidationRules,
 	validateRequest,
-	(_req: Request, res: Response) => {
-		res.json({
-			message: 'Order ID is required ...',
-		}).end();
+	async (_req: Request, res: Response): Promise<void> => {
+		res.status(404)
+			.json({
+				status: 'Error 404: Not Found',
+				message: 'Order ID is required.',
+			})
+			.end();
+		return;
 	}
 );
 
@@ -92,10 +104,14 @@ ordersRoute.delete(
 	'/delete',
 	orderParamsValidationRules,
 	validateRequest,
-	(_req: Request, res: Response) => {
-		res.json({
-			message: 'Order ID is required ...',
-		}).end();
+	async (_req: Request, res: Response): Promise<void> => {
+		res.status(404)
+			.json({
+				status: 'Error 404: Not Found',
+				message: 'Order ID is required.',
+			})
+			.end();
+		return;
 	}
 );
 

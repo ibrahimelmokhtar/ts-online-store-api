@@ -6,6 +6,67 @@ import OrderModel from '../models/order.model';
 const orderModel = new OrderModel();
 
 /**
+ * @description Check order existence within the database via specific info (id).
+ * @param {Request} req
+ * @returns {boolean} Order's existence status (true: is found, false: is NOT found).
+ */
+export const checkExistenceController = async (
+	req: Request
+): Promise<boolean | void> => {
+	try {
+		// check req.body values to see if (id) key exists:
+		const withinBody: boolean = req.body.id ? true : false;
+
+		// extract search keyword:
+		let info: string = req.body.id;
+		if (!withinBody) {
+			info = req.params.orderID;
+		}
+
+		// check user's existence:
+		const isFound: boolean = (await orderModel.checkOrderExistence(
+			info
+		)) as boolean;
+
+		return isFound;
+	} catch (error) {
+		console.error(
+			`Order Controller: Error while checking order: ${
+				(error as Error).message
+			}`
+		);
+	}
+};
+
+export const checkStatusController = async (
+	req: Request
+): Promise<boolean | void> => {
+	try {
+		// check req.body values to see if (id) key exists:
+		const withinBody: boolean = req.body.id ? true : false;
+
+		// extract search keyword:
+		let info: string = req.body.id;
+		if (!withinBody) {
+			info = req.params.orderID;
+		}
+
+		// check order's status:
+		const isCompleted: boolean = (await orderModel.checkOrderStatus(
+			info
+		)) as boolean;
+
+		return isCompleted;
+	} catch (error) {
+		console.error(
+			`Order Controller: Error while checking order status: ${
+				(error as Error).message
+			}`
+		);
+	}
+};
+
+/**
  * @description Create new Order object then save it within the database.
  * @param {Request} req
  * @param {Response} res
@@ -15,16 +76,34 @@ export const createController = async (
 	res: Response
 ): Promise<void> => {
 	try {
+		// check order's existence:
+		const isFound: boolean = (await checkExistenceController(
+			req
+		)) as unknown as boolean;
+
+		if (isFound) {
+			res.status(409)
+				.json({
+					status: 'Error 409: Conflict',
+					message: 'Order id already exists.',
+				})
+				.end();
+			return;
+		}
+
 		// use order model to create the new Order object ...
 		// then save it within a specific DB table:
 		const order: Order = (await orderModel.create(req.body)) as Order;
 
 		// send a response back to the order:
-		res.json({
-			status: 'success',
-			data: order,
-			message: 'Order created successfully.',
-		}).end();
+		res.status(201)
+			.json({
+				status: '201 Created',
+				data: order,
+				message: 'Order created successfully.',
+			})
+			.end();
+		return;
 	} catch (error) {
 		console.error(
 			`Order Controller: Error while creating new order: ${
@@ -44,17 +123,35 @@ export const showController = async (
 	res: Response
 ): Promise<void> => {
 	try {
+		// check order's existence:
+		const isFound: boolean = (await checkExistenceController(
+			req
+		)) as unknown as boolean;
+
+		if (!isFound) {
+			res.status(404)
+				.json({
+					status: 'Error 404: Not Found',
+					message: 'Order is NOT found.',
+				})
+				.end();
+			return;
+		}
+
 		// use order model to show a specific Order object:
 		const order: Order = (await orderModel.show(
 			req.params.orderID
 		)) as Order;
 
 		// send a response back to the order:
-		res.json({
-			status: 'success',
-			data: order,
-			message: 'Order shown successfully.',
-		}).end();
+		res.status(200)
+			.json({
+				status: '200 Ok',
+				data: order,
+				message: 'Order shown successfully.',
+			})
+			.end();
+		return;
 	} catch (error) {
 		console.error(
 			`Order Controller: Error while showing order: ${
@@ -79,12 +176,15 @@ export const showAllController = async (
 			(await orderModel.showAll()) as Array<Order>;
 
 		// send a response back to the order:
-		res.json({
-			status: 'success',
-			totalOrders: orders?.length,
-			data: orders,
-			message: 'Orders shown successfully.',
-		}).end();
+		res.status(200)
+			.json({
+				status: '200 Ok',
+				totalOrders: orders?.length,
+				data: orders,
+				message: 'Orders shown successfully.',
+			})
+			.end();
+		return;
 	} catch (error) {
 		console.error(
 			`Order Controller: Error while showing orders: ${
@@ -104,6 +204,36 @@ export const updateController = async (
 	res: Response
 ): Promise<void> => {
 	try {
+		// check order's existence:
+		const isFound: boolean = (await checkExistenceController(
+			req
+		)) as unknown as boolean;
+
+		if (!isFound) {
+			res.status(404)
+				.json({
+					status: 'Error 404: Not Found',
+					message: 'Order is NOT found.',
+				})
+				.end();
+			return;
+		}
+
+		// check order's status:
+		const isCompleted: boolean = (await checkStatusController(
+			req
+		)) as unknown as boolean;
+
+		if (isCompleted) {
+			res.status(405)
+				.json({
+					status: 'Error 405: Method Not Allowed',
+					message: 'Order had been completed.',
+				})
+				.end();
+			return;
+		}
+
 		// use order model to update a specific Order object ...
 		// then save it within a specific DB table:
 		const order: Order = (await orderModel.updateOrderStatus(
@@ -112,11 +242,14 @@ export const updateController = async (
 		)) as Order;
 
 		// send a response back to the order:
-		res.json({
-			status: 'success',
-			data: order,
-			message: 'Order updated successfully.',
-		}).end();
+		res.status(200)
+			.json({
+				status: '200 Ok',
+				data: order,
+				message: 'Order status updated successfully.',
+			})
+			.end();
+		return;
 	} catch (error) {
 		console.error(
 			`Order Controller: Error while updating order: ${
@@ -136,17 +269,35 @@ export const deleteController = async (
 	res: Response
 ): Promise<void> => {
 	try {
+		// check order's existence:
+		const isFound: boolean = (await checkExistenceController(
+			req
+		)) as unknown as boolean;
+
+		if (!isFound) {
+			res.status(404)
+				.json({
+					status: 'Error 404: Not Found',
+					message: 'Order is NOT found.',
+				})
+				.end();
+			return;
+		}
+
 		// use order model to delete a specific Order object:
 		const order: Order = (await orderModel.delete(
 			req.params.orderID
 		)) as Order;
 
 		// send a response back to the order:
-		res.json({
-			status: 'success',
-			data: order,
-			message: 'Order deleted successfully.',
-		}).end();
+		res.status(200)
+			.json({
+				status: '200 Ok',
+				data: order,
+				message: 'Order deleted successfully.',
+			})
+			.end();
+		return;
 	} catch (error) {
 		console.error(
 			`Order Controller: Error while deleting order: ${
