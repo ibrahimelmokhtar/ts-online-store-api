@@ -17,6 +17,7 @@ This project was structured from scratch, with ZERO starter files.
 - [Installed NPM Packages](#installed-npm-packages)
   - [Production Packages](#production-packages)
   - [Development Packages](#development-packages)
+- [Useful Resources](#useful-resources)
 
 # Installation
 
@@ -42,7 +43,11 @@ To use this project, you need to follow the commands below:
    npm install
    ```
 
-4. *For applying configured styling*, run the following commands:
+4. Copy `example.env` file into `.env` file.
+
+5. Fill the created `.env` file with corresponding/appropriate information.
+
+6. *For applying configured styling*, run the following commands:
    - ***Prettier** styling*:
 
         ```bash
@@ -55,7 +60,7 @@ To use this project, you need to follow the commands below:
         npm run lint
         ```
 
-5. *For manipulating the database*, run the following commands:
+7. *For manipulating the database*, run the following commands:
    - *Run **Up** Migrations*:
 
         ```bash
@@ -68,7 +73,7 @@ To use this project, you need to follow the commands below:
         npm run migration:reset
         ```
 
-6. *For working on the **development** phase*, run the following commands:
+8. *For working on the **development** phase*, run the following commands:
    - *Live debugging while development*:
 
         ```bash
@@ -81,7 +86,7 @@ To use this project, you need to follow the commands below:
         npm run test
         ```
 
-7. *For working with the **production** phase*, run the following commands:
+9.  *For working with the **production** phase*, run the following commands:
 
    - *Build the project*:
 
@@ -101,7 +106,7 @@ To use this project, you need to follow the commands below:
         npm run start
         ```
 
-8. Open the local website on `http://127.0.0.1:5000/{process}/{opetationType}/{:queryParameters}`, more information about {process}, {operationType} and {:queryParameters} will be explained in [API Docmentation](#api-documentation)
+11. Open the local website on `http://127.0.0.1:5000/{process}/{opetationType}/{:queryParameters}`, more information about {process}, {operationType} and {:queryParameters} will be explained in [API Docmentation](#api-documentation)
 
 # Development
 
@@ -145,6 +150,7 @@ This project has the structure shown below:
         ├─── unique.uuid.constant.ts
         ├─── user.type.constant.ts
     ├─── controllers/
+        ├─── dashboard.controller.ts
         ├─── orderProducts.controller.ts
         ├─── orders.controller.ts
         ├─── products.controller.ts
@@ -155,11 +161,13 @@ This project has the structure shown below:
         ├─── index.ts
     ├─── helpers/
         ├─── guards/
+            ├─── compare.ts
             ├─── encrypt.ts
         ├─── testing/
             ├─── reporter.ts
     ├─── middlewares/
-        ├─── validator.middleware.ts
+        ├─── authentication.middleware.ts
+        ├─── validation.middleware.ts
     ├─── models/
         ├─── __tests__/
             ├─── index.spec.ts
@@ -173,12 +181,14 @@ This project has the structure shown below:
         ├─── user.model.ts
     ├─── routes/
         ├─── __tests__/
+            ├─── dashboard.routes.spec.ts
             ├─── index.spec.ts
             ├─── orderProducts.routes.spec.ts
             ├─── orders.routes.spec.ts
             ├─── products.routes.spec.ts
             ├─── users.routes.spec.ts
         ├─── api/
+            ├─── dashboard.routes.ts
             ├─── orderProducts.routes.ts
             ├─── orders.routes.ts
             ├─── products.routes.ts
@@ -189,6 +199,8 @@ This project has the structure shown below:
         ├─── orders.schemas.ts
         ├─── products.schemas.ts
         ├─── users.schemas.ts
+    ├─── services/
+        ├─── dashboard.services.ts
     ├─── types/
         ├─── __tests__/
             ├─── index.spec.ts
@@ -196,6 +208,8 @@ This project has the structure shown below:
             ├─── orderProduct.type.spec.ts
             ├─── product.type.spec.ts
             ├─── user.type.spec.ts
+        ├─── dashboard/
+            ├─── productsInOrder.type.ts
         ├─── order.type.ts
         ├─── orderProduct.type.ts
         ├─── product.type.ts
@@ -262,3 +276,20 @@ These packages can be found in the `"devDependencies"` object inside the `packag
 - [supertest](https://www.npmjs.com/package/supertest) - SuperAgent driven library for testing HTTP servers.
 - [tsc-watch](https://www.npmjs.com/package/tsc-watch) - The TypeScript compiler with onSuccess command.
 - [typescript](https://www.npmjs.com/package/typescript) - TypeScript is a language for application scale JavaScript development.
+
+# Useful Resources
+
+[(Back to top)](#table-of-contents)
+
+- [Documentation: HTTP Response Status Codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
+- [Documentation: db-migrate Module](https://db-migrate.readthedocs.io/en/latest/)
+- [Documentation: node-postgres Module](https://node-postgres.com/api/pool)
+- [Documentation: bcrypt Module](https://github.com/kelektiv/node.bcrypt.js#usage)
+- [Documentation: JWT Module](https://github.com/auth0/node-jsonwebtoken#readme)
+- [Documentation: Express-Validator Module](https://express-validator.github.io/docs/)
+- [Youtube Video: WebDevSimplified - What is JWT](https://www.youtube.com/watch?v=7Q17ubqLfaM)
+- [Youtube Video: WebDevSimplified - MVC Explained](https://www.youtube.com/watch?v=DUg2SWWK18I)
+- [Youtube Video: Use Express-Validator Module with NodeJs](https://www.youtube.com/watch?v=7i7xmwowwCY)
+- [Article: Arrays in PostgreSQL](https://bipp.io/sql-tutorial/postgresql/create-an-array/)
+- [Article: How to Modify Arrays in PostgreSQL](https://popsql.com/learn-sql/postgresql/how-to-modify-arrays-in-postgresql)
+- [Article: How to use Code Blocks within Markdown Files](https://rdmd.readme.io/docs/code-blocks)
