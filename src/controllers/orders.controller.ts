@@ -14,13 +14,21 @@ export const checkExistenceController = async (
 	req: Request
 ): Promise<boolean | void> => {
 	try {
-		// check req.body values to see if (id) key exists:
-		const withinBody: boolean = req.body.id ? true : false;
+		// check req.body values to see if (order_id) key exists:
+		const orderIdWithinBody: boolean = req.body.order_id ? true : false;
+		let info: string = req.body.order_id;
 
 		// extract search keyword:
-		let info: string = req.body.id;
-		if (!withinBody) {
-			info = req.params.orderID;
+		let idWithinBody: boolean = false;
+		if (!orderIdWithinBody) {
+			// check req.body values to see if (id) key exists:
+			idWithinBody = req.body.id ? true : false;
+			info = req.body.id;
+
+			if (!idWithinBody) {
+				// extract orderID from req.params:
+				info = req.params.orderID;
+			}
 		}
 
 		// check user's existence:
@@ -42,13 +50,43 @@ export const checkStatusController = async (
 	req: Request
 ): Promise<boolean | void> => {
 	try {
-		// check req.body values to see if (id) key exists:
-		const withinBody: boolean = req.body.id ? true : false;
+		/**
+		 * 1. check (req.body) to see if (order_id) exists:
+		 * 		- if exists:
+		 * 			- SET (orderIdWithinBody) to true
+		 * 	  		- SET (info) to (req.body.order_id)
+		 * 			- JUMP INTO STEP #4
+		 * 		- NOTE: this means that we are NOW inside orderProducts controller.
+		 *
+		 * 2. check (req.body) to see if (id) exists:
+		 * 		- if exists:
+		 * 			- SET (idWithinBody) to true
+		 * 	  		- SET (info) to (req.body.id)
+		 * 			- JUMP INTO STEP #4
+		 * 		- NOTE: this means that we are NOW inside products controller.
+		 *
+		 * 3. ELSE:
+		 * 	  	- SET (info) to (req.params.orderID)
+		 * 		- CONTINUE WITH STEP #4
+		 *
+		 * 4. Pass collected data to the model.
+		 */
+
+		// check req.body values to see if (order_id) key exists:
+		const orderIdWithinBody: boolean = req.body.order_id ? true : false;
+		let info: string = req.body.order_id;
 
 		// extract search keyword:
-		let info: string = req.body.id;
-		if (!withinBody) {
-			info = req.params.orderID;
+		let idWithinBody: boolean = false;
+		if (!orderIdWithinBody) {
+			// check req.body values to see if (id) key exists:
+			idWithinBody = req.body.id ? true : false;
+			info = req.body.id;
+
+			if (!idWithinBody) {
+				// extract orderID from req.params:
+				info = req.params.orderID;
+			}
 		}
 
 		// check order's status:

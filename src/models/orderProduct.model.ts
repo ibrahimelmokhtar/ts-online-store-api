@@ -6,34 +6,6 @@ import OrderProduct from '../types/orderProduct.type';
 
 class OrderProductsModel {
 	/**
-	 * @description Check specific order's status.
-	 * @param {string} orderID
-	 * @returns {boolean} Order's status.
-	 */
-	checkOrderStatus = async (orderID: string): Promise<boolean | void> => {
-		try {
-			// connect to database:
-			const client: PoolClient = await pool.connect();
-
-			// run desired query:
-			const sql: string = 'SELECT * FROM orders WHERE id=($1)';
-			const result = await client.query(sql, [orderID]);
-
-			// release connection:
-			client.release();
-
-			// return a specific order's status:
-			return result.rows[0]['is_done'];
-		} catch (error) {
-			console.error(
-				`OrderProduct Model: Unable to check order status ${orderID}: ${
-					(error as Error).message
-				}`
-			);
-		}
-	};
-
-	/**
 	 * @description Add new product into order_products table.
 	 * @param {string} orderID
 	 * @param {OrderProduct} orderProduct
@@ -44,18 +16,6 @@ class OrderProductsModel {
 		orderProduct: OrderProduct
 	): Promise<OrderProduct | void> => {
 		try {
-			// check order's status to be (false)--->(active):
-			if (await this.checkOrderStatus(orderProduct.order_id)) {
-				console.log(
-					`OrderProduct Model: Unable to add product into ${
-						orderProduct.order_id
-					}: Order status is ${await this.checkOrderStatus(
-						orderProduct.order_id
-					)}`
-				);
-				return;
-			}
-
 			// connect to database:
 			const client: PoolClient = await pool.connect();
 

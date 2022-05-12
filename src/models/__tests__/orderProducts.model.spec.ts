@@ -1,25 +1,12 @@
 import { DEFAULT_ORDER_PRODUCT } from '../../constants/orderProduct.type.constant';
-// import { UNIQUE_UUID } from '../../constants/unique.uuid.constant';
 import { NIL as NIL_UUID } from 'uuid';
-import { DEFAULT_ORDER } from '../../constants/order.type.constant';
 import OrderProductsModel from '../orderProduct.model';
-// import OrderProduct from '../../types/orderProduct.type';
-// import Order from '../../types/order.type';
 import OrderProduct from '../../types/orderProduct.type';
 
 const orderProductsModel = new OrderProductsModel();
 
 export const orderProductModelSpecs = () => {
 	describe('├─── OrderProducts Model Suite', () => {
-		it('checks order status to be active: "false"', async () => {
-			const checkedOrderStatus: boolean =
-				(await orderProductsModel.checkOrderStatus(
-					DEFAULT_ORDER.id as string
-				)) as boolean;
-
-			expect(checkedOrderStatus).toBeFalse();
-		});
-
 		it('adds new product into specific order', async () => {
 			const addedOrderProduct: OrderProduct =
 				(await orderProductsModel.addProduct(
