@@ -6,6 +6,48 @@ import { compare } from '../helpers/guards/compare';
 
 class UserModel {
 	/**
+	 * @description Check user existence within the database via specific info (email or id).
+	 * @param {string} info
+	 * @param {boolean} isEmail
+	 * @returns {boolean} User's existence status (true: is found, false: is NOT found).
+	 */
+	checkUserExistence = async (
+		info: string,
+		isEmail: boolean
+	): Promise<boolean | void> => {
+		try {
+			// connect to database:
+			const client: PoolClient = await pool.connect();
+
+			// run desired query:
+			let sql: string = 'EMPTY SQL QUERY';
+			if (isEmail) {
+				sql = 'SELECT * FROM users WHERE email=($1)::VARCHAR';
+			} else {
+				sql = 'SELECT * FROM users WHERE id=($1)::UUID';
+			}
+			const result = await client.query(sql, [info]);
+
+			// release connection:
+			client.release();
+
+			let isFound = false;
+			if (result.rows[0]) {
+				isFound = true;
+			}
+
+			// return user status:
+			return isFound;
+		} catch (error) {
+			console.error(
+				`User Model: Unable to check ${info}: ${
+					(error as Error).message
+				}`
+			);
+		}
+	};
+
+	/**
 	 * @description Create new User within the database.
 	 * @param {User} user
 	 * @returns {User} Created User object.
@@ -67,7 +109,7 @@ class UserModel {
 			const client: PoolClient = await pool.connect();
 
 			// run desired query:
-			const sql: string = 'SELECT * FROM users WHERE id=($1)';
+			const sql: string = 'SELECT * FROM users WHERE id=($1)::UUID';
 			const result = await client.query(sql, [userID]);
 
 			// release connection:
