@@ -15,12 +15,15 @@ export const showProductsInOrdersController = async (
 			(await dashboard.showProductsInOrders()) as Array<ProductsInOrder>;
 
 		// send a response back to the product:
-		res.json({
-			status: 'success',
-			totalProductsInOrders: productsInOrders.length,
-			data: productsInOrders,
-			message: 'Products in orders shown successfully.',
-		});
+		res.status(200)
+			.json({
+				status: '200 Ok',
+				totalProductsInOrders: productsInOrders.length,
+				data: productsInOrders,
+				message: 'Products in orders shown successfully.',
+			})
+			.end();
+		return;
 	} catch (error) {
 		console.error(
 			`Dashboard Controller: Error while showing products in orders: ${
