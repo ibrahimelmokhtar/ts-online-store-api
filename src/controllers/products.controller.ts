@@ -6,6 +6,40 @@ import Product from '../types/product.type';
 const productModel = new ProductModel();
 
 /**
+ * @description Check product existence within the database via specific info (name or id).
+ * @param {Request} req
+ * @returns {boolean} Product's existence status (true: is found, false: is NOT found).
+ */
+export const checkExistenceController = async (
+	req: Request
+): Promise<boolean | void> => {
+	try {
+		// check req.body values to see if (name) key exists:
+		const isName: boolean = req.body.name ? true : false;
+
+		// extract search keyword:
+		let info: string = req.body.name;
+		if (!isName) {
+			info = req.params.productID;
+		}
+
+		// check product's existence:
+		const isFound: boolean = (await productModel.checkProductExistence(
+			info,
+			isName
+		)) as boolean;
+
+		return isFound;
+	} catch (error) {
+		console.error(
+			`Product Controller: Error while checking product: ${
+				(error as Error).message
+			}`
+		);
+	}
+};
+
+/**
  * @description Create new Product object then save it within the database.
  * @param {Request} req
  * @param {Response} res
@@ -15,6 +49,21 @@ export const createController = async (
 	res: Response
 ): Promise<void> => {
 	try {
+		// check product's existence:
+		const isFound: boolean = (await checkExistenceController(
+			req
+		)) as unknown as boolean;
+
+		if (isFound) {
+			res.status(409)
+				.json({
+					status: 'Error 409: Conflict',
+					message: 'Product name already exists.',
+				})
+				.end();
+			return;
+		}
+
 		// use product model to create the new Product object ...
 		// then save it within a specific DB table:
 		const product: Product = (await productModel.create(
@@ -22,11 +71,14 @@ export const createController = async (
 		)) as Product;
 
 		// send a response back to the product:
-		res.json({
-			status: 'success',
-			data: product,
-			message: 'Product created successfully.',
-		}).end();
+		res.status(201)
+			.json({
+				status: '201 Created',
+				data: product,
+				message: 'Product created successfully.',
+			})
+			.end();
+		return;
 	} catch (error) {
 		console.error(
 			`Product Controller: Error while creating new product: ${
@@ -46,17 +98,35 @@ export const showController = async (
 	res: Response
 ): Promise<void> => {
 	try {
+		// check product's existence:
+		const isFound: boolean = (await checkExistenceController(
+			req
+		)) as unknown as boolean;
+
+		if (!isFound) {
+			res.status(404)
+				.json({
+					status: 'Error 404: Not Found',
+					message: 'Product is NOT found.',
+				})
+				.end();
+			return;
+		}
+
 		// use product model to show a specific Product object:
 		const product: Product = (await productModel.show(
 			req.params.productID
 		)) as Product;
 
 		// send a response back to the product:
-		res.json({
-			status: 'success',
-			data: product,
-			message: 'Product shown successfully.',
-		}).end();
+		res.status(200)
+			.json({
+				status: '200 Ok',
+				data: product,
+				message: 'Product shown successfully.',
+			})
+			.end();
+		return;
 	} catch (error) {
 		console.error(
 			`Product Controller: Error while showing product: ${
@@ -81,12 +151,15 @@ export const showAllController = async (
 			(await productModel.showAll()) as Array<Product>;
 
 		// send a response back to the product:
-		res.json({
-			status: 'success',
-			totalProducts: products?.length,
-			data: products,
-			message: 'Products shown successfully.',
-		}).end();
+		res.status(200)
+			.json({
+				status: '200 Ok',
+				totalProducts: products?.length,
+				data: products,
+				message: 'Products shown successfully.',
+			})
+			.end();
+		return;
 	} catch (error) {
 		console.error(
 			`Product Controller: Error while showing products: ${
@@ -106,6 +179,21 @@ export const updateController = async (
 	res: Response
 ): Promise<void> => {
 	try {
+		// check product's existence:
+		const isFound: boolean = (await checkExistenceController(
+			req
+		)) as unknown as boolean;
+
+		if (!isFound) {
+			res.status(404)
+				.json({
+					status: 'Error 404: Not Found',
+					message: 'Product is NOT found.',
+				})
+				.end();
+			return;
+		}
+
 		// use product model to update a specific Product object ...
 		// then save it within a specific DB table:
 		const product: Product = (await productModel.update(
@@ -114,11 +202,14 @@ export const updateController = async (
 		)) as Product;
 
 		// send a response back to the product:
-		res.json({
-			status: 'success',
-			data: product,
-			message: 'Product updated successfully.',
-		}).end();
+		res.status(200)
+			.json({
+				status: '200 Ok',
+				data: product,
+				message: 'Product updated successfully.',
+			})
+			.end();
+		return;
 	} catch (error) {
 		console.error(
 			`Product Controller: Error while updating product: ${
@@ -138,17 +229,35 @@ export const deleteController = async (
 	res: Response
 ): Promise<void> => {
 	try {
+		// check product's existence:
+		const isFound: boolean = (await checkExistenceController(
+			req
+		)) as unknown as boolean;
+
+		if (!isFound) {
+			res.status(404)
+				.json({
+					status: 'Error 404: Not Found',
+					message: 'Product is NOT found.',
+				})
+				.end();
+			return;
+		}
+
 		// use product model to delete a specific Product object:
 		const product: Product = (await productModel.delete(
 			req.params.productID
 		)) as Product;
 
 		// send a response back to the product:
-		res.json({
-			status: 'success',
-			data: product,
-			message: 'Product deleted successfully.',
-		}).end();
+		res.status(200)
+			.json({
+				status: '200 Ok',
+				data: product,
+				message: 'Product deleted successfully.',
+			})
+			.end();
+		return;
 	} catch (error) {
 		console.error(
 			`Product Controller: Error while deleting product: ${

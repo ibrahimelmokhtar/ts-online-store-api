@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express';
 import * as usersController from '../../controllers/users.controller';
-import authenticateUser from '../../middlewares/authentication.middleware';
+import { authenticateUser } from '../../middlewares/authentication.middleware';
 import validateRequest from '../../middlewares/validation.middleware';
 import {
 	userAuthenticateBodyValidationRules,
@@ -13,17 +13,21 @@ const usersRoute: Router = Router();
 
 // sample GET method from users route:
 usersRoute.get('/', async (_req: Request, res: Response): Promise<void> => {
-	res.json({
-		message: 'inside << users >> route',
-		possibleRoutes: [
-			'/create',
-			'/show/:userID',
-			'/showAll',
-			'/update/:userID',
-			'/delete/:userID',
-			'/signin',
-		],
-	});
+	res.status(404)
+		.json({
+			status: 'Error 404: Not Found',
+			message: 'inside << users >> route',
+			possibleRoutes: [
+				'/create',
+				'/show/:userID',
+				'/showAll',
+				'/update/:userID',
+				'/delete/:userID',
+				'/signin',
+			],
+		})
+		.end();
+	return;
 });
 
 // available routes for CRUD operations within /users route:
@@ -41,10 +45,14 @@ usersRoute.get(
 	'/show',
 	userParamsValidationRules,
 	validateRequest,
-	(_req: Request, res: Response) => {
-		res.json({
-			message: 'User ID is required ...',
-		}).end();
+	async (_req: Request, res: Response): Promise<void> => {
+		res.status(404)
+			.json({
+				status: 'Error 404: Not Found',
+				message: 'User ID is required.',
+			})
+			.end();
+		return;
 	}
 );
 
@@ -64,10 +72,14 @@ usersRoute.put(
 	'/update',
 	userParamsValidationRules,
 	validateRequest,
-	(_req: Request, res: Response) => {
-		res.json({
-			message: 'User ID is required ...',
-		}).end();
+	async (_req: Request, res: Response): Promise<void> => {
+		res.status(404)
+			.json({
+				status: 'Error 404: Not Found',
+				message: 'User ID is required.',
+			})
+			.end();
+		return;
 	}
 );
 
@@ -85,10 +97,14 @@ usersRoute.delete(
 	'/delete',
 	userParamsValidationRules,
 	validateRequest,
-	(_req: Request, res: Response) => {
-		res.json({
-			message: 'User ID is required ...',
-		}).end();
+	async (_req: Request, res: Response): Promise<void> => {
+		res.status(404)
+			.json({
+				status: 'Error 404: Not Found',
+				message: 'User ID is required ...',
+			})
+			.end();
+		return;
 	}
 );
 

@@ -13,9 +13,9 @@ const req = supertest(app);
 describe('├─── Server Endpoints Suites', () => {
 	// main endpoint suite:
 	describe('├─── Main Endpoint Suite', () => {
-		it('GET (/) route response', async () => {
+		it('GET (/) - 404 Not Found', async () => {
 			const res = await req.get('/');
-			expect(res.statusCode).toBe(200);
+			expect(res.statusCode).toBe(404);
 		});
 	});
 

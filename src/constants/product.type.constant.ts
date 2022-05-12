@@ -4,14 +4,14 @@ import { UNIQUE_UUID } from './unique.uuid.constant';
 
 export const DEFAULT_PRODUCT: Product = {
 	id: NIL_UUID,
-	name: 'product_name',
+	name: 'default_product_name',
 	price: 99.99,
 	category: 'product_category',
 };
 
 export const OTHER_PRODUCT: Product = {
 	id: UNIQUE_UUID,
-	name: 'product_name',
+	name: 'other_product_name',
 	price: 99.99,
 	category: 'product_category',
 };

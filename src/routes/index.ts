@@ -17,16 +17,20 @@ mainRoute.use('/dashboard', dashboardRoute);
 
 // sample GET method from main route:
 mainRoute.get('/', async (_req: Request, res: Response): Promise<void> => {
-	res.json({
-		message: 'inside << main >> route',
-		possibleRoutes: [
-			'/users',
-			'/products',
-			'/orders',
-			'/orders/:orderID',
-			'/dashboard',
-		],
-	});
+	res.status(404)
+		.json({
+			status: 'Error 404: Not Found',
+			message: 'inside << main >> route',
+			possibleRoutes: [
+				'/users',
+				'/products',
+				'/orders',
+				'/orders/:orderID',
+				'/dashboard',
+			],
+		})
+		.end();
+	return;
 });
 
 export default mainRoute;

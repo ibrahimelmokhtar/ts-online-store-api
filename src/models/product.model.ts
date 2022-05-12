@@ -4,6 +4,48 @@ import { PoolClient } from 'pg';
 
 class ProductModel {
 	/**
+	 * @description Check product existence within the database via specific info (name or id).
+	 * @param {string} info
+	 * @param {boolean} isName
+	 * @returns {boolean} Product's existence status (true: is found, false: is NOT found).
+	 */
+	checkProductExistence = async (
+		info: string,
+		isName: boolean
+	): Promise<boolean | void> => {
+		try {
+			// connect to database:
+			const client: PoolClient = await pool.connect();
+
+			// run desired query:
+			let sql: string = 'EMPTY SQL QUERY';
+			if (isName) {
+				sql = 'SELECT * FROM products WHERE name=($1)::VARCHAR';
+			} else {
+				sql = 'SELECT * FROM products WHERE id=($1)::UUID';
+			}
+			const result = await client.query(sql, [info]);
+
+			// release connection:
+			client.release();
+
+			let isFound = false;
+			if (result.rows[0]) {
+				isFound = true;
+			}
+
+			// return product status:
+			return isFound;
+		} catch (error) {
+			console.error(
+				`Product Model: Unable to check ${info}: ${
+					(error as Error).message
+				}`
+			);
+		}
+	};
+
+	/**
 	 * @description Create new Product within the database.
 	 * @param {Product} product
 	 * @returns {Product} Created Product object.

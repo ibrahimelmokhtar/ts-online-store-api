@@ -1,5 +1,6 @@
 import { Request, Response, Router } from 'express';
 import * as productsController from '../../controllers/products.controller';
+import { authenticateUser } from '../../middlewares/authentication.middleware';
 import validateRequest from '../../middlewares/validation.middleware';
 import {
 	productBodyValidationRules,
@@ -11,16 +12,20 @@ const productsRoute: Router = Router();
 
 // sample GET method from products route:
 productsRoute.get('/', async (_req: Request, res: Response): Promise<void> => {
-	res.json({
-		message: 'inside << products >> route.',
-		possibleRoutes: [
-			'/create',
-			'/show/:productID',
-			'/showAll',
-			'/update/:productID',
-			'/delete/:productID',
-		],
-	});
+	res.status(404)
+		.json({
+			status: 'Error 404: Not Found',
+			message: 'inside << products >> route.',
+			possibleRoutes: [
+				'/create',
+				'/show/:productID',
+				'/showAll',
+				'/update/:productID',
+				'/delete/:productID',
+			],
+		})
+		.end();
+	return;
 });
 
 // available routes for CRUD operations within /products route:
@@ -30,6 +35,7 @@ productsRoute.post(
 	'/create',
 	productBodyValidationRules,
 	validateRequest,
+	authenticateUser,
 	productsController.createController
 );
 
@@ -38,10 +44,14 @@ productsRoute.get(
 	'/show',
 	productParamsValidationRules,
 	validateRequest,
-	(_req: Request, res: Response) => {
-		res.json({
-			message: 'Product ID is required ...',
-		}).end();
+	async (_req: Request, res: Response): Promise<void> => {
+		res.status(404)
+			.json({
+				status: 'Error 404: Not Found',
+				message: 'Product ID is required.',
+			})
+			.end();
+		return;
 	}
 );
 
@@ -49,21 +59,29 @@ productsRoute.get(
 	'/show/:productID',
 	productParamsValidationRules,
 	validateRequest,
+	authenticateUser,
 	productsController.showController
 );
 
 // READ ALL:
-productsRoute.get('/showAll', productsController.showAllController);
+productsRoute.get(
+	'/showAll',
+	authenticateUser,
+	productsController.showAllController
+);
 
 // UPDATE ONE:
 productsRoute.put(
 	'/update',
 	productParamsValidationRules,
 	validateRequest,
-	(_req: Request, res: Response) => {
-		res.json({
-			message: 'Product ID is required ...',
-		}).end();
+	async (_req: Request, res: Response): Promise<void> => {
+		res.status(404)
+			.json({
+				message: 'Product ID is required.',
+			})
+			.end();
+		return;
 	}
 );
 
@@ -72,6 +90,7 @@ productsRoute.put(
 	productParamsValidationRules,
 	productBodyValidationRules,
 	validateRequest,
+	authenticateUser,
 	productsController.updateController
 );
 
@@ -80,10 +99,13 @@ productsRoute.delete(
 	'/delete',
 	productParamsValidationRules,
 	validateRequest,
-	(_req: Request, res: Response) => {
-		res.json({
-			message: 'Product ID is required ...',
-		}).end();
+	async (_req: Request, res: Response): Promise<void> => {
+		res.status(404)
+			.json({
+				message: 'Product ID is required.',
+			})
+			.end();
+		return;
 	}
 );
 
@@ -91,6 +113,7 @@ productsRoute.delete(
 	'/delete/:productID',
 	productParamsValidationRules,
 	validateRequest,
+	authenticateUser,
 	productsController.deleteController
 );
 
