@@ -24,17 +24,16 @@ export const checkExistenceController = async (
 		 * 			- JUMP INTO STEP #5
 		 * 		- NOTE: this means that we are NOW inside orderProducts controller.
 		 *
-		 * 3. check (req.body) to see if (name) exists:
+		 * 3. check (req.params) to see if (productID) exists:
 		 * 		- if exists:
-		 * 			- SET (nameWithinBody) to true
-		 * 	  		- SET (info) to (req.body.name)
-		 * 			- SET (isName) to true
+		 * 			- SET (productIdWithinBody) to true
+		 * 	  		- SET (info) to (req.params.productID)
 		 * 			- JUMP INTO STEP #5
 		 * 		- NOTE: this means that we are NOW inside products controller.
 		 *
 		 * 4. ELSE:
-		 * 	  	- SET (info) to (req.params.productID)
-		 * 		- SET (isName) to false
+		 * 	  	- SET (info) to (req.body.name)
+		 * 		- SET (isName) to true
 		 * 		- CONTINUE WITH STEP #5
 		 *
 		 * 5. Pass collected data to the model.
@@ -46,17 +45,16 @@ export const checkExistenceController = async (
 
 		// extract search keyword:
 		let isName: boolean = false;
-		let nameWithinBody: boolean = false;
+		let productIdWithinParams: boolean = false;
 		if (!productIdWithinBody) {
-			// check req.body values to see if (name) key exists:
-			nameWithinBody = req.body.name ? true : false;
-			info = req.body.name;
-			isName = true;
+			// check req.params values to see if (productID) key exists:
+			productIdWithinParams = req.params.productID ? true : false;
+			info = req.params.productID;
 
-			if (!nameWithinBody) {
-				// extract productID from req.params:
-				info = req.params.productID;
-				isName = false;
+			if (!productIdWithinParams) {
+				// extract name from req.body:
+				info = req.body.name;
+				isName = true;
 			}
 		}
 

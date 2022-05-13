@@ -76,7 +76,7 @@ export const addProductController = async (
 		res.status(200)
 			.json({
 				status: '200 Ok',
-				data: orderProduct,
+				orderProduct: orderProduct,
 				message: 'Product added successfully to the order.',
 			})
 			.end();
@@ -110,7 +110,7 @@ export const showProductController = async (
 		res.status(200)
 			.json({
 				status: '200 Ok',
-				data: orderProduct,
+				orderProduct: orderProduct,
 				message: 'Product shown successfully from the order.',
 			})
 			.end();
@@ -145,7 +145,7 @@ export const showAllProductsController = async (
 			.json({
 				status: '200 Ok',
 				totalProductsInOrder: orderProducts.length,
-				data: orderProducts,
+				orderProducts: orderProducts,
 				message: 'Products shown successfully from the order.',
 			})
 			.end();

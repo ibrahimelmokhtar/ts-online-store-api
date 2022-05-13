@@ -11,8 +11,7 @@ const mainRoute: Router = Router();
 // configure used routes:
 mainRoute.use('/users', usersRoute);
 mainRoute.use('/products', productsRoute);
-mainRoute.use('/orders', ordersRoute);
-mainRoute.use('/orders', orderProductsRoute);
+mainRoute.use('/orders', [ordersRoute, orderProductsRoute]);
 mainRoute.use('/dashboard', dashboardRoute);
 
 // sample GET method from main route:

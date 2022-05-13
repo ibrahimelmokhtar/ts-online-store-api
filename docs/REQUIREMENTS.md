@@ -821,14 +821,14 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 [(Back to top)](#table-of-contents)
 
 - **HTTP Method**: **`POST`**
-- **Endpoint**: **`/orders/:orderID/products/add`**
+- **Endpoint**: **`/orders/:orderID/add`**
 - **Request Body**: **`OrderProduct object`** **[ token required ]**
 - **Request Params**: **`:orderID [UUIDv4]`**
 - **Response Body**: **`OrderProduct object`**
 - **Example**:
 
     ```http
-    - Request URL: /orders/72da8597-11cb-4ba5-b4ef-4125525e1084/products/add
+    - Request URL: /orders/72da8597-11cb-4ba5-b4ef-4125525e1084/add
     ```
 
     ```json
@@ -842,8 +842,8 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
     ```json
     - Response Body:
         {
-            "status": "success",
-            "data": {
+            "status": "200 Ok",
+            "orderProduct": {
                 "id": "b6a62a3c-9195-482d-8f46-83c61d440951",
                 "order_id": "72da8597-11cb-4ba5-b4ef-4125525e1084",
                 "product_id": "ac85b670-9f17-4ae0-8c71-f517dc037e47",
@@ -858,21 +858,21 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 [(Back to top)](#table-of-contents)
 
 - **HTTP Method**: **`GET`**
-- **Endpoint**: **`/orders/:orderID/products/show/:productID`**
+- **Endpoint**: **`/orders/:orderID/:productID`**
 - **Request Body**: **`N/A`** **[ token required ]**
 - **Request Params**: **`:orderID [UUIDv4]`**, **`:productID [UUIDv4]`**
 - **Response Body**: **`OrderProduct object`**
 - **Example**:
 
     ```http
-    - Request URL: /orders/72da8597-11cb-4ba5-b4ef-4125525e1084/products/show/ac85b670-9f17-4ae0-8c71-f517dc037e47
+    - Request URL: /orders/72da8597-11cb-4ba5-b4ef-4125525e1084/ac85b670-9f17-4ae0-8c71-f517dc037e47
     ```
 
     ```json
     - Response Body:
         {
-            "status": "success",
-            "data": {
+            "status": "200 Ok",
+            "orderProduct": {
                 "id": "ee75debb-f292-416a-95d3-0ea8a449d5f8",
                 "order_id": "72da8597-11cb-4ba5-b4ef-4125525e1084",
                 "product_id": "ac85b670-9f17-4ae0-8c71-f517dc037e47",
@@ -887,22 +887,22 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 [(Back to top)](#table-of-contents)
 
 - **HTTP Method**: **`GET`**
-- **Endpoint**: **`/orders/:orderID/products/showAll`**
+- **Endpoint**: **`/orders/:orderID/products`**
 - **Request Body**: **`N/A`** **[ token required ]**
 - **Request Params**: **`:orderID [UUIDv4]`**
 - **Response Body**: **`Array of OrderProduct objects`**
 - **Example**:
 
     ```http
-    - Request URL: /orders/72da8597-11cb-4ba5-b4ef-4125525e1084/products/showAll
+    - Request URL: /orders/72da8597-11cb-4ba5-b4ef-4125525e1084/products
     ```
 
     ```json
     - Response Body:
         {
-            "status": "success",
+            "status": "200 Ok",
             "totalProductsInOrder": 2,
-            "data": [{
+            "orderProducts": [{
                     "id": "ee75debb-f292-416a-95d3-0ea8a449d5f8",
                     "order_id": "72da8597-11cb-4ba5-b4ef-4125525e1084",
                     "product_id": "ac85b670-9f17-4ae0-8c71-f517dc037e47",
