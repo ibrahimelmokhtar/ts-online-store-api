@@ -137,7 +137,7 @@ export const createController = async (
 		res.status(201)
 			.json({
 				status: '201 Created',
-				data: order,
+				order: order,
 				message: 'Order created successfully.',
 			})
 			.end();
@@ -185,7 +185,7 @@ export const showController = async (
 		res.status(200)
 			.json({
 				status: '200 Ok',
-				data: order,
+				order: order,
 				message: 'Order shown successfully.',
 			})
 			.end();
@@ -218,7 +218,7 @@ export const showAllController = async (
 			.json({
 				status: '200 Ok',
 				totalOrders: orders?.length,
-				data: orders,
+				orders: orders,
 				message: 'Orders shown successfully.',
 			})
 			.end();
@@ -283,7 +283,7 @@ export const updateController = async (
 		res.status(200)
 			.json({
 				status: '200 Ok',
-				data: order,
+				order: order,
 				message: 'Order status updated successfully.',
 			})
 			.end();
@@ -331,7 +331,7 @@ export const deleteController = async (
 		res.status(200)
 			.json({
 				status: '200 Ok',
-				data: order,
+				order: order,
 				message: 'Order deleted successfully.',
 			})
 			.end();

@@ -645,8 +645,8 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
     ```json
     - Response Body:
         {
-            "status": "success",
-            "data": {
+            "status": "201 Created",
+            "order": {
                 "id": "4428b5d9-a52f-4fa8-8494-92bf5c050c04",
                 "is_done": false,
                 "user_id": "08068ea7-471c-402e-8f89-f3437a205a48",
@@ -668,21 +668,21 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 [(Back to top)](#table-of-contents)
 
 - **HTTP Method**: **`GET`**
-- **Endpoint**: **`/orders/show/:orderID`**
+- **Endpoint**: **`/orders/:orderID`**
 - **Request Body**: **`N/A`** **[ token required ]**
 - **Request Params**: **`:orderID [UUIDv4]`**
 - **Response Body**: **`order object`**
 - **Example**:
 
     ```http
-    - Request URL: /orders/show/4428b5d9-a52f-4fa8-8494-92bf5c050c04
+    - Request URL: /orders/4428b5d9-a52f-4fa8-8494-92bf5c050c04
     ```
 
     ```json
     - Response Body:
         {
-            "status": "success",
-            "data": {
+            "status": "200 Ok",
+            "order": {
                 "id": "4428b5d9-a52f-4fa8-8494-92bf5c050c04",
                 "is_done": false,
                 "user_id": "08068ea7-471c-402e-8f89-f3437a205a48",
@@ -704,22 +704,22 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 [(Back to top)](#table-of-contents)
 
 - **HTTP Method**: **`GET`**
-- **Endpoint**: **`/orders/showAll`**
+- **Endpoint**: **`/orders`**
 - **Request Body**: **`N/A`** **[ token required ]**
 - **Request Params**: **`N/A`**
 - **Response Body**: **`Array of Order objects`**
 - **Example**:
 
     ```http
-    - Request URL: /orders/showAll
+    - Request URL: /orders
     ```
 
     ```json
     - Response Body:
         {
-        "status": "success",
+        "status": "200 Ok",
         "totalOrders": 2,
-        "data": [{
+        "orders": [{
                 "id": "3bc72e17-10d0-4f81-bd8e-0b0f72791b78",
                 "is_done": false,
                 "user_id": "08068ea7-471c-402e-8f89-f3437a205a48",
@@ -747,14 +747,14 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 [(Back to top)](#table-of-contents)
 
 - **HTTP Method**: **`PUT`**
-- **Endpoint**: **`/orders/updateStatus/:orderID`**
+- **Endpoint**: **`/orders/:orderID`**
 - **Request Body**: **`Order object`** **[ token required ]**
 - **Request Params**: **`:orderID [UUIDv4]`**
 - **Response Body**: **`Order object`**
 - **Example**:
 
     ```http
-    - Request URL: /orders/updateStatus/4428b5d9-a52f-4fa8-8494-92bf5c050c04
+    - Request URL: /orders/4428b5d9-a52f-4fa8-8494-92bf5c050c04
     ```
 
     ```json
@@ -768,8 +768,8 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
     ```json
     - Response Body:
         {
-            "status": "success",
-            "data": {
+            "status": "200 Ok",
+            "order": {
                 "id": "4428b5d9-a52f-4fa8-8494-92bf5c050c04",
                 "is_done": true,
                 "user_id": "08068ea7-471c-402e-8f89-f3437a205a48",
@@ -788,21 +788,21 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 [(Back to top)](#table-of-contents)
 
 - **HTTP Method**: **`DELETE`**
-- **Endpoint**: **`/orders/delete/:orderID`**
+- **Endpoint**: **`/orders/:orderID`**
 - **Request Body**: **`N/A`** **[ token required ]**
 - **Request Params**: **`:orderID [UUIDv4]`**
 - **Response Body**: **`Order object`**
 - **Example**:
 
     ```http
-    - Request URL: /orders/delete/4428b5d9-a52f-4fa8-8494-92bf5c050c04
+    - Request URL: /orders/4428b5d9-a52f-4fa8-8494-92bf5c050c04
     ```
 
     ```json
     - Response Body:
         {
-            "status": "success",
-            "data": {
+            "status": "200 Ok",
+            "order": {
                 "id": "4428b5d9-a52f-4fa8-8494-92bf5c050c04",
                 "is_done": false,
                 "user_id": "08068ea7-471c-402e-8f89-f3437a205a48",
