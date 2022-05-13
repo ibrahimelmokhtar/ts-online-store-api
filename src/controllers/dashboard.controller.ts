@@ -19,7 +19,7 @@ export const showProductsInOrdersController = async (
 			.json({
 				status: '200 Ok',
 				totalProductsInOrders: productsInOrders.length,
-				data: productsInOrders,
+				productsInOrders: productsInOrders,
 				message: 'Products in orders shown successfully.',
 			})
 			.end();

@@ -7,19 +7,14 @@ const req = supertest(app);
 export const dashboardEndpointsSpecs = () => {
 	describe('├─── Dashboard Endpoints Suite', () => {
 		let token: string = 'Bearer ';
-		it('GET (/dashboard) - 404 Not Found', async () => {
+		beforeAll(async () => {
 			// this is required to generate token:
 			const resUser = await req.post('/users/signin').send(DEFAULT_USER);
 			// set token value:
-			token += resUser.body.data.token;
-
-			const res = await req.get('/dashboard');
-
-			// 404 Not Found
-			expect(res.statusCode).toBe(404);
+			token += resUser.body.user.token;
 		});
 
-		it('GET (/dashboard/productsInOrders) - 200 Ok', async () => {
+		it('GET (/dashboard/productsInOrders) --> 200 Ok - [Show All Products In All Orders]', async () => {
 			const res = await req
 				.get('/dashboard/productsInOrders')
 				.set('Authorization', token);
