@@ -8,18 +8,11 @@ const req = supertest(app);
 
 export const usersEndpointsSpecs = () => {
 	describe('├─── Users Endpoints Suite', () => {
-		it('GET (/users) - 404 Not Found', async () => {
-			const res = await req.get('/users');
-
-			// 404 Not Found
-			expect(res.statusCode).toBe(404);
-		});
-
-		it('POST (/users/create) - 201 Created', async () => {
+		it('POST (/users/signup) --> 201 Created - [Create New User]', async () => {
 			// THIS WILL REMAIN IN DB TABLE FOR FURTHER INTEGRATION TESTING:
-			await req.post('/users/create').send(DEFAULT_USER);
+			await req.post('/users/signup').send(DEFAULT_USER);
 
-			const res = await req.post('/users/create').send(OTHER_USER);
+			const res = await req.post('/users/signup').send(OTHER_USER);
 
 			// 201 Created
 			expect(res.statusCode).toBe(201);
@@ -28,7 +21,7 @@ export const usersEndpointsSpecs = () => {
 		// user token:
 		let token: string = 'Bearer ';
 
-		it('POST (/users/signin) - 202 Accepted', async () => {
+		it('POST (/users/signin) --> 202 Accepted - [Authenticate Specific User]', async () => {
 			const res = await req.post('/users/signin').send(DEFAULT_USER);
 
 			// set token value:
@@ -38,27 +31,25 @@ export const usersEndpointsSpecs = () => {
 			expect(res.statusCode).toBe(202);
 		});
 
-		it('GET (/users/show/:userID) - 200 Ok', async () => {
+		it('GET (/users/:userID) --> 200 Ok - [Show Specific User]', async () => {
 			const res = await req
-				.get(`/users/show/${NIL_UUID}`)
+				.get(`/users/${NIL_UUID}`)
 				.set('Authorization', token);
 
 			// 200 Ok
 			expect(res.statusCode).toBe(200);
 		});
 
-		it('GET (/users/showAll) - 200 Ok', async () => {
-			const res = await req
-				.get('/users/showAll')
-				.set('Authorization', token);
+		it('GET (/users) --> 200 Ok - [Show All Users]', async () => {
+			const res = await req.get('/users').set('Authorization', token);
 
 			// 200 Ok
 			expect(res.statusCode).toBe(200);
 		});
 
-		it('PUT (/users/update/:userID) - 200 Ok', async () => {
+		it('PUT (/users/:userID) --> 200 Ok - [Update Specific User]', async () => {
 			const res = await req
-				.put(`/users/update/${UNIQUE_UUID}`)
+				.put(`/users/${UNIQUE_UUID}`)
 				.set('Authorization', token)
 				.send(OTHER_USER);
 
@@ -66,9 +57,9 @@ export const usersEndpointsSpecs = () => {
 			expect(res.statusCode).toBe(200);
 		});
 
-		it('DELETE (/users/delete/:userID) - 200 Ok', async () => {
+		it('DELETE (/users/:userID) --> 200 Ok - [Delete Specific User]', async () => {
 			const res = await req
-				.delete(`/users/delete/${UNIQUE_UUID}`)
+				.delete(`/users/${UNIQUE_UUID}`)
 				.set('Authorization', token);
 
 			// 200 Ok

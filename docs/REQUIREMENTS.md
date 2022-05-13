@@ -15,11 +15,11 @@ The company stakeholders want to create an online storefront to showcase their g
 - [API Endpoints](#api-endpoints)
   - [`/users` Endpoints](#users-endpoints)
     - [Create New User](#create-new-user)
+    - [Authenticate Specific User](#authenticate-specific-user)
     - [Show Specific User](#show-specific-user)
-    - [Show All Users](#show-all-users)
     - [Update Specific User](#update-specific-user)
     - [Delete Specific User](#delete-specific-user)
-    - [Signin User](#signin-user)
+    - [Show All Users](#show-all-users)
   - [`/products` Endpoints](#products-endpoints)
     - [Create New Product](#create-new-product)
     - [Show Specific Product](#show-specific-product)
@@ -221,14 +221,14 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 [(Back to top)](#table-of-contents)
 
 - **HTTP Method**: **`POST`**
-- **Endpoint**: **`/users/create`**
+- **Endpoint**: **`/users/signup`**
 - **Request Body**: **`User object`**
 - **Request Params**: **`N/A`**
 - **Response Body**: **`User object`**
 - **Example**:
 
     ```http
-    - Request URL: /users/create/
+    - Request URL: /users/signup/
     ```
 
     ```json
@@ -258,151 +258,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
         }
     ```
 
-### Show Specific User
-
-[(Back to top)](#table-of-contents)
-
-- **HTTP Method**: **`GET`**
-- **Endpoint**: **`/users/show/:userID`**
-- **Request Body**: **`N/A`** **[ token required ]**
-- **Request Params**: **`:userID [UUIDv4]`**
-- **Response Body**: **`User object`**
-- **Example**:
-
-    ```http
-    - Request URL: /users/show/d485b697-69c2-4198-8231-f6054841baaf
-    ```
-
-    ```json
-    - Response Body:
-        {
-            "status": "success",
-            "data": {
-                "id": "d485b697-69c2-4198-8231-f6054841baaf",
-                "first_name": "Ibrahim",
-                "last_name": "El-Mokhtar",
-                "user_name": "ibrahimelmokhtar",
-                "email": "test@test.com",
-                "password": "$2b$10$1mOTa6VX2zuJr/MAZIaxBOFjnwFLR4TWAHZT34As4mVd4LQ9nDXz2"
-            },
-            "message": "User shown successfully."
-        }
-    ```
-
-### Show All Users
-
-[(Back to top)](#table-of-contents)
-
-- **HTTP Method**: **`GET`**
-- **Endpoint**: **`/users/showAll`**
-- **Request Body**: **`N/A`** **[ token required ]**
-- **Request Params**: **`N/A`**
-- **Response Body**: **`Array of User objects`**
-- **Example**:
-
-    ```http
-    - Request URL: /users/showAll
-    ```
-
-    ```json
-    - Response Body:
-        {
-            "status": "success",
-            "totalUsers": 2,
-            "data": [{
-                "id": "d485b697-69c2-4198-8231-f6054841baaf",
-                "first_name": "Ibrahim",
-                "last_name": "El-Mokhtar",
-                "user_name": "ibrahimelmokhtar",
-                "email": "test@test.com",
-                "password": "$2b$10$1mOTa6VX2zuJr/MAZIaxBOFjnwFLR4TWAHZT34As4mVd4LQ9nDXz2"
-            },
-            {
-                "id": "b2eee22f-4e60-464d-9456-314ae190388d",
-                "first_name": "James",
-                "last_name": "Bond",
-                "user_name": "jamesbond",
-                "email": "email@email.com",
-                "password": "$2b$10$JzbrVDsB0AbYmDYV7TgqGuTNKiHJP9brF1xVrV6krgNw/VBoRemce"
-            }],
-            "message": "Users shown successfully."
-        }
-    ```
-
-### Update Specific User
-
-[(Back to top)](#table-of-contents)
-
-- **HTTP Method**: **`PUT`**
-- **Endpoint**: **`/users/update/:userID`**
-- **Request Body**: **`User object`** **[ token required ]**
-- **Request Params**: **`:userID [UUIDv4]`**
-- **Response Body**: **`User object`**
-- **Example**:
-
-    ```http
-    - Request URL: /users/update/d485b697-69c2-4198-8231-f6054841baaf
-    ```
-
-    ```json
-    - Request Body:
-        {
-            "first_name": "Ibrahim",
-            "last_name": "El-Mokhtar",
-            "user_name": "ibrahimelmokhtar",
-            "email": "email@email.com",
-            "password": "password123123"
-        }
-    ```
-
-    ```json
-    - Response Body:
-        {
-            "status": "success",
-            "data": {
-                "id": "d485b697-69c2-4198-8231-f6054841baaf",
-                "first_name": "Ibrahim",
-                "last_name": "El-Mokhtar",
-                "user_name": "ibrahimelmokhtar",
-                "email": "email@email.com",
-                "password": "$2b$10$T77i34Eg9xI/1jJr8ZJkUupn1CvcfbhE1t7afKZ4AtIo8sPtYbJ4m"
-            },
-            "message": "User updated successfully."
-        }
-    ```
-
-### Delete Specific User
-
-[(Back to top)](#table-of-contents)
-
-- **HTTP Method**: **`DELETE`**
-- **Endpoint**: **`/users/delete/:userID`**
-- **Request Body**: **`N/A`** **[ token required ]**
-- **Request Params**: **`:userID [UUIDv4]`**
-- **Response Body**: **`User object`**
-- **Example**:
-
-    ```http
-    - Request URL: /users/delete/d485b697-69c2-4198-8231-f6054841baaf
-    ```
-
-    ```json
-    - Response Body:
-        {
-            "status": "success",
-            "data": {
-                "id": "d485b697-69c2-4198-8231-f6054841baaf",
-                "first_name": "Ibrahim",
-                "last_name": "El-Mokhtar",
-                "user_name": "ibrahimelmokhtar",
-                "email": "test@test.com",
-                "password": "$2b$10$1mOTa6VX2zuJr/MAZIaxBOFjnwFLR4TWAHZT34As4mVd4LQ9nDXz2"
-            },
-            "message": "User deleted successfully."
-        }
-    ```
-
-### Signin User
+### Authenticate Specific User
 
 [(Back to top)](#table-of-contents)
 
@@ -440,6 +296,150 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
                 "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiYjUwYjNiYTktYmY5MS00YjA1LWJmODAtNTlkOTljNzFkYmE0IiwiZmlyc3RfbmFtZSI6IklicmFoaW0iLCJsYXN0X25hbWUiOiJFbC1Nb2todGFyIiwidXNlcl9uYW1lIjoiaWJyYWhpbWVsbW9raHRhciIsImVtYWlsIjoidGVzdEB0ZXN0LmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJDU3cGFIQ1hURm1jdDRTam04ZU1PVXU0NnpGcmMySFBCU1BrZlpVelYwdXlLWkNHa3c5WkJDIn0sImlhdCI6MTY1MjI3NzUzNX0.7pPPtjDomqteV0byD89oAQw6F5coF5l7ZOVo0O-gep0"
             },
             "message": "User created successfully."
+        }
+    ```
+
+### Show Specific User
+
+[(Back to top)](#table-of-contents)
+
+- **HTTP Method**: **`GET`**
+- **Endpoint**: **`/users/:userID`**
+- **Request Body**: **`N/A`** **[ token required ]**
+- **Request Params**: **`:userID [UUIDv4]`**
+- **Response Body**: **`User object`**
+- **Example**:
+
+    ```http
+    - Request URL: /users/d485b697-69c2-4198-8231-f6054841baaf
+    ```
+
+    ```json
+    - Response Body:
+        {
+            "status": "success",
+            "data": {
+                "id": "d485b697-69c2-4198-8231-f6054841baaf",
+                "first_name": "Ibrahim",
+                "last_name": "El-Mokhtar",
+                "user_name": "ibrahimelmokhtar",
+                "email": "test@test.com",
+                "password": "$2b$10$1mOTa6VX2zuJr/MAZIaxBOFjnwFLR4TWAHZT34As4mVd4LQ9nDXz2"
+            },
+            "message": "User shown successfully."
+        }
+    ```
+
+### Update Specific User
+
+[(Back to top)](#table-of-contents)
+
+- **HTTP Method**: **`PUT`**
+- **Endpoint**: **`/users/:userID`**
+- **Request Body**: **`User object`** **[ token required ]**
+- **Request Params**: **`:userID [UUIDv4]`**
+- **Response Body**: **`User object`**
+- **Example**:
+
+    ```http
+    - Request URL: /users/d485b697-69c2-4198-8231-f6054841baaf
+    ```
+
+    ```json
+    - Request Body:
+        {
+            "first_name": "Ibrahim",
+            "last_name": "El-Mokhtar",
+            "user_name": "ibrahimelmokhtar",
+            "email": "email@email.com",
+            "password": "password123123"
+        }
+    ```
+
+    ```json
+    - Response Body:
+        {
+            "status": "success",
+            "data": {
+                "id": "d485b697-69c2-4198-8231-f6054841baaf",
+                "first_name": "Ibrahim",
+                "last_name": "El-Mokhtar",
+                "user_name": "ibrahimelmokhtar",
+                "email": "email@email.com",
+                "password": "$2b$10$T77i34Eg9xI/1jJr8ZJkUupn1CvcfbhE1t7afKZ4AtIo8sPtYbJ4m"
+            },
+            "message": "User updated successfully."
+        }
+    ```
+
+### Delete Specific User
+
+[(Back to top)](#table-of-contents)
+
+- **HTTP Method**: **`DELETE`**
+- **Endpoint**: **`/users/:userID`**
+- **Request Body**: **`N/A`** **[ token required ]**
+- **Request Params**: **`:userID [UUIDv4]`**
+- **Response Body**: **`User object`**
+- **Example**:
+
+    ```http
+    - Request URL: /users/d485b697-69c2-4198-8231-f6054841baaf
+    ```
+
+    ```json
+    - Response Body:
+        {
+            "status": "success",
+            "data": {
+                "id": "d485b697-69c2-4198-8231-f6054841baaf",
+                "first_name": "Ibrahim",
+                "last_name": "El-Mokhtar",
+                "user_name": "ibrahimelmokhtar",
+                "email": "test@test.com",
+                "password": "$2b$10$1mOTa6VX2zuJr/MAZIaxBOFjnwFLR4TWAHZT34As4mVd4LQ9nDXz2"
+            },
+            "message": "User deleted successfully."
+        }
+    ```
+
+### Show All Users
+
+[(Back to top)](#table-of-contents)
+
+- **HTTP Method**: **`GET`**
+- **Endpoint**: **`/users`**
+- **Request Body**: **`N/A`** **[ token required ]**
+- **Request Params**: **`N/A`**
+- **Response Body**: **`Array of User objects`**
+- **Example**:
+
+    ```http
+    - Request URL: /users
+    ```
+
+    ```json
+    - Response Body:
+        {
+            "status": "success",
+            "totalUsers": 2,
+            "data": [{
+                "id": "d485b697-69c2-4198-8231-f6054841baaf",
+                "first_name": "Ibrahim",
+                "last_name": "El-Mokhtar",
+                "user_name": "ibrahimelmokhtar",
+                "email": "test@test.com",
+                "password": "$2b$10$1mOTa6VX2zuJr/MAZIaxBOFjnwFLR4TWAHZT34As4mVd4LQ9nDXz2"
+            },
+            {
+                "id": "b2eee22f-4e60-464d-9456-314ae190388d",
+                "first_name": "James",
+                "last_name": "Bond",
+                "user_name": "jamesbond",
+                "email": "email@email.com",
+                "password": "$2b$10$JzbrVDsB0AbYmDYV7TgqGuTNKiHJP9brF1xVrV6krgNw/VBoRemce"
+            }],
+            "message": "Users shown successfully."
         }
     ```
 

@@ -1,4 +1,4 @@
-import { Request, Response, Router } from 'express';
+import { Router } from 'express';
 import * as usersController from '../../controllers/users.controller';
 import { authenticateUser } from '../../middlewares/authentication.middleware';
 import validateRequest from '../../middlewares/validation.middleware';
@@ -11,117 +11,51 @@ import {
 // create Express Router:
 const usersRoute: Router = Router();
 
-// sample GET method from users route:
-usersRoute.get('/', async (_req: Request, res: Response): Promise<void> => {
-	res.status(404)
-		.json({
-			status: 'Error 404: Not Found',
-			message: 'inside << users >> route',
-			possibleRoutes: [
-				'/create',
-				'/show/:userID',
-				'/showAll',
-				'/update/:userID',
-				'/delete/:userID',
-				'/signin',
-			],
-		})
-		.end();
-	return;
-});
+// CREATE NEW USER: (/users/signup)
+usersRoute
+	.route('/signup')
+	.post(
+		userBodyValidationRules,
+		validateRequest,
+		usersController.createController
+	);
 
-// available routes for CRUD operations within /users route:
+// AUTHENTICATE SPECIFIC USER: (/users/signin)
+usersRoute
+	.route('/signin')
+	.post(
+		userAuthenticateBodyValidationRules,
+		validateRequest,
+		usersController.authenticateController
+	);
 
-// CREATE ONE:
-usersRoute.post(
-	'/create',
-	userBodyValidationRules,
-	validateRequest,
-	usersController.createController
-);
+// READ ALL USERS: (/users)
+usersRoute.route('/').get(authenticateUser, usersController.showAllController);
 
-// READ ONE:
-usersRoute.get(
-	'/show',
-	userParamsValidationRules,
-	validateRequest,
-	async (_req: Request, res: Response): Promise<void> => {
-		res.status(404)
-			.json({
-				status: 'Error 404: Not Found',
-				message: 'User ID is required.',
-			})
-			.end();
-		return;
-	}
-);
-
-usersRoute.get(
-	'/show/:userID',
-	userParamsValidationRules,
-	validateRequest,
-	authenticateUser,
-	usersController.showController
-);
-
-// READ ALL:
-usersRoute.get('/showAll', authenticateUser, usersController.showAllController);
-
-// UPDATE ONE:
-usersRoute.put(
-	'/update',
-	userParamsValidationRules,
-	validateRequest,
-	async (_req: Request, res: Response): Promise<void> => {
-		res.status(404)
-			.json({
-				status: 'Error 404: Not Found',
-				message: 'User ID is required.',
-			})
-			.end();
-		return;
-	}
-);
-
-usersRoute.put(
-	'/update/:userID',
-	userParamsValidationRules,
-	userBodyValidationRules,
-	validateRequest,
-	authenticateUser,
-	usersController.updateController
-);
-
-// DELETE ONE:
-usersRoute.delete(
-	'/delete',
-	userParamsValidationRules,
-	validateRequest,
-	async (_req: Request, res: Response): Promise<void> => {
-		res.status(404)
-			.json({
-				status: 'Error 404: Not Found',
-				message: 'User ID is required ...',
-			})
-			.end();
-		return;
-	}
-);
-
-usersRoute.delete(
-	'/delete/:userID',
-	userParamsValidationRules,
-	validateRequest,
-	authenticateUser,
-	usersController.deleteController
-);
-
-// AUTHENTICATE ONE:
-usersRoute.post(
-	'/signin',
-	userAuthenticateBodyValidationRules,
-	validateRequest,
-	usersController.authenticateController
-);
+// MANIPULATE SPECIFIC USER: (/:userID)
+usersRoute
+	.route('/:userID')
+	// READ: (/users/:userID)
+	.get(
+		userParamsValidationRules,
+		validateRequest,
+		authenticateUser,
+		usersController.showController
+	)
+	// UPDATE: (/users/:userID)
+	.put(
+		userParamsValidationRules,
+		userBodyValidationRules,
+		validateRequest,
+		authenticateUser,
+		usersController.updateController
+	)
+	// DELETE: (/users/:userID)
+	.delete(
+		userParamsValidationRules,
+		validateRequest,
+		authenticateUser,
+		usersController.deleteController
+	);
 
 export default usersRoute;
