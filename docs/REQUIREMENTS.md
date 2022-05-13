@@ -84,6 +84,8 @@ The company stakeholders want to create an online storefront to showcase their g
     | `user_id` | uuid      | | not null | |
     | `products_ids` | uuid [ ]    | | not null | |
     | `products_quantities` | integer [ ] | | not null | |
+    | `date_time` | timestamp with time zone | | not null | |
+    | `date_time_readable` | character varying(80) | | not null | |
 
 - Indexes:
     "`orders_pkey`" PRIMARY KEY, btree (`id`)
@@ -101,6 +103,8 @@ The company stakeholders want to create an online storefront to showcase their g
     | order_id | uuid | | not null | |
     | product_id | uuid | | not null | |
     | product_quantity | integer | | not null | |
+    | `date_time` | timestamp with time zone | | not null | |
+    | `date_time_readable` | character varying(80) | | not null | |
 
 - Indexes:
     "`order_products_pkey`" PRIMARY KEY, btree (`id`)
@@ -166,7 +170,7 @@ The company stakeholders want to create an online storefront to showcase their g
             <td>Product's Category</td>
         </tr>
         <!-- Order -->
-        <th rowspan=6>Order</th>
+        <th rowspan=8>Order</th>
         <tr>
             <td>id</td>
             <td>Order's ID</td>
@@ -187,8 +191,16 @@ The company stakeholders want to create an online storefront to showcase their g
             <td>products_quantities</td>
             <td>Order's Products Quantities</td>
         </tr>
+        <tr>
+            <td>date_time</td>
+            <td>Order's ISO Date</td>
+        </tr>
+        <tr>
+            <td>date_time_readable</td>
+            <td>Order's String Date</td>
+        </tr>
         <!-- OrderProduct -->
-        <th rowspan=5>OrderProduct</th>
+        <th rowspan=7>OrderProduct</th>
         <tr>
             <td>id</td>
             <td>OrderProduct's ID</td>
@@ -204,6 +216,14 @@ The company stakeholders want to create an online storefront to showcase their g
         <tr>
             <td>product_quantity</td>
             <td>Product's Quantity</td>
+        </tr>
+        <tr>
+            <td>date_time</td>
+            <td>Order's ISO Date</td>
+        </tr>
+        <tr>
+            <td>date_time_readable</td>
+            <td>Order's String Date</td>
         </tr>
     </tbody>
 </table>
@@ -657,7 +677,9 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
                 "products_quantities": [
                     2,
                     1
-                ]
+                ],
+                "date_time": "2022-05-13T22:46:57.951Z",
+                "date_time_readable": "Sat May 14 2022 00:46:57 GMT+0200 (Eastern European Standard Time)"
             },
             "message": "Order created successfully."
         }
@@ -693,7 +715,9 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
                 "products_quantities": [
                     2,
                     1
-                ]
+                ],
+                "date_time": "2022-05-13T22:46:57.951Z",
+                "date_time_readable": "Sat May 14 2022 00:46:57 GMT+0200 (Eastern European Standard Time)"
             },
             "message": "Order shown successfully."
         }
@@ -726,7 +750,9 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
                 "products_ids": [
                     "53d01fd5-7fcb-4f1e-84d7-227c50089651"
                 ],
-                "products_quantities": [ 3 ]
+                "products_quantities": [ 3 ],
+                "date_time": "2022-05-13T22:46:57.951Z",
+                "date_time_readable": "Sat May 14 2022 00:46:57 GMT+0200 (Eastern European Standard Time)"
             },
             {
                 "id": "4428b5d9-a52f-4fa8-8494-92bf5c050c04",
@@ -736,7 +762,9 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
                     "53d01fd5-7fcb-4f1e-84d7-227c50089651",
                     "3dce8160-630e-4cb9-8a75-0bb8fcf638dc"
                 ],
-                "products_quantities": [ 2, 1 ]
+                "products_quantities": [ 2, 1 ],
+                "date_time": "2022-05-13T22:46:57.951Z",
+                "date_time_readable": "Sat May 14 2022 00:46:57 GMT+0200 (Eastern European Standard Time)"
         }],
         "message": "Orders shown successfully."
     }
@@ -777,7 +805,9 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
                     "53d01fd5-7fcb-4f1e-84d7-227c50089651",
                     "3dce8160-630e-4cb9-8a75-0bb8fcf638dc"
                 ],
-                "products_quantities": [ 2, 1 ]
+                "products_quantities": [ 2, 1 ],
+                "date_time": "2022-05-13T22:46:57.951Z",
+                "date_time_readable": "Sat May 14 2022 00:46:57 GMT+0200 (Eastern European Standard Time)"
             },
             "message": "Order updated successfully."
         }
@@ -810,7 +840,9 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
                     "53d01fd5-7fcb-4f1e-84d7-227c50089651",
                     "3dce8160-630e-4cb9-8a75-0bb8fcf638dc"
                 ],
-                "products_quantities": [ 2, 1 ]
+                "products_quantities": [ 2, 1 ],
+                "date_time": "2022-05-13T22:46:57.951Z",
+                "date_time_readable": "Sat May 14 2022 00:46:57 GMT+0200 (Eastern European Standard Time)"
             },
             "message": "Order deleted successfully."
         }
@@ -847,7 +879,9 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
                 "id": "b6a62a3c-9195-482d-8f46-83c61d440951",
                 "order_id": "72da8597-11cb-4ba5-b4ef-4125525e1084",
                 "product_id": "ac85b670-9f17-4ae0-8c71-f517dc037e47",
-                "product_quantity": 10
+                "product_quantity": 10,
+                "date_time": "2022-05-13T22:46:57.951Z",
+                "date_time_readable": "Sat May 14 2022 00:46:57 GMT+0200 (Eastern European Standard Time)"
             },
             "message": "Product added successfully to the order."
         }
@@ -876,7 +910,9 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
                 "id": "ee75debb-f292-416a-95d3-0ea8a449d5f8",
                 "order_id": "72da8597-11cb-4ba5-b4ef-4125525e1084",
                 "product_id": "ac85b670-9f17-4ae0-8c71-f517dc037e47",
-                "product_quantity": 10
+                "product_quantity": 10,
+                "date_time": "2022-05-13T22:46:57.951Z",
+                "date_time_readable": "Sat May 14 2022 00:46:57 GMT+0200 (Eastern European Standard Time)"
             },
             "message": "Product shown successfully from the order."
         }
@@ -906,13 +942,17 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
                     "id": "ee75debb-f292-416a-95d3-0ea8a449d5f8",
                     "order_id": "72da8597-11cb-4ba5-b4ef-4125525e1084",
                     "product_id": "ac85b670-9f17-4ae0-8c71-f517dc037e47",
-                    "product_quantity": 10
+                    "product_quantity": 10,
+                    "date_time": "2022-05-13T22:46:57.951Z",
+                    "date_time_readable": "Sat May 14 2022 00:46:57 GMT+0200 (Eastern European Standard Time)"
                 },
                 {
                     "id": "e07f5c7f-3f63-4452-9921-ae53f4bd36ed",
                     "order_id": "72da8597-11cb-4ba5-b4ef-4125525e1084",
                     "product_id": "ac85b670-9f17-4ae0-8c71-f517dc037e47",
-                    "product_quantity": 15
+                    "product_quantity": 15,
+                    "date_time": "2022-05-13T22:46:57.951Z",
+                    "date_time_readable": "Sat May 14 2022 00:46:57 GMT+0200 (Eastern European Standard Time)"
             }],
             "message": "Products shown successfully from the order."
         }
@@ -940,9 +980,11 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
         {
             "status": "success",
             "totalProductsInOrders": 2,
-            "data": [{
+            "productsInOrders": [{
                     "order_id": "72da8597-11cb-4ba5-b4ef-4125525e1084",
                     "is_order_done": true,
+                    "order_date_time": "2022-05-13T22:46:57.951Z",
+                    "order_date_time_readable": "Sat May 14 2022 00:46:57 GMT+0200 (Eastern European Standard Time)",
                     "product_name": "T-Shirt",
                     "product_category": "clothes",
                     "product_price": 10.99,
@@ -952,6 +994,8 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
                 {
                     "order_id": "a98da1b3-3d65-409c-af97-be13843104df",
                     "is_order_done": false,
+                    "order_date_time": "2022-05-13T22:46:57.951Z",
+                    "order_date_time_readable": "Sat May 14 2022 00:46:57 GMT+0200 (Eastern European Standard Time)",
                     "product_name": "T-Shirt",
                     "product_category": "clothes",
                     "product_price": 10.99,

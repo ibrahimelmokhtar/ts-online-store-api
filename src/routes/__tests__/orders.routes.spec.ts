@@ -16,7 +16,7 @@ export const ordersEndpointsSpecs = () => {
 		let token: string = 'Bearer ';
 		beforeAll(async () => {
 			// this is required to generate token:
-			const resUser = await req.post('/users/signin').send(DEFAULT_USER);
+			const resUser = await req.post('/users/login').send(DEFAULT_USER);
 			// set token value:
 			token += resUser.body.user.token;
 		});

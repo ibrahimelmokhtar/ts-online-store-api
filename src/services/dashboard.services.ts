@@ -10,12 +10,12 @@ class Dashboard {
 
 			// run desired query:
 			const sql: string = `
-				SELECT order_id, is_done AS is_order_done, user_id, user_name,  name AS product_name, category AS product_category, price AS product_price, product_quantity, (price*product_quantity) AS total_price
+				SELECT order_products.order_id, orders.is_done AS is_order_done, orders.date_time AS order_date_time, orders.date_time_readable AS order_date_time_readable, orders.user_id, users.user_name,  products.name AS product_name, products.category AS product_category, products.price AS product_price, order_products.product_quantity, (price*product_quantity) AS total_price
 				FROM order_products
 				INNER JOIN orders ON orders.id=order_products.order_id
 				INNER JOIN users ON orders.user_id=users.id
 				INNER JOIN products ON products.id=order_products.product_id
-				ORDER BY total_price DESC, user_name, is_order_done DESC`;
+				ORDER BY total_price DESC, user_name ASC, order_date_time DESC, is_order_done DESC`;
 			const result = await client.query(sql);
 
 			// release connection:

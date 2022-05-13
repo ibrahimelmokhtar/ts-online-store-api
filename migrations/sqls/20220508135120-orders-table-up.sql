@@ -5,5 +5,7 @@ CREATE TABLE IF NOT EXISTS orders (
     is_done BOOLEAN NOT NULL,
     user_id UUID REFERENCES users(id) NOT NULL,
     products_ids UUID[] NOT NULL,
-    products_quantities INTEGER[] NOT NULL
+    products_quantities INTEGER[] NOT NULL,
+    date_time TIMESTAMPTZ NOT NULL,
+    date_time_readable VARCHAR(80) NOT NULL
 );

@@ -8,11 +8,11 @@ const req = supertest(app);
 
 export const usersEndpointsSpecs = () => {
 	describe('├─── Users Endpoints Suite', () => {
-		it('POST (/users/signup) --> 201 Created - [Create New User]', async () => {
+		it('POST (/users/register) --> 201 Created - [Create New User]', async () => {
 			// THIS WILL REMAIN IN DB TABLE FOR FURTHER INTEGRATION TESTING:
-			await req.post('/users/signup').send(DEFAULT_USER);
+			await req.post('/users/register').send(DEFAULT_USER);
 
-			const res = await req.post('/users/signup').send(OTHER_USER);
+			const res = await req.post('/users/register').send(OTHER_USER);
 
 			// 201 Created
 			expect(res.statusCode).toBe(201);
@@ -21,8 +21,8 @@ export const usersEndpointsSpecs = () => {
 		// user token:
 		let token: string = 'Bearer ';
 
-		it('POST (/users/signin) --> 202 Accepted - [Authenticate Specific User]', async () => {
-			const res = await req.post('/users/signin').send(DEFAULT_USER);
+		it('POST (/users/login) --> 202 Accepted - [Authenticate Specific User]', async () => {
+			const res = await req.post('/users/login').send(DEFAULT_USER);
 
 			// set token value:
 			token += res.body.user.token;

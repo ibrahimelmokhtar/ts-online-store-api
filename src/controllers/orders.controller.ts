@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import Order from '../types/order.type';
 import OrderModel from '../models/order.model';
+import { setDateAndTime } from '../helpers/modules/datetime.modules';
 
 // create new object from OrderModel:
 const orderModel = new OrderModel();
@@ -128,6 +129,9 @@ export const createController = async (
 				.end();
 			return;
 		}
+
+		// add datetime information into (req.body):
+		req = await setDateAndTime(req);
 
 		// use order model to create the new Order object ...
 		// then save it within a specific DB table:

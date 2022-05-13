@@ -28,7 +28,7 @@ class OrderProductsModel {
 			sentValues = [
 				orderID,
 				orderProduct.product_id,
-				orderProduct.quantity,
+				orderProduct.product_quantity,
 			];
 
 			// run desired query:
@@ -36,11 +36,13 @@ class OrderProductsModel {
 
 			// THEN: add product into order_products table:
 			sql =
-				'INSERT INTO order_products (order_id, product_id, product_quantity) VALUES ($1::UUID, $2::UUID, $3::INTEGER) RETURNING *';
+				'INSERT INTO order_products (order_id, product_id, product_quantity, date_time, date_time_readable) VALUES ($1::UUID, $2::UUID, $3::INTEGER, $4::TIMESTAMPTZ, $5::VARCHAR) RETURNING *';
 			sentValues = [
 				orderID,
 				orderProduct.product_id,
-				orderProduct.quantity,
+				orderProduct.product_quantity,
+				orderProduct.date_time as string,
+				orderProduct.date_time_readable as string,
 			];
 
 			// run desired query:

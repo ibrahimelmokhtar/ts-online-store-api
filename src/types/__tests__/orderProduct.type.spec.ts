@@ -15,7 +15,7 @@ export const orderProductTypeSpecs = () => {
 		});
 
 		it('checks orderProduct`s quantity to be 5', () => {
-			expect(newOrderProduct.quantity).toEqual(5);
+			expect(newOrderProduct.product_quantity).toEqual(5);
 		});
 	});
 };

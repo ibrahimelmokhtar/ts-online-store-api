@@ -11,18 +11,18 @@ import {
 // create Express Router:
 const usersRoute: Router = Router();
 
-// CREATE NEW USER: (/users/signup)
+// CREATE NEW USER: (/users/register)
 usersRoute
-	.route('/signup')
+	.route('/register')
 	.post(
 		userBodyValidationRules,
 		validateRequest,
 		usersController.createController
 	);
 
-// AUTHENTICATE SPECIFIC USER: (/users/signin)
+// AUTHENTICATE SPECIFIC USER: (/users/login)
 usersRoute
-	.route('/signin')
+	.route('/login')
 	.post(
 		userAuthenticateBodyValidationRules,
 		validateRequest,

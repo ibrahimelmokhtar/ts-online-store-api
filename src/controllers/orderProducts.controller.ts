@@ -3,6 +3,11 @@ import OrderProductModel from '../models/orderProduct.model';
 import OrderProduct from '../types/orderProduct.type';
 import * as productsController from './products.controller';
 import * as ordersController from './orders.controller';
+import {
+	getDateAndTime,
+	setDateAndTime,
+} from '../helpers/modules/datetime.modules';
+import Datetime from '../types/datetime.type';
 
 // create new object from OrderProductModel:
 const orderProductModel = new OrderProductModel();
@@ -64,6 +69,16 @@ export const addProductController = async (
 				.end();
 			return;
 		}
+
+		// obtain order's date_time and date_time_readable values:
+		const result: Datetime = await getDateAndTime(req.params.orderID);
+
+		// set orderProduct object keys (date_time, date_time_readable) to obtained values:
+		req = await setDateAndTime(
+			req,
+			result.date_time,
+			result.date_time_readable
+		);
 
 		// use orderProduct model to create the new OrderProduct object ...
 		// then save it within a specific DB table:

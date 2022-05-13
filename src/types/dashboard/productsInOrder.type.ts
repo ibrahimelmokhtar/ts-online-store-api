@@ -1,6 +1,8 @@
 type ProductsInOrder = {
 	order_id: string;
 	is_done: boolean;
+	date_time: string;
+	date_time_readable: string;
 	user_id: string;
 	user_name: string;
 	Product_id: string;

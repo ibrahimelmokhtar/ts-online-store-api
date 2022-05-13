@@ -9,7 +9,7 @@ export const orderProductBodyValidationRules = [
 		.notEmpty()
 		.withMessage('Product`s ID is empty'),
 
-	body('quantity')
+	body('product_quantity')
 		.exists()
 		.withMessage('Product`s quantity is required')
 		.notEmpty()
