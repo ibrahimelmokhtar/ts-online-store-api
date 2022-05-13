@@ -74,7 +74,7 @@ export const createController = async (
 		res.status(201)
 			.json({
 				status: '201 Created',
-				data: user,
+				user: user,
 				message: 'User created successfully.',
 			})
 			.end();
@@ -120,7 +120,7 @@ export const showController = async (
 		res.status(200)
 			.json({
 				status: '200 Ok',
-				data: user,
+				user: user,
 				message: 'User shown successfully.',
 			})
 			.end();
@@ -152,7 +152,7 @@ export const showAllController = async (
 			.json({
 				status: '200 Ok',
 				totalUsers: users?.length,
-				data: users,
+				users: users,
 				message: 'Users shown successfully.',
 			})
 			.end();
@@ -202,7 +202,7 @@ export const updateController = async (
 		res.status(200)
 			.json({
 				status: '200 Ok',
-				data: user,
+				user: user,
 				message: 'User updated successfully.',
 			})
 			.end();
@@ -248,7 +248,7 @@ export const deleteController = async (
 		res.status(200)
 			.json({
 				status: '200 Ok',
-				data: user,
+				user: user,
 				message: 'User deleted successfully.',
 			})
 			.end();
@@ -310,7 +310,7 @@ export const authenticateController = async (
 		res.status(202)
 			.json({
 				status: '202 Accepted',
-				data: { ...user, token },
+				user: { ...user, token },
 				message: 'User authenticated successfully.',
 			})
 			.end();

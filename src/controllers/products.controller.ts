@@ -111,7 +111,7 @@ export const createController = async (
 		res.status(201)
 			.json({
 				status: '201 Created',
-				data: product,
+				product: product,
 				message: 'Product created successfully.',
 			})
 			.end();
@@ -159,7 +159,7 @@ export const showController = async (
 		res.status(200)
 			.json({
 				status: '200 Ok',
-				data: product,
+				product: product,
 				message: 'Product shown successfully.',
 			})
 			.end();
@@ -192,7 +192,7 @@ export const showAllController = async (
 			.json({
 				status: '200 Ok',
 				totalProducts: products?.length,
-				data: products,
+				products: products,
 				message: 'Products shown successfully.',
 			})
 			.end();
@@ -242,7 +242,7 @@ export const updateController = async (
 		res.status(200)
 			.json({
 				status: '200 Ok',
-				data: product,
+				product: product,
 				message: 'Product updated successfully.',
 			})
 			.end();
@@ -290,7 +290,7 @@ export const deleteController = async (
 		res.status(200)
 			.json({
 				status: '200 Ok',
-				data: product,
+				product: product,
 				message: 'Product deleted successfully.',
 			})
 			.end();

@@ -245,8 +245,8 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
     ```json
     - Response Body:
         {
-            "status": "success",
-            "data": {
+            "status": "201 Created",
+            "user": {
                 "id": "d485b697-69c2-4198-8231-f6054841baaf",
                 "first_name": "Ibrahim",
                 "last_name": "El-Mokhtar",
@@ -285,8 +285,8 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
     ```json
     - Response Body:
         {
-            "status": "success",
-            "data": {
+            "status": "202 Accepted",
+            "user": {
                 "id": "d485b697-69c2-4198-8231-f6054841baaf",
                 "first_name": "Ibrahim",
                 "last_name": "El-Mokhtar",
@@ -295,7 +295,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
                 "password": "$2b$10$1mOTa6VX2zuJr/MAZIaxBOFjnwFLR4TWAHZT34As4mVd4LQ9nDXz2",
                 "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiYjUwYjNiYTktYmY5MS00YjA1LWJmODAtNTlkOTljNzFkYmE0IiwiZmlyc3RfbmFtZSI6IklicmFoaW0iLCJsYXN0X25hbWUiOiJFbC1Nb2todGFyIiwidXNlcl9uYW1lIjoiaWJyYWhpbWVsbW9raHRhciIsImVtYWlsIjoidGVzdEB0ZXN0LmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJDU3cGFIQ1hURm1jdDRTam04ZU1PVXU0NnpGcmMySFBCU1BrZlpVelYwdXlLWkNHa3c5WkJDIn0sImlhdCI6MTY1MjI3NzUzNX0.7pPPtjDomqteV0byD89oAQw6F5coF5l7ZOVo0O-gep0"
             },
-            "message": "User created successfully."
+            "message": "User authenticated successfully."
         }
     ```
 
@@ -317,8 +317,8 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
     ```json
     - Response Body:
         {
-            "status": "success",
-            "data": {
+            "status": "200 Ok",
+            "user": {
                 "id": "d485b697-69c2-4198-8231-f6054841baaf",
                 "first_name": "Ibrahim",
                 "last_name": "El-Mokhtar",
@@ -359,8 +359,8 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
     ```json
     - Response Body:
         {
-            "status": "success",
-            "data": {
+            "status": "200 Ok",
+            "user": {
                 "id": "d485b697-69c2-4198-8231-f6054841baaf",
                 "first_name": "Ibrahim",
                 "last_name": "El-Mokhtar",
@@ -390,8 +390,8 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
     ```json
     - Response Body:
         {
-            "status": "success",
-            "data": {
+            "status": "200 Ok",
+            "user": {
                 "id": "d485b697-69c2-4198-8231-f6054841baaf",
                 "first_name": "Ibrahim",
                 "last_name": "El-Mokhtar",
@@ -421,9 +421,9 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
     ```json
     - Response Body:
         {
-            "status": "success",
+            "status": "200 Ok",
             "totalUsers": 2,
-            "data": [{
+            "users": [{
                 "id": "d485b697-69c2-4198-8231-f6054841baaf",
                 "first_name": "Ibrahim",
                 "last_name": "El-Mokhtar",
@@ -472,8 +472,8 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
     ```json
     - Response Body:
         {
-            "status": "success",
-            "data": {
+            "status": "201 Created",
+            "product": {
                 "id": "515de79c-a194-47d1-8e76-af097da06ed0",
                 "name": "T-Shirt",
                 "price": 50.99,
@@ -488,21 +488,21 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 [(Back to top)](#table-of-contents)
 
 - **HTTP Method**: **`GET`**
-- **Endpoint**: **`/products/show/:productID`**
+- **Endpoint**: **`/products/:productID`**
 - **Request Body**: **`N/A`** **[ token required ]**
 - **Request Params**: **`:productID [UUIDv4]`**
 - **Response Body**: **`Product object`**
 - **Example**:
 
     ```http
-    - Request URL: /products/show/515de79c-a194-47d1-8e76-af097da06ed0
+    - Request URL: /products/515de79c-a194-47d1-8e76-af097da06ed0
     ```
 
     ```json
     - Response Body:
         {
-            "status": "success",
-            "data": {
+            "status": "200 Ok",
+            "product": {
                 "id": "515de79c-a194-47d1-8e76-af097da06ed0",
                 "name": "T-Shirt",
                 "price": 50.99,
@@ -517,22 +517,22 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 [(Back to top)](#table-of-contents)
 
 - **HTTP Method**: **`GET`**
-- **Endpoint**: **`/products/showAll`**
+- **Endpoint**: **`/products`**
 - **Request Body**: **`N/A`** **[ token required ]**
 - **Request Params**: **`N/A`**
 - **Response Body**: **`Array of Product objects`**
 - **Example**:
 
     ```http
-    - Request URL: /products/showAll
+    - Request URL: /products
     ```
 
     ```json
     - Response Body:
         {
-            "status": "success",
+            "status": "200 Ok",
             "totalProducts": 2,
-            "data": [{
+            "products": [{
                 "id": "515de79c-a194-47d1-8e76-af097da06ed0",
                 "name": "T-SHirt",
                 "price": 50.99,
@@ -553,14 +553,14 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 [(Back to top)](#table-of-contents)
 
 - **HTTP Method**: **`PUT`**
-- **Endpoint**: **`/products/update/:productID`**
+- **Endpoint**: **`/products/:productID`**
 - **Request Body**: **`Product object`** **[ token required ]**
 - **Request Params**: **`:productID [UUIDv4]`**
 - **Response Body**: **`Product object`**
 - **Example**:
 
     ```http
-    - Request URL: /products/update/515de79c-a194-47d1-8e76-af097da06ed0
+    - Request URL: /products/515de79c-a194-47d1-8e76-af097da06ed0
     ```
 
     ```json
@@ -575,8 +575,8 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
     ```json
     - Response Body:
         {
-            "status": "success",
-            "data": {
+            "status": "200 Ok",
+            "product": {
                 "id": "515de79c-a194-47d1-8e76-af097da06ed0",
                 "name": "T-Shirt",
                 "price": 40.88,
@@ -591,21 +591,21 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
 [(Back to top)](#table-of-contents)
 
 - **HTTP Method**: **`DELETE`**
-- **Endpoint**: **`/products/delete/:productID`**
+- **Endpoint**: **`/products/:productID`**
 - **Request Body**: **`N/A`** **[ token required ]**
 - **Request Params**: **`:productID [UUIDv4]`**
 - **Response Body**: **`Product object`**
 - **Example**:
 
     ```http
-    - Request URL: /products/delete/515de79c-a194-47d1-8e76-af097da06ed0
+    - Request URL: /products/515de79c-a194-47d1-8e76-af097da06ed0
     ```
 
     ```json
     - Response Body:
         {
-            "status": "success",
-            "data": {
+            "status": "200 Ok",
+            "product": {
                 "id": "515de79c-a194-47d1-8e76-af097da06ed0",
                 "name": "T-Shirt",
                 "price": 50.99,

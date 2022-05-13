@@ -25,7 +25,7 @@ export const usersEndpointsSpecs = () => {
 			const res = await req.post('/users/signin').send(DEFAULT_USER);
 
 			// set token value:
-			token += res.body.data.token;
+			token += res.body.user.token;
 
 			// 202 Accepted
 			expect(res.statusCode).toBe(202);

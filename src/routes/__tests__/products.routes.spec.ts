@@ -13,19 +13,14 @@ const req = supertest(app);
 export const productsEndpointsSpecs = () => {
 	describe('├─── Products Endpoints Suite', () => {
 		let token: string = 'Bearer ';
-		it('GET (/products) - 404 Not Found', async () => {
+		beforeAll(async () => {
 			// this is required to generate token:
 			const resUser = await req.post('/users/signin').send(DEFAULT_USER);
 			// set token value:
-			token += resUser.body.data.token;
-
-			const res = await req.get('/products');
-
-			// 404 Not Found
-			expect(res.statusCode).toBe(404);
+			token += resUser.body.user.token;
 		});
 
-		it('POST (/products/create) - 201 Created', async () => {
+		it('POST (/products/create) --> 201 Created - [Create New Product]', async () => {
 			// THIS WILL REMAIN IN DB TABLE FOR FURTHER INTEGRATION TESTING:
 			await req
 				.post('/products/create')
@@ -41,27 +36,25 @@ export const productsEndpointsSpecs = () => {
 			expect(res.statusCode).toBe(201);
 		});
 
-		it('GET (/products/show/:productID) - 200 Ok', async () => {
+		it('GET (/products/:productID) --> 200 Ok - [Show Specific Product]', async () => {
 			const res = await req
-				.get(`/products/show/${NIL_UUID}`)
+				.get(`/products/${NIL_UUID}`)
 				.set('Authorization', token);
 
 			// 200 Ok
 			expect(res.statusCode).toBe(200);
 		});
 
-		it('GET (/products/showAll) - 200 Ok', async () => {
-			const res = await req
-				.get('/products/showAll')
-				.set('Authorization', token);
+		it('GET (/products) --> 200 Ok - [Show All Products]', async () => {
+			const res = await req.get('/products').set('Authorization', token);
 
 			// 200 Ok
 			expect(res.statusCode).toBe(200);
 		});
 
-		it('UPDATE (/products/update/:productID) - 200 Ok', async () => {
+		it('UPDATE (/products/:productID) --> 200 Ok - [Update Specific Product]', async () => {
 			const res = await req
-				.put(`/products/update/${UNIQUE_UUID}`)
+				.put(`/products/${UNIQUE_UUID}`)
 				.set('Authorization', token)
 				.send(OTHER_PRODUCT);
 
@@ -69,9 +62,9 @@ export const productsEndpointsSpecs = () => {
 			expect(res.statusCode).toBe(200);
 		});
 
-		it('DELETE (/products/delete/:productID) - 200 Ok', async () => {
+		it('DELETE (/products/:productID) --> 200 Ok - [Delete Specific Product]', async () => {
 			const res = await req
-				.delete(`/products/delete/${UNIQUE_UUID}`)
+				.delete(`/products/${UNIQUE_UUID}`)
 				.set('Authorization', token);
 
 			// 200 Ok
