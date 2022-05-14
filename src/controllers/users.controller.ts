@@ -70,6 +70,18 @@ export const createController = async (
 		// then save it within a specific DB table:
 		const user: User = (await userModel.create(req.body)) as User;
 
+		// handle unexpected error:
+		if (!user) {
+			res.status(500)
+				.json({
+					status: 'Error 500: Internal Server Error',
+					user: {},
+					message: `Unable to create user with email: ${req.body.email}`,
+				})
+				.end();
+			return;
+		}
+
 		// send a response back to the user:
 		res.status(201)
 			.json({
@@ -116,6 +128,18 @@ export const showController = async (
 		// use user model to show a specific User object:
 		const user: User = (await userModel.show(req.params.userID)) as User;
 
+		// handle unexpected error:
+		if (!user) {
+			res.status(500)
+				.json({
+					status: 'Error 500: Internal Server Error',
+					user: {},
+					message: `Unable to show user no. ${req.params.userID}`,
+				})
+				.end();
+			return;
+		}
+
 		// send a response back to the user:
 		res.status(200)
 			.json({
@@ -146,6 +170,18 @@ export const showAllController = async (
 	try {
 		// use user model to show all User objects:
 		const users: Array<User> = (await userModel.showAll()) as Array<User>;
+
+		// handle unexpected error:
+		if (!users) {
+			res.status(500)
+				.json({
+					status: 'Error 500: Internal Server Error',
+					users: {},
+					message: 'Unable to show users.',
+				})
+				.end();
+			return;
+		}
 
 		// send a response back to the user:
 		res.status(200)
@@ -198,6 +234,18 @@ export const updateController = async (
 			req.body
 		)) as User;
 
+		// handle unexpected error:
+		if (!user) {
+			res.status(500)
+				.json({
+					status: 'Error 500: Internal Server Error',
+					user: {},
+					message: `Unable to update user no. ${req.params.userID}`,
+				})
+				.end();
+			return;
+		}
+
 		// send a response back to the user:
 		res.status(200)
 			.json({
@@ -243,6 +291,18 @@ export const deleteController = async (
 
 		// use user model to delete a specific User object:
 		const user: User = (await userModel.delete(req.params.userID)) as User;
+
+		// handle unexpected error:
+		if (!user) {
+			res.status(500)
+				.json({
+					status: 'Error 500: Internal Server Error',
+					user: {},
+					message: `Unable to delete user no. ${req.params.userID}`,
+				})
+				.end();
+			return;
+		}
 
 		// send a response back to the user:
 		res.status(200)

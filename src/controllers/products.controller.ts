@@ -105,7 +105,19 @@ export const createController = async (
 			req.body
 		)) as Product;
 
-		// send a response back to the product:
+		// handle unexpected error:
+		if (!product) {
+			res.status(500)
+				.json({
+					status: 'Error 500: Internal Server Error',
+					product: {},
+					message: `Unable to create product with name: ${req.body.name}`,
+				})
+				.end();
+			return;
+		}
+
+		// send a response back to the user:
 		res.status(201)
 			.json({
 				status: '201 Created',
@@ -153,7 +165,19 @@ export const showController = async (
 			req.params.productID
 		)) as Product;
 
-		// send a response back to the product:
+		// handle unexpected error:
+		if (!product) {
+			res.status(500)
+				.json({
+					status: 'Error 500: Internal Server Error',
+					product: {},
+					message: `Unable to show product no. ${req.params.productID}`,
+				})
+				.end();
+			return;
+		}
+
+		// send a response back to the user:
 		res.status(200)
 			.json({
 				status: '200 Ok',
@@ -185,7 +209,19 @@ export const showAllController = async (
 		const products: Array<Product> =
 			(await productModel.showAll()) as Array<Product>;
 
-		// send a response back to the product:
+		// handle unexpected error:
+		if (!products) {
+			res.status(500)
+				.json({
+					status: 'Error 500: Internal Server Error',
+					products: {},
+					message: 'Unable to show products.',
+				})
+				.end();
+			return;
+		}
+
+		// send a response back to the user:
 		res.status(200)
 			.json({
 				status: '200 Ok',
@@ -236,7 +272,19 @@ export const updateController = async (
 			req.body
 		)) as Product;
 
-		// send a response back to the product:
+		// handle unexpected error:
+		if (!product) {
+			res.status(500)
+				.json({
+					status: 'Error 500: Internal Server Error',
+					product: {},
+					message: `Unable to update product no. ${req.params.productID}`,
+				})
+				.end();
+			return;
+		}
+
+		// send a response back to the user:
 		res.status(200)
 			.json({
 				status: '200 Ok',
@@ -284,7 +332,19 @@ export const deleteController = async (
 			req.params.productID
 		)) as Product;
 
-		// send a response back to the product:
+		// handle unexpected error:
+		if (!product) {
+			res.status(500)
+				.json({
+					status: 'Error 500: Internal Server Error',
+					product: {},
+					message: `Unable to delete product no. ${req.params.productID}`,
+				})
+				.end();
+			return;
+		}
+
+		// send a response back to the user:
 		res.status(200)
 			.json({
 				status: '200 Ok',

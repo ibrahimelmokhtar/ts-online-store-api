@@ -14,7 +14,19 @@ export const showProductsInOrdersController = async (
 		const productsInOrders: Array<ProductsInOrder> =
 			(await dashboard.showProductsInOrders()) as Array<ProductsInOrder>;
 
-		// send a response back to the product:
+		// handle unexpected error:
+		if (!productsInOrders) {
+			res.status(500)
+				.json({
+					status: 'Error 500: Internal Server Error',
+					productsInOrders: {},
+					message: 'Unable to show products in orders.',
+				})
+				.end();
+			return;
+		}
+
+		// send a response back to the user:
 		res.status(200)
 			.json({
 				status: '200 Ok',

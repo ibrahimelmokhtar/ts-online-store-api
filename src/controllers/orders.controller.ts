@@ -137,7 +137,19 @@ export const createController = async (
 		// then save it within a specific DB table:
 		const order: Order = (await orderModel.create(req.body)) as Order;
 
-		// send a response back to the order:
+		// handle unexpected error:
+		if (!order) {
+			res.status(500)
+				.json({
+					status: 'Error 500: Internal Server Error',
+					order: {},
+					message: `Unable to create order for user no. ${req.body.user_id}`,
+				})
+				.end();
+			return;
+		}
+
+		// send a response back to the user:
 		res.status(201)
 			.json({
 				status: '201 Created',
@@ -185,7 +197,19 @@ export const showController = async (
 			req.params.orderID
 		)) as Order;
 
-		// send a response back to the order:
+		// handle unexpected error:
+		if (!order) {
+			res.status(500)
+				.json({
+					status: 'Error 500: Internal Server Error',
+					order: {},
+					message: `Unable to show order no. ${req.params.orderID}`,
+				})
+				.end();
+			return;
+		}
+
+		// send a response back to the user:
 		res.status(200)
 			.json({
 				status: '200 Ok',
@@ -217,7 +241,19 @@ export const showAllController = async (
 		const orders: Array<Order> =
 			(await orderModel.showAll()) as Array<Order>;
 
-		// send a response back to the order:
+		// handle unexpected error:
+		if (!orders) {
+			res.status(500)
+				.json({
+					status: 'Error 500: Internal Server Error',
+					orders: {},
+					message: 'Unable to show orders.',
+				})
+				.end();
+			return;
+		}
+
+		// send a response back to the user:
 		res.status(200)
 			.json({
 				status: '200 Ok',
@@ -283,7 +319,19 @@ export const updateController = async (
 			req.body.is_done
 		)) as Order;
 
-		// send a response back to the order:
+		// handle unexpected error:
+		if (!order) {
+			res.status(500)
+				.json({
+					status: 'Error 500: Internal Server Error',
+					order: {},
+					message: `Unable to update status of order no. ${req.params.orderID}`,
+				})
+				.end();
+			return;
+		}
+
+		// send a response back to the user:
 		res.status(200)
 			.json({
 				status: '200 Ok',
@@ -331,7 +379,19 @@ export const deleteController = async (
 			req.params.orderID
 		)) as Order;
 
-		// send a response back to the order:
+		// handle unexpected error:
+		if (!order) {
+			res.status(500)
+				.json({
+					status: 'Error 500: Internal Server Error',
+					order: {},
+					message: `Unable to delete order no. ${req.params.orderID}`,
+				})
+				.end();
+			return;
+		}
+
+		// send a response back to the user:
 		res.status(200)
 			.json({
 				status: '200 Ok',

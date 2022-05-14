@@ -87,7 +87,19 @@ export const addProductController = async (
 			req.body
 		)) as OrderProduct;
 
-		// send a response back to the product:
+		// handle unexpected error:
+		if (!orderProduct) {
+			res.status(500)
+				.json({
+					status: 'Error 500: Internal Server Error',
+					orderProduct: {},
+					message: `Unable to add product no. ${req.body.product_id} into order no. ${req.params.orderID}`,
+				})
+				.end();
+			return;
+		}
+
+		// send a response back to the user:
 		res.status(200)
 			.json({
 				status: '200 Ok',
@@ -121,7 +133,19 @@ export const showProductController = async (
 			req.params.productID
 		)) as OrderProduct;
 
-		// send a response back to the product:
+		// handle unexpected error:
+		if (!orderProduct) {
+			res.status(500)
+				.json({
+					status: 'Error 500: Internal Server Error',
+					orderProduct: {},
+					message: `Unable to show product no. ${req.params.productID} within order no. ${req.params.orderID}`,
+				})
+				.end();
+			return;
+		}
+
+		// send a response back to the user:
 		res.status(200)
 			.json({
 				status: '200 Ok',
@@ -155,7 +179,19 @@ export const showAllProductsController = async (
 				req.params.orderID
 			)) as Array<OrderProduct>;
 
-		// send a response back to the product:
+		// handle unexpected error:
+		if (!orderProducts) {
+			res.status(500)
+				.json({
+					status: 'Error 500: Internal Server Error',
+					orderProducts: {},
+					message: `Unable to show products within order no. ${req.params.orderID}`,
+				})
+				.end();
+			return;
+		}
+
+		// send a response back to the user:
 		res.status(200)
 			.json({
 				status: '200 Ok',
