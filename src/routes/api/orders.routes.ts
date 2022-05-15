@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import * as ordersController from '../../controllers/orders.controller';
-import { authenticateUser } from '../../middlewares/authentication.middleware';
+import { authenticateUserToken } from '../../middlewares/authentication.middleware';
 import validateRequest from '../../middlewares/validation.middleware';
 import {
 	orderBodyValidationRules,
@@ -17,14 +17,14 @@ ordersRoute
 	.post(
 		orderBodyValidationRules,
 		validateRequest,
-		authenticateUser,
+		authenticateUserToken,
 		ordersController.createController
 	);
 
 // READ ALL ORDERS: (/orders)
 ordersRoute
 	.route('/')
-	.get(authenticateUser, ordersController.showAllController);
+	.get(authenticateUserToken, ordersController.showAllController);
 
 // MANIPULATE SPECIFIC ORDER: (/:orderID)
 ordersRoute
@@ -33,7 +33,7 @@ ordersRoute
 	.get(
 		orderParamsValidationRules,
 		validateRequest,
-		authenticateUser,
+		authenticateUserToken,
 		ordersController.showController
 	)
 	// UPDATE: (/orders/:orderID)
@@ -41,14 +41,14 @@ ordersRoute
 		orderParamsValidationRules,
 		orderStatusBodyValidationRules,
 		validateRequest,
-		authenticateUser,
+		authenticateUserToken,
 		ordersController.updateController
 	)
 	// DELETE: (/orders/:orderID)
 	.delete(
 		orderParamsValidationRules,
 		validateRequest,
-		authenticateUser,
+		authenticateUserToken,
 		ordersController.deleteController
 	);
 

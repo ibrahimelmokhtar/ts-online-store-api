@@ -1,6 +1,5 @@
 import supertest from 'supertest';
 import app from '../../server';
-import { NIL as NIL_UUID } from 'uuid';
 import { DEFAULT_USER, OTHER_USER } from '../../constants/user.type.constant';
 import { UNIQUE_UUID } from '../../constants/unique.uuid.constant';
 
@@ -22,7 +21,7 @@ export const usersEndpointsSpecs = () => {
 		let token: string = 'Bearer ';
 
 		it('POST (/users/login) --> 202 Accepted - [Authenticate Specific User]', async () => {
-			const res = await req.post('/users/login').send(DEFAULT_USER);
+			const res = await req.post('/users/login').send(OTHER_USER);
 
 			// set token value:
 			token += res.body.user.token;
@@ -33,7 +32,7 @@ export const usersEndpointsSpecs = () => {
 
 		it('GET (/users/:userID) --> 200 Ok - [Show Specific User]', async () => {
 			const res = await req
-				.get(`/users/${NIL_UUID}`)
+				.get(`/users/${UNIQUE_UUID}`)
 				.set('Authorization', token);
 
 			// 200 Ok

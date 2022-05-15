@@ -86,9 +86,9 @@ To use this project, you need to follow the commands below:
         npm run test
         ```
 
-9.  *For working with the **production** phase*, run the following commands:
+9. *For working with the **production** phase*, run the following commands:
 
-   - *Build the project*:
+    - *Build the project*:
 
         ```bash
         npm run build
@@ -100,13 +100,13 @@ To use this project, you need to follow the commands below:
         node build/server.js
         ```
 
-   - OR simply, *Start the server with one command*:
+    - OR simply, *Start the server with one command*:
 
         ```bash
         npm run start
         ```
 
-11. Open the local website on `http://127.0.0.1:5000/{process}/{opetationType}/{:queryParameters}`, more information about {process}, {operationType} and {:queryParameters} will be explained in [API Docmentation](#api-documentation)
+10. Open the local website on `http://127.0.0.1:5000/{endpoint}/{:queryParameters}`, more information about {endpoint} and {:queryParameters} will be explained in [API Docmentation](#api-documentation)
 
 # Development
 
@@ -118,6 +118,9 @@ This section will explain **how the code works** and **how everything is put tog
 [(Back to top)](#table-of-contents)
 
 This project has the structure shown below:
+
+<details>
+    <summary>Project Structure</summary>
 
 ```ts
 ├─── docs/
@@ -225,6 +228,8 @@ This project has the structure shown below:
 ├─── tsconfig.json
 ```
 
+</details>
+
 ## API Documentation
 
 [(Back to top)](#table-of-contents)
@@ -259,6 +264,7 @@ These packages can be found in the `"dependencies"` object inside the `package.j
 These packages can be found in the `"devDependencies"` object inside the `package.json` file.
 
 - [@types/bcrypt](https://www.npmjs.com/package/@types/bcrypt) - TypeScript definitions for bcrypt.
+- [@types/cors](https://www.npmjs.com/package/@types/cors) - TypeScript definitions for cors.
 - [@types/express](https://www.npmjs.com/package/@types/express) - TypeScript definitions for Express.
 - [@types/jasmine](https://www.npmjs.com/package/@types/jasmine) - TypeScript definitions for Jasmine.
 - [@types/jsonwebtoken](https://www.npmjs.com/package/@types/jsonwebtoken) - TypeScript definitions for jsonwebtoken.

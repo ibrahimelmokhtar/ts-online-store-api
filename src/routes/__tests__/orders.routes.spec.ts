@@ -7,7 +7,7 @@ import supertest from 'supertest';
 import app from '../../server';
 import { NIL as NIL_UUID } from 'uuid';
 import { UNIQUE_UUID } from '../../constants/unique.uuid.constant';
-import { DEFAULT_USER } from '../../constants/user.type.constant';
+import { OTHER_USER } from '../../constants/user.type.constant';
 
 const req = supertest(app);
 
@@ -15,8 +15,11 @@ export const ordersEndpointsSpecs = () => {
 	describe('├─── Orders Endpoints Suite', () => {
 		let token: string = 'Bearer ';
 		beforeAll(async () => {
+			// create specific user for testing:
+			await req.post('/users/register').send(OTHER_USER);
+
 			// this is required to generate token:
-			const resUser = await req.post('/users/login').send(DEFAULT_USER);
+			const resUser = await req.post('/users/login').send(OTHER_USER);
 			// set token value:
 			token += resUser.body.user.token;
 		});
@@ -70,6 +73,12 @@ export const ordersEndpointsSpecs = () => {
 
 			// 200 Ok
 			expect(res.statusCode).toBe(200);
+		});
+
+		afterAll(async () => {
+			await req
+				.delete(`/users/${OTHER_USER.id}`)
+				.set('Authorization', token);
 		});
 	});
 };

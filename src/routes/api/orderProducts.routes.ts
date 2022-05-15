@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import * as orderProductsController from '../../controllers/orderProducts.controller';
-import { authenticateUser } from '../../middlewares/authentication.middleware';
+import { authenticateUserToken } from '../../middlewares/authentication.middleware';
 import validateRequest from '../../middlewares/validation.middleware';
 import { orderProductBodyValidationRules } from '../../schemas/orderProducts.schemas';
 import { orderParamsValidationRules } from '../../schemas/orders.schemas';
@@ -16,7 +16,7 @@ orderProductsRoute
 		orderParamsValidationRules,
 		orderProductBodyValidationRules,
 		validateRequest,
-		authenticateUser,
+		authenticateUserToken,
 		orderProductsController.addProductController
 	);
 
@@ -26,7 +26,7 @@ orderProductsRoute
 	.get(
 		orderParamsValidationRules,
 		validateRequest,
-		authenticateUser,
+		authenticateUserToken,
 		orderProductsController.showAllProductsController
 	);
 
@@ -38,7 +38,7 @@ orderProductsRoute
 		orderParamsValidationRules,
 		productParamsValidationRules,
 		validateRequest,
-		authenticateUser,
+		authenticateUserToken,
 		orderProductsController.showProductController
 	);
 

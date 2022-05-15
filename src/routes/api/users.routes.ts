@@ -1,6 +1,9 @@
 import { Router } from 'express';
 import * as usersController from '../../controllers/users.controller';
-import { authenticateUser } from '../../middlewares/authentication.middleware';
+import {
+	authenticateUserToken,
+	validateUserRole,
+} from '../../middlewares/authentication.middleware';
 import validateRequest from '../../middlewares/validation.middleware';
 import {
 	userAuthenticateBodyValidationRules,
@@ -30,7 +33,9 @@ usersRoute
 	);
 
 // READ ALL USERS: (/users)
-usersRoute.route('/').get(authenticateUser, usersController.showAllController);
+usersRoute
+	.route('/')
+	.get(authenticateUserToken, usersController.showAllController);
 
 // MANIPULATE SPECIFIC USER: (/:userID)
 usersRoute
@@ -39,7 +44,8 @@ usersRoute
 	.get(
 		userParamsValidationRules,
 		validateRequest,
-		authenticateUser,
+		authenticateUserToken,
+		validateUserRole,
 		usersController.showController
 	)
 	// UPDATE: (/users/:userID)
@@ -47,14 +53,16 @@ usersRoute
 		userParamsValidationRules,
 		userBodyValidationRules,
 		validateRequest,
-		authenticateUser,
+		authenticateUserToken,
+		validateUserRole,
 		usersController.updateController
 	)
 	// DELETE: (/users/:userID)
 	.delete(
 		userParamsValidationRules,
 		validateRequest,
-		authenticateUser,
+		authenticateUserToken,
+		validateUserRole,
 		usersController.deleteController
 	);
 

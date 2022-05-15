@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import * as productsController from '../../controllers/products.controller';
-import { authenticateUser } from '../../middlewares/authentication.middleware';
+import { authenticateUserToken } from '../../middlewares/authentication.middleware';
 import validateRequest from '../../middlewares/validation.middleware';
 import {
 	productBodyValidationRules,
@@ -16,14 +16,14 @@ productsRoute
 	.post(
 		productBodyValidationRules,
 		validateRequest,
-		authenticateUser,
+		authenticateUserToken,
 		productsController.createController
 	);
 
 // READ ALL PRODUCTS: (/products)
 productsRoute
 	.route('/')
-	.get(authenticateUser, productsController.showAllController);
+	.get(authenticateUserToken, productsController.showAllController);
 
 // MANIPULATE SPECIFIC PRODUCT: (/:productID)
 productsRoute
@@ -32,7 +32,7 @@ productsRoute
 	.get(
 		productParamsValidationRules,
 		validateRequest,
-		authenticateUser,
+		authenticateUserToken,
 		productsController.showController
 	)
 	// UPDATE: (/products/:productID)
@@ -40,14 +40,14 @@ productsRoute
 		productParamsValidationRules,
 		productBodyValidationRules,
 		validateRequest,
-		authenticateUser,
+		authenticateUserToken,
 		productsController.updateController
 	)
 	// DELETE: (/products/:productID)
 	.delete(
 		productParamsValidationRules,
 		validateRequest,
-		authenticateUser,
+		authenticateUserToken,
 		productsController.deleteController
 	);
 
