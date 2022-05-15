@@ -1,6 +1,7 @@
 import supertest from 'supertest';
 import { DEFAULT_USER } from '../../constants/user.type.constant';
 import app from '../../server';
+import { NIL as NIL_UUID } from 'uuid';
 
 const req = supertest(app);
 
@@ -17,6 +18,15 @@ export const dashboardEndpointsSpecs = () => {
 		it('GET (/dashboard/productsInOrders) --> 200 Ok - [Show All Products In All Orders]', async () => {
 			const res = await req
 				.get('/dashboard/productsInOrders')
+				.set('Authorization', token);
+
+			// 200 Ok
+			expect(res.statusCode).toBe(200);
+		});
+
+		it('GET (/dashboard/:userID) --> 200 Ok - [Show Recent Orders Per User]', async () => {
+			const res = await req
+				.get(`/dashboard/${NIL_UUID}`)
 				.set('Authorization', token);
 
 			// 200 Ok

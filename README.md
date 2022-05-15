@@ -212,6 +212,7 @@ This project has the structure shown below:
             ├─── product.type.spec.ts
             ├─── user.type.spec.ts
         ├─── dashboard/
+            ├─── ordersPerUser.type.ts
             ├─── productsInOrder.type.ts
         ├─── order.type.ts
         ├─── orderProduct.type.ts

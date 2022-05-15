@@ -5,12 +5,20 @@ import { authenticateUserToken } from '../../middlewares/authentication.middlewa
 // create Express Router:
 const dashboardRoute: Router = Router();
 
-// READ ALL:
+// READ ALL PRODUCTS IN ORDERS:
 dashboardRoute
 	.route('/productsInOrders')
 	.get(
 		authenticateUserToken,
 		dashboardController.showProductsInOrdersController
+	);
+
+// READ RECENT ORDERS PER USER:
+dashboardRoute
+	.route('/:userID')
+	.get(
+		authenticateUserToken,
+		dashboardController.showOrdersPerUserController
 	);
 
 export default dashboardRoute;

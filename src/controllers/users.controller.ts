@@ -3,9 +3,14 @@ import UserModel from '../models/user.model';
 import User from '../types/user.type';
 import jwt from 'jsonwebtoken';
 import config from '../config/env.config';
+import OrdersPerUser from '../types/dashboard/ordersPerUser.type';
+import Dashboard from '../services/dashboard.services';
 
 // create new object from UserModel:
 const userModel = new UserModel();
+
+// create new object from Dashboard:
+const dashboard = new Dashboard();
 
 /**
  * @description Check user existence within the database via specific info (email or id).
@@ -140,11 +145,32 @@ export const showController = async (
 			return;
 		}
 
+		// use dashboard class to show a specific OrdersPerUser objects:
+		const ordersPerUser: Array<OrdersPerUser> =
+			(await dashboard.showOrdersPerUser(
+				req.params.userID
+			)) as Array<OrdersPerUser>;
+
+		// handle unexpected error:
+		if (!ordersPerUser) {
+			res.status(500)
+				.json({
+					status: 'Error 500: Internal Server Error',
+					ordersPerUser: {},
+					message: `Unable to show orders per user no. ${req.params.userID}`,
+				})
+				.end();
+			return;
+		}
+
 		// send a response back to the user:
 		res.status(200)
 			.json({
 				status: '200 Ok',
-				user: user,
+				user: {
+					...user,
+					ordersPerUser,
+				},
 				message: 'User shown successfully.',
 			})
 			.end();
