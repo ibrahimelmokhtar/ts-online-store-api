@@ -203,6 +203,8 @@ This project has the structure shown below:
         ├─── products.schemas.ts
         ├─── users.schemas.ts
     ├─── services/
+        ├─── __tests__/
+            ├─── dashboard.services.spec.ts
         ├─── dashboard.services.ts
     ├─── types/
         ├─── __tests__/

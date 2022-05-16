@@ -4,6 +4,7 @@ import { orderModelSpecs } from './order.model.spec';
 import { orderProductModelSpecs } from './orderProducts.model.spec';
 import { PoolClient } from 'pg';
 import pool from '../../database';
+import { dashboardServiceSpecs } from '../../services/__test__/dashboard.services.spec';
 
 describe('├─── Models Suites', () => {
 	// user model suite:
@@ -17,6 +18,9 @@ describe('├─── Models Suites', () => {
 
 	// orderProduct model suite:
 	orderProductModelSpecs();
+
+	// dashboard service suite:
+	dashboardServiceSpecs();
 
 	// DELETE DEFAULT ENTRIES FROM CREATED TABLES:
 	// THEY MUST BE DELETED IN THAT SEQUENCE.
