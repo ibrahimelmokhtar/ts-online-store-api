@@ -37,6 +37,8 @@ The company stakeholders want to create an online storefront to showcase their g
     - [Show All Products Within Order](#show-all-products-within-order)
   - [`/dashboard` Endpoints](#dashboard-endpoints)
     - [Show All Products In Orders](#show-all-products-in-orders)
+    - [Show Recent Orders Per User](#show-recent-orders-per-user)
+    - [Show Top Ordered Products](#show-top-ordered-products)
 
 # Database Schemas
 
@@ -225,6 +227,92 @@ The company stakeholders want to create an online storefront to showcase their g
             <td>date_time_readable</td>
             <td>Order's String Date</td>
         </tr>
+        <!-- ProductsInOrders -->
+        <th rowspan=13>ProductsInOrder</th>
+        <tr>
+            <td>order_id</td>
+            <td>Order's ID</td>
+        </tr>
+        <tr>
+            <td>is_done</td>
+            <td>Order's Status</td>
+        </tr>
+        <tr>
+            <td>date_time</td>
+            <td>Order's ISO Date</td>
+        </tr>
+        <tr>
+            <td>date_time_readable</td>
+            <td>Order's String Date</td>
+        </tr>
+        <tr>
+            <td>user_id</td>
+            <td>User's ID</td>
+        </tr>
+        <tr>
+            <td>user_name</td>
+            <td>User's ID</td>
+        </tr>
+        <tr>
+            <td>product_id</td>
+            <td>Product's ID</td>
+        </tr>
+        <tr>
+            <td>product_name</td>
+            <td>Product's Name</td>
+        </tr>
+        <tr>
+            <td>product_category</td>
+            <td>Product's Category</td>
+        </tr>
+        <tr>
+            <td>product_price</td>
+            <td>Product's Price</td>
+        </tr>
+        <tr>
+            <td>product_quantity</td>
+            <td>Product's Quantity</td>
+        </tr>
+        <tr>
+            <td>total_price</td>
+            <td>Product's Total Price Per Order</td>
+        </tr>
+        <!-- OrdersPerUser -->
+        <th rowspan=5>OrdersPerUser</th>
+        <tr>
+            <td>order_id</td>
+            <td>Order's ID</td>
+        </tr>
+        <tr>
+            <td>is_done</td>
+            <td>Order's Status</td>
+        </tr>
+        <tr>
+            <td>date_time_readable</td>
+            <td>Order's String Date</td>
+        </tr>
+        <tr>
+            <td>total_cost</td>
+            <td>Order's Total Cost</td>
+        </tr>
+        <!-- TopProduct -->
+        <th rowspan=5>TopProduct</th>
+        <tr>
+            <td>product_id</td>
+            <td>Product's ID</td>
+        </tr>
+        <tr>
+            <td>product_name</td>
+            <td>Product's Name</td>
+        </tr>
+        <tr>
+            <td>total_quantity</td>
+            <td>Product's Total Ordered Quantity</td>
+        </tr>
+        <tr>
+            <td>x_orders</td>
+            <td>Product is Found In {X} Number Of Orders</td>
+        </tr>
     </tbody>
 </table>
 
@@ -344,8 +432,19 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
                 "last_name": "El-Mokhtar",
                 "user_name": "ibrahimelmokhtar",
                 "email": "test@test.com",
-                "password": "$2b$10$1mOTa6VX2zuJr/MAZIaxBOFjnwFLR4TWAHZT34As4mVd4LQ9nDXz2"
-            },
+                "password": "$2b$10$1mOTa6VX2zuJr/MAZIaxBOFjnwFLR4TWAHZT34As4mVd4LQ9nDXz2",
+                "recentOrders": [{
+                    "order_id": "803d11b3-6cd9-45e5-b497-bf7479445245",
+                    "is_done": false,
+                    "date_time_readable": "Sun May 15 2022 17:44:59 GMT+0200 (Eastern European Standard Time)",
+                    "total_cost": 64.94
+                },
+                {
+                    "order_id": "df983eba-d894-4f53-975f-738dcd82b265",
+                    "is_done": false,
+                    "date_time_readable": "Sun May 15 2022 17:34:43 GMT+0200 (Eastern European Standard Time)",
+                    "total_cost": 24.950000000000003
+            }]},
             "message": "User shown successfully."
         }
     ```
@@ -978,7 +1077,7 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
     ```json
     - Response Body:
         {
-            "status": "success",
+            "status": "200 Ok",
             "totalProductsInOrders": 2,
             "productsInOrders": [{
                     "order_id": "72da8597-11cb-4ba5-b4ef-4125525e1084",
@@ -1003,5 +1102,75 @@ This API has **multiple** endpoints using the different `HTTP methods` as explai
                     "total_price": 54.95
             }],
             "message": "Products in orders shown successfully."
+        }
+    ```
+
+### Show Recent Orders Per User
+
+[(Back to top)](#table-of-contents)
+
+- **HTTP Method**: **`GET`**
+- **Endpoint**: **`/dashboard/recentOrders/:userID`**
+- **Request Body**: **`N/A`** **[ token required ]**
+- **Request Params**: **`:userID [UUIDv4]`**
+- **Response Body**: **`Array of OrdersPerUser objects`**
+- **Example**:
+
+    ```http
+    - Request URL: /dashboard/recentOrders/08068ea7-471c-402e-8f89-f3437a205a48
+    ```
+
+    ```json
+    - Response Body:
+        {
+            "status": "200 Ok",
+            "recentOrders": [{
+                    "order_id": "72da8597-11cb-4ba5-b4ef-4125525e1084",
+                    "is_done": false,
+                    "date_time_readable": "Sat May 14 2022 00:46:57 GMT+0200 (Eastern European Standard Time)",
+                    "total_cost": 164.85
+                },
+                {
+                    "order_id": "4428b5d9-a52f-4fa8-8494-92bf5c050c04",
+                    "is_done": false,
+                    "order_date_time_readable": "Sat May 14 2022 00:46:57 GMT+0200 (Eastern European Standard Time)",
+                    "total_cost": 54.95
+            }],
+            "message": "Orders per user shown successfully."
+        }
+    ```
+
+### Show Top Ordered Products
+
+[(Back to top)](#table-of-contents)
+
+- **HTTP Method**: **`GET`**
+- **Endpoint**: **`/dashboard/topProducts`**
+- **Request Body**: **`N/A`** **[ token required ]**
+- **Request Params**: **`N/A`**
+- **Response Body**: **`Array of TopProduct objects`**
+- **Example**:
+
+    ```http
+    - Request URL: /dashboard/topProducts
+    ```
+
+    ```json
+    - Response Body:
+        {
+            "status": "200 Ok",
+            "topProducts": [{
+                    "product_id": "3f1f3aa3-cc24-4202-99e2-09007dd1429b",
+                    "product_name": "Meat",
+                    "product_quantity": 26,
+                    "x_orders": 6
+                },
+                {
+                    "product_id": "6fcad767-fbc2-481d-a0b9-d30652d078f8",
+                    "product_name": "Sandals",
+                    "product_quantity": 6,
+                    "x_orders": 2
+            }],
+            "message": "Top products shown successfully."
         }
     ```

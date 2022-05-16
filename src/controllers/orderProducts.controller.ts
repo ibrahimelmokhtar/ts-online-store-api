@@ -76,8 +76,8 @@ export const addProductController = async (
 		// set orderProduct object keys (date_time, date_time_readable) to obtained values:
 		req = await setDateAndTime(
 			req,
-			result.date_time,
-			result.date_time_readable
+			result.date_time as string,
+			result.date_time_readable as string
 		);
 
 		// use orderProduct model to create the new OrderProduct object ...

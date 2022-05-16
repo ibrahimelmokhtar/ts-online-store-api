@@ -199,7 +199,8 @@ class UserModel {
 			const client: PoolClient = await pool.connect();
 
 			// run desired query:
-			const sql: string = 'DELETE FROM users WHERE id=($1) RETURNING *';
+			const sql: string =
+				'DELETE FROM users WHERE id=($1)::UUID RETURNING *';
 			const result = await client.query(sql, [userID]);
 
 			// release connection:

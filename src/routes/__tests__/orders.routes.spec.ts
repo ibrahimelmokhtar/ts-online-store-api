@@ -5,9 +5,7 @@ import {
 } from '../../constants/order.type.constant';
 import supertest from 'supertest';
 import app from '../../server';
-import { NIL as NIL_UUID } from 'uuid';
-import { UNIQUE_UUID } from '../../constants/unique.uuid.constant';
-import { OTHER_USER } from '../../constants/user.type.constant';
+import { DEFAULT_USER } from '../../constants/user.type.constant';
 
 const req = supertest(app);
 
@@ -15,11 +13,8 @@ export const ordersEndpointsSpecs = () => {
 	describe('├─── Orders Endpoints Suite', () => {
 		let token: string = 'Bearer ';
 		beforeAll(async () => {
-			// create specific user for testing:
-			await req.post('/users/register').send(OTHER_USER);
-
 			// this is required to generate token:
-			const resUser = await req.post('/users/login').send(OTHER_USER);
+			const resUser = await req.post('/users/login').send(DEFAULT_USER);
 			// set token value:
 			token += resUser.body.user.token;
 		});
@@ -42,7 +37,7 @@ export const ordersEndpointsSpecs = () => {
 
 		it('GET (/orders/:orderID) --> 200 Ok - [Show Specific Order]', async () => {
 			const res = await req
-				.get(`/orders/${NIL_UUID}`)
+				.get(`/orders/${DEFAULT_ORDER.id}`)
 				.set('Authorization', token);
 
 			// 200 Ok
@@ -58,7 +53,7 @@ export const ordersEndpointsSpecs = () => {
 
 		it('UPDATE (/orders/:orderID) --> 200 Ok - [Update Specific Order]', async () => {
 			const res = await req
-				.put(`/orders/${UNIQUE_UUID}`)
+				.put(`/orders/${OTHER_ORDER.id}`)
 				.set('Authorization', token)
 				.send(DONE_ORDER);
 
@@ -68,17 +63,11 @@ export const ordersEndpointsSpecs = () => {
 
 		it('DELETE (/orders/:orderID) --> 200 Ok - [Delete Specific Order]', async () => {
 			const res = await req
-				.delete(`/orders/${UNIQUE_UUID}`)
+				.delete(`/orders/${OTHER_ORDER.id}`)
 				.set('Authorization', token);
 
 			// 200 Ok
 			expect(res.statusCode).toBe(200);
-		});
-
-		afterAll(async () => {
-			await req
-				.delete(`/users/${OTHER_USER.id}`)
-				.set('Authorization', token);
 		});
 	});
 };

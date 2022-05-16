@@ -15,10 +15,15 @@ dashboardRoute
 
 // READ RECENT ORDERS PER USER:
 dashboardRoute
-	.route('/:userID')
+	.route('/recentOrders/:userID')
 	.get(
 		authenticateUserToken,
-		dashboardController.showOrdersPerUserController
+		dashboardController.showRecentOrdersPerUserController
 	);
+
+// READ TOP PRODUCTS:
+dashboardRoute
+	.route('/topProducts')
+	.get(authenticateUserToken, dashboardController.showTopProductsController);
 
 export default dashboardRoute;

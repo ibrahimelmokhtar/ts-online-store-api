@@ -47,7 +47,7 @@ class OrderModel {
 			const client: PoolClient = await pool.connect();
 
 			// run desired query:
-			const sql: string = 'SELECT * FROM orders WHERE id=($1)';
+			const sql: string = 'SELECT * FROM orders WHERE id=($1)::UUID';
 			const result = await client.query(sql, [orderID]);
 
 			// release connection:

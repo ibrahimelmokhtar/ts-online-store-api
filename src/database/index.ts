@@ -7,7 +7,6 @@ const pool = new Pool({
 	host: config.postgresHost,
 	database: config.postgresDB,
 	password: config.postgresPassword,
-	// port: parseInt(config.postgresPort as string, 10),
 	port: config.postgresPort as unknown as number,
 });
 

@@ -60,7 +60,7 @@ class ProductModel {
 			let sentValues: Array<string | number> = [];
 			if (process.env.NODE_ENV === 'test') {
 				sql =
-					'INSERT INTO products (id, name, price, category) VALUES ($1, $2, $3, $4) RETURNING *';
+					'INSERT INTO products (id, name, price, category) VALUES ($1::UUID, $2::VARCHAR, $3::FLOAT, $4::VARCHAR) RETURNING *';
 				sentValues = [
 					product.id as string,
 					product.name,
@@ -69,7 +69,7 @@ class ProductModel {
 				];
 			} else {
 				sql =
-					'INSERT INTO products (name, price, category) VALUES ($1, $2, $3) RETURNING *';
+					'INSERT INTO products (name, price, category) VALUES ($1::VARCHAR, $2::FLOAT, $3::VARCHAR) RETURNING *';
 				sentValues = [product.name, product.price, product.category];
 			}
 			const result = await client.query(sql, sentValues);
@@ -99,7 +99,7 @@ class ProductModel {
 			const client: PoolClient = await pool.connect();
 
 			// run desired query:
-			const sql: string = 'SELECT * FROM products WHERE id=($1)';
+			const sql: string = 'SELECT * FROM products WHERE id=($1)::UUID';
 			const result = await client.query(sql, [productID]);
 
 			// release connection:
@@ -159,7 +159,7 @@ class ProductModel {
 
 			// run desired query:
 			const sql: string =
-				'UPDATE products SET name=($2), price=($3), category=($4) WHERE id=($1) RETURNING *';
+				'UPDATE products SET name=($2)::VARCHAR, price=($3)::FLOAT, category=($4)::VARCHAR WHERE id=($1)::UUID RETURNING *';
 			const result = await client.query(sql, [
 				productID,
 				product.name,
@@ -193,7 +193,7 @@ class ProductModel {
 
 			// run desired query:
 			const sql: string =
-				'DELETE FROM products WHERE id=($1) RETURNING *';
+				'DELETE FROM products WHERE id=($1)::UUID RETURNING *';
 			const result = await client.query(sql, [productID]);
 
 			// release connection:

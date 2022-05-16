@@ -2,12 +2,13 @@ import { Request, Response } from 'express';
 import Dashboard from '../services/dashboard.services';
 import OrdersPerUser from '../types/dashboard/ordersPerUser.type';
 import ProductsInOrder from '../types/dashboard/productsInOrder.type';
+import TopProduct from '../types/dashboard/topProduct.type';
 
 // create new object from Dashboard:
 const dashboard = new Dashboard();
 
 /**
- * @description
+ * @description Show products in orders.
  * @param {Request} _req
  * @param {Response} res
  */
@@ -52,11 +53,11 @@ export const showProductsInOrdersController = async (
 };
 
 /**
- * @description
- * @param {Request} _req
+ * @description Show recent orders per user.
+ * @param {Request} req
  * @param {Response} res
  */
-export const showOrdersPerUserController = async (
+export const showRecentOrdersPerUserController = async (
 	req: Request,
 	res: Response
 ): Promise<void> => {
@@ -64,7 +65,7 @@ export const showOrdersPerUserController = async (
 		// obtain (userID) from (req.params):
 		const userID: string = req.params.userID;
 
-		// use productsInOrders model to show all ProductsInOrder objects:
+		// use OrdersPerUser model to show all OrdersPerUser objects:
 		const ordersPerUser: Array<OrdersPerUser> =
 			(await dashboard.showOrdersPerUser(userID)) as Array<OrdersPerUser>;
 
@@ -84,7 +85,7 @@ export const showOrdersPerUserController = async (
 		res.status(200)
 			.json({
 				status: '200 Ok',
-				ordersPerUser: ordersPerUser,
+				recentOrders: ordersPerUser,
 				message: 'Orders per user shown successfully.',
 			})
 			.end();
@@ -92,6 +93,50 @@ export const showOrdersPerUserController = async (
 	} catch (error) {
 		console.error(
 			`Dashboard Controller: Error while showing orders per user: ${
+				(error as Error).message
+			}`
+		);
+	}
+};
+
+/**
+ * @description Show top ordered products.
+ * @param {Request} _req
+ * @param {Response} res
+ */
+export const showTopProductsController = async (
+	_req: Request,
+	res: Response
+): Promise<void> => {
+	try {
+		// use TopProducts model to show top TopProducts objects:
+		const topProducts: Array<TopProduct> =
+			(await dashboard.showTopProducts()) as Array<TopProduct>;
+
+		// handle unexpected error:
+		if (!topProducts) {
+			res.status(500)
+				.json({
+					status: 'Error 500: Internal Server Error',
+					topProducts: {},
+					message: 'Unable to show top products.',
+				})
+				.end();
+			return;
+		}
+
+		// send a response back to the user:
+		res.status(200)
+			.json({
+				status: '200 Ok',
+				topProducts: topProducts,
+				message: 'Top products shown successfully.',
+			})
+			.end();
+		return;
+	} catch (error) {
+		console.error(
+			`Dashboard Controller: Error while showing top products: ${
 				(error as Error).message
 			}`
 		);

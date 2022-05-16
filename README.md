@@ -214,6 +214,7 @@ This project has the structure shown below:
         ├─── dashboard/
             ├─── ordersPerUser.type.ts
             ├─── productsInOrder.type.ts
+            ├─── topProduct.type.ts
         ├─── order.type.ts
         ├─── orderProduct.type.ts
         ├─── product.type.ts

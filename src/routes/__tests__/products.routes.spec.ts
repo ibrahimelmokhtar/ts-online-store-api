@@ -1,11 +1,9 @@
 import supertest from 'supertest';
 import app from '../../server';
-import { NIL as NIL_UUID } from 'uuid';
 import {
 	DEFAULT_PRODUCT,
 	OTHER_PRODUCT,
 } from '../../constants/product.type.constant';
-import { UNIQUE_UUID } from '../../constants/unique.uuid.constant';
 import { DEFAULT_USER } from '../../constants/user.type.constant';
 
 const req = supertest(app);
@@ -38,7 +36,7 @@ export const productsEndpointsSpecs = () => {
 
 		it('GET (/products/:productID) --> 200 Ok - [Show Specific Product]', async () => {
 			const res = await req
-				.get(`/products/${NIL_UUID}`)
+				.get(`/products/${OTHER_PRODUCT.id}`)
 				.set('Authorization', token);
 
 			// 200 Ok
@@ -54,7 +52,7 @@ export const productsEndpointsSpecs = () => {
 
 		it('UPDATE (/products/:productID) --> 200 Ok - [Update Specific Product]', async () => {
 			const res = await req
-				.put(`/products/${UNIQUE_UUID}`)
+				.put(`/products/${OTHER_PRODUCT.id}`)
 				.set('Authorization', token)
 				.send(OTHER_PRODUCT);
 
@@ -64,7 +62,7 @@ export const productsEndpointsSpecs = () => {
 
 		it('DELETE (/products/:productID) --> 200 Ok - [Delete Specific Product]', async () => {
 			const res = await req
-				.delete(`/products/${UNIQUE_UUID}`)
+				.delete(`/products/${OTHER_PRODUCT.id}`)
 				.set('Authorization', token);
 
 			// 200 Ok

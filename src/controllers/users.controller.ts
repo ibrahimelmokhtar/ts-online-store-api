@@ -146,17 +146,17 @@ export const showController = async (
 		}
 
 		// use dashboard class to show a specific OrdersPerUser objects:
-		const ordersPerUser: Array<OrdersPerUser> =
+		const recentOrders: Array<OrdersPerUser> =
 			(await dashboard.showOrdersPerUser(
 				req.params.userID
 			)) as Array<OrdersPerUser>;
 
 		// handle unexpected error:
-		if (!ordersPerUser) {
+		if (!recentOrders) {
 			res.status(500)
 				.json({
 					status: 'Error 500: Internal Server Error',
-					ordersPerUser: {},
+					recentOrders: {},
 					message: `Unable to show orders per user no. ${req.params.userID}`,
 				})
 				.end();
@@ -169,7 +169,7 @@ export const showController = async (
 				status: '200 Ok',
 				user: {
 					...user,
-					ordersPerUser,
+					recentOrders,
 				},
 				message: 'User shown successfully.',
 			})

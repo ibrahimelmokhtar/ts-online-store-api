@@ -1,7 +1,6 @@
 import supertest from 'supertest';
 import app from '../../server';
 import { DEFAULT_USER, OTHER_USER } from '../../constants/user.type.constant';
-import { UNIQUE_UUID } from '../../constants/unique.uuid.constant';
 
 const req = supertest(app);
 
@@ -32,7 +31,7 @@ export const usersEndpointsSpecs = () => {
 
 		it('GET (/users/:userID) --> 200 Ok - [Show Specific User]', async () => {
 			const res = await req
-				.get(`/users/${UNIQUE_UUID}`)
+				.get(`/users/${OTHER_USER.id}`)
 				.set('Authorization', token);
 
 			// 200 Ok
@@ -48,7 +47,7 @@ export const usersEndpointsSpecs = () => {
 
 		it('PUT (/users/:userID) --> 200 Ok - [Update Specific User]', async () => {
 			const res = await req
-				.put(`/users/${UNIQUE_UUID}`)
+				.put(`/users/${OTHER_USER.id}`)
 				.set('Authorization', token)
 				.send(OTHER_USER);
 
@@ -58,7 +57,7 @@ export const usersEndpointsSpecs = () => {
 
 		it('DELETE (/users/:userID) --> 200 Ok - [Delete Specific User]', async () => {
 			const res = await req
-				.delete(`/users/${UNIQUE_UUID}`)
+				.delete(`/users/${OTHER_USER.id}`)
 				.set('Authorization', token);
 
 			// 200 Ok
