@@ -10,6 +10,10 @@ import {
 // create Express Router:
 const productsRoute: Router = Router();
 
+/**
+ * CRUD Operations:
+ */
+
 // CREATE NEW PRODUCT: (/products/create)
 productsRoute
 	.route('/create')

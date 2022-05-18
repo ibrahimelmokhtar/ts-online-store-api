@@ -14,6 +14,10 @@ import {
 // create Express Router:
 const usersRoute: Router = Router();
 
+/**
+ * CRUD Operations:
+ */
+
 // CREATE NEW USER: (/users/register)
 usersRoute
 	.route('/register')

@@ -14,10 +14,23 @@ mainRoute.use('/products', productsRoute);
 mainRoute.use('/orders', [ordersRoute, orderProductsRoute]);
 mainRoute.use('/dashboard', dashboardRoute);
 
-// sample GET method from main route:
+/**
+ * Render Specific Pages:
+ */
+
+// Signup Page:
 mainRoute.get('/', async (_req: Request, res: Response): Promise<void> => {
-	res.status(200).render('index');
+	res.status(200).render('forms/signup.ejs');
 	return;
 });
+
+// Signin Page:
+mainRoute.get(
+	'/signin',
+	async (_req: Request, res: Response): Promise<void> => {
+		res.status(200).render('forms/signin.ejs');
+		return;
+	}
+);
 
 export default mainRoute;
