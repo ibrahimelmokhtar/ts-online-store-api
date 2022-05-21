@@ -15,7 +15,7 @@
     "prebuild": "npm run clean",
     "prestart": "npm run build",
     "pretest": "npm run build",
-    "prettier": "prettier --config .prettierrc src/**/*.ts --write",
+    "prettier": "prettier --config .prettierrc src/**/*.ts src/**/*.js --write",
     "start": "node ./build/server.js",
     "test": "SET NODE_ENV=test&& db-migrate reset && db-migrate up && jasmine",
     "test:migration:reset": "SET NODE_ENV=test&& db-migrate reset",

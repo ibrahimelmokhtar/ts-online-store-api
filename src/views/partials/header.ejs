@@ -1,1 +1,88 @@
-<header>Header</header>
+<head>
+    <!-- used stylesheet -->
+    <link rel="stylesheet" href="css/partials.css">
+
+    <!-- used js files -->
+    <script src="js/redirect.js" async></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div data-path="/home" id="page__icon">
+                <i class="fa-solid fa-shop"></i>
+                <span>Home</span>
+            </div>
+        </nav>
+        <ul class="main__list">
+            <li data-path="/users" class="main__member">
+                <i class="fa-solid fa-user"></i>
+                <span>Users</span>
+
+                <ul class="sub__list">
+                    <li data-path="/users/add">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Add User</span>
+                    </li>
+                    <li data-path="/users/show">
+                        <i class="fa-solid fa-eye"></i>
+                        <span>Show User</span>
+                    </li>
+                    <li data-path="/users/update">
+                        <i class="fa-solid fa-sliders"></i>
+                        <span>Update User</span>
+                    </li>
+                    <li data-path="/users/delete">
+                        <i class="fa-solid fa-trash"></i>
+                        <span>Delete User</span>
+                    </li>
+                </ul>
+            </li>
+            <li data-path="/products" class="main__member">
+                <i class="fa-solid fa-shirt"></i>
+                <span>Products</span>
+
+                <ul class="sub__list">
+                    <li data-path="/products/addProduct">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Add Product</span>
+                    </li>
+                    <li data-path="/products/showProduct">
+                        <i class="fa-solid fa-eye"></i>
+                        <span>Show Product</span>
+                    </li>
+                    <li data-path="/products/updateProduct">
+                        <i class="fa-solid fa-sliders"></i>
+                        <span>Update Product</span>
+                    </li>
+                    <li data-path="/products/deleteProduct">
+                        <i class="fa-solid fa-trash"></i>
+                        <span>Delete Product</span>
+                    </li>
+                </ul>
+            </li>
+            <li data-path="/orders" class="main__member">
+                <i class="fa-solid fa-box"></i>
+                <span>Orders</span>
+
+                <ul class="sub__list">
+                    <li data-path="/orders/addOrder">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Add Order</span>
+                    </li>
+                    <li data-path="/orders/showOrder" >
+                        <i class="fa-solid fa-eye"></i>
+                        <span>Show Order</span>
+                    </li>
+                    <li data-path="/orders/updateOrder">
+                        <i class="fa-solid fa-sliders"></i>
+                        <span>Update Order</span>
+                    </li>
+                    <li data-path="/orders/deleteOrder">
+                        <i class="fa-solid fa-trash"></i>
+                        <span>Delete Order</span>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </header>
+</body>
