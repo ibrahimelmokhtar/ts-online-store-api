@@ -8,12 +8,15 @@
 <body>
     <header>
         <nav>
-            <div data-path="/home" id="page__icon">
-                <i class="fa-solid fa-shop"></i>
-                <span>Home</span>
-            </div>
+            <h1>
+                Hello, <span><%= user.first_name %></span>!
+            </h1>
         </nav>
         <ul class="main__list">
+            <li data-path="/home" id="page__icon">
+                <i class="fa-solid fa-shop"></i>
+                <span>Home</span>
+            </li>
             <li data-path="/users" class="main__member">
                 <i class="fa-solid fa-user"></i>
                 <span>Users</span>
